@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "937967053367",
+    "project_id": "profitez-1c3f1",
+    "storage_bucket": "profitez-1c3f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937967053367:android:bccf6dffaae953c5e76db2",
+        "android_client_info": {
+          "package_name": "com.example.project2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937967053367-u78cjel5dc23e5snpo8uptbm4ij9qoa7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeVdGHjESS5pmxQbE0VdcQz5F4VCCOHW8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "937967053367-u78cjel5dc23e5snpo8uptbm4ij9qoa7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

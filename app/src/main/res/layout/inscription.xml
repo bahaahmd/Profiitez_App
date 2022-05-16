@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Inscription"
+    android:background="@drawable/gradient_background">
+
+    <ImageView
+        android:id="@+id/logo_inscription"
+        android:layout_width="match_parent"
+        android:padding="50dp"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_logo_white_01"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/constraint_inscription"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_inscription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <TextView
+            android:id="@+id/inscription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Inscription"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <EditText
+            android:id="@+id/Nom_inscription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edittext_border"
+            android:padding="10dp"
+            android:hint="Nom"
+            android:gravity="start"
+            android:textColorHint="@color/grey"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_regular"
+            android:inputType="textPersonName"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inscription"
+            />
+
+
+        <EditText
+            android:id="@+id/Email_inscription"
+            android:layout_width="match_parent"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edittext_border"
+            android:padding="10dp"
+            android:hint="Email"
+            android:gravity="start"
+            android:textColorHint="@color/grey"
+            android:fontFamily="@font/poppins_regular"
+            android:inputType="textEmailAddress"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Nom_inscription" />
+
+        <EditText
+            android:id="@+id/Numero_inscription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edittext_border"
+            android:padding="10dp"
+            android:hint="Numero"
+            android:textColor="@color/black"
+            android:gravity="start"
+            android:textColorHint="@color/grey"
+            android:fontFamily="@font/poppins_regular"
+            android:inputType="number|phone"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Email_inscription" />
+
+
+        <EditText
+            android:id="@+id/Password_inscription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:gravity="start"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edittext_border"
+            android:ems="10"
+            android:padding="10dp"
+            android:inputType="textPassword"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Mot de passe"
+            android:textColorHint="@color/grey"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Numero_inscription"/>
+
+        <EditText
+            android:id="@+id/ConfirmPassword_inscription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:gravity="start"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edittext_border"
+            android:ems="10"
+            android:padding="10dp"
+            android:inputType="textPassword"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Confirmer le mot de passe"
+            android:textColorHint="@color/grey"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Password_inscription"/>
+
+
+        <Button
+            android:id="@+id/Inscrire_inscription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:gravity="center"
+            android:background="@drawable/gradient_button"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:text="Inscrie"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ConfirmPassword_inscription" />
+
+        <LinearLayout
+            android:id="@+id/linear_inscription"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Inscrire_inscription">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="1dp"
+                android:background="@color/grey"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="5dp"/>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/grey"
+                android:text="OU" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/grey"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="40dp"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/SeConnecter_inscription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/border_button"
+            android:text="Se connecter"
+            android:textAllCaps="false"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="@color/pink"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linear_inscription"
+            app:layout_constraintBottom_toBottomOf="@id/constraint_inscription"
+            android:layout_marginBottom="20dp"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

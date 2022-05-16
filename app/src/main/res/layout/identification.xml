@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Identification"
+    android:background="@drawable/gradient_background"
+    >
+
+
+    <ImageView
+        android:id="@+id/logo_inscription"
+        android:layout_width="match_parent"
+        android:padding="50dp"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_logo_white_01"
+        app:layout_constraintBottom_toTopOf="@id/constraint_identification"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_identification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card"
+
+
+
+
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <TextView
+            android:id="@+id/identification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="15dp"
+
+            android:fontFamily="@font/poppins_bold"
+            android:text="Identification"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </TextView>
+
+
+        <EditText
+            android:id="@+id/Email_identification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/edittext_border"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="start"
+            android:hint="Email"
+            android:textColor="@color/black"
+            android:text=""
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:textColorHint="@color/grey"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/identification" />
+
+        <EditText
+            android:id="@+id/Password_identification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:gravity="start"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edittext_border"
+            android:ems="10"
+            android:padding="10dp"
+            android:inputType="textPassword"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Mot de passe"
+            android:textColorHint="@color/grey"
+            android:textSize="18sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Email_identification"/>
+
+        <Button
+            android:id="@+id/ConnexionButton_identificatiion"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:gravity="center"
+
+            android:background="@drawable/gradient_button"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:text="Connexion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Password_identification" />
+
+        <LinearLayout
+            android:id="@+id/linear_identification"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ConnexionButton_identificatiion">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="1dp"
+                android:background="@color/grey"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="5dp"/>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:textSize="15sp"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/grey"
+                android:text="OU" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/grey"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="40dp"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/SinscrireButton_identification"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/border_button"
+            android:text="S'inscrire"
+            android:textAllCaps="false"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="@color/pink"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linear_identification" />
+
+        <TextView
+            android:id="@+id/MdpOublié"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Mot de passe oublié?"
+            android:textSize="18sp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/SinscrireButton_identification" />
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            app:layout_constraintTop_toBottomOf="@id/MdpOublié"
+            android:layout_marginTop="10dp"
+
+
+            />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            app:layout_constraintTop_toBottomOf="@id/view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/constraint_identification"
+            android:layout_marginStart="120dp"
+            android:layout_marginEnd="120dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+
+
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_googl"
+                android:layout_weight="1"
+
+
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_facebook2"
+                android:layout_weight="1"
+
+                />
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

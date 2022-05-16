@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="10dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/postimage"
+        app:cardCornerRadius="10dp"
+        >
+
+
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:src="@drawable/star"
+    android:scaleType="centerCrop"
+    />
+    </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/AncienPrix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/postimage"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="7000 DA"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/postimage"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@id/AncienPrix"
+            android:fontFamily="@font/poppins_regular"
+            android:text="4000 DA"
+            android:textSize="16sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/postimage"
+            android:layout_marginEnd="15dp"
+            android:text="jusqu'a 25/03"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/italic"
+            android:textColor="@color/black"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/AncienPrix"
+            android:text="Chaussure"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/medium"/>
+        <ImageView
+            android:id="@+id/trash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/AncienPrix"
+
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/ic__trash"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@id/AncienPrix"
+android:layout_toStartOf="@id/trash"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/ic__edit"/>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
