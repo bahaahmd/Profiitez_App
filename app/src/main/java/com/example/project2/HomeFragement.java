@@ -32,6 +32,7 @@ public class HomeFragement extends Fragment {
     ArrayList<Province>provinces_list;
     Spinner spinner_provinces;
     ImageView btnHeart;
+    ImageView btnMarket;
 
 
     @Override
@@ -49,6 +50,14 @@ public class HomeFragement extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(),FavoriteActivity.class));
+            }
+        });
+        btnMarket=view.findViewById(R.id.market);
+        btnMarket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(),ActivityVendeur.class));
+                getActivity().finish();
             }
         });
         return view;

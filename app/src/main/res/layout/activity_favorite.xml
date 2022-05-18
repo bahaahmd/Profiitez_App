@@ -9,28 +9,39 @@
     <RelativeLayout
         android:id="@+id/fovorite_border"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:background="@drawable/favorite_border">
-
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
-            android:layout_marginStart="17dp"
-            android:layout_marginTop="39dp"
-            android:layout_toRightOf="@+id/arrow"
-            android:fontFamily="@font/medium"
-            android:text="Favourites"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-
-        <Button
-            android:id="@+id/arrow"
-            android:layout_width="12dp"
-            android:layout_height="22dp"
+            android:orientation="horizontal"
             android:layout_marginStart="26dp"
-            android:layout_marginTop="43dp"
-            android:background="@drawable/ic_chevron_left__2_" />
+            android:layout_marginTop="24dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true">
+            <Button
+                android:id="@+id/arrow"
+                android:layout_width="12dp"
+                android:layout_height="22dp"
+
+
+                android:background="@drawable/ic_chevron_left__2_" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_toRightOf="@+id/arrow"
+                android:fontFamily="@font/medium"
+                android:text="Favourites"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+
+
+        </LinearLayout>
     </RelativeLayout>
 
 
@@ -39,6 +50,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fovorite_border"
-        android:layout_marginTop="30dp" />
+         />
 
 </RelativeLayout>

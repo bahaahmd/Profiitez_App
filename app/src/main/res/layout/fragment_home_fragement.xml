@@ -38,6 +38,7 @@
 
 
                     <ImageView
+                        android:id="@+id/market"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -77,16 +78,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp">
+                android:layout_marginEnd="20dp"
+                android:orientation="vertical">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    >
-
-
+                    android:layout_marginTop="15dp">
 
 
                     <TextView
@@ -114,7 +113,6 @@
                         android:textSize="16dp" />
 
 
-
                 </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -122,10 +120,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:orientation="horizontal"
-                    />
-
-
+                    android:orientation="horizontal" />
 
 
                 <LinearLayout
@@ -135,8 +130,9 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_marginTop="15dp"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp">
+
                         <TextView
                             android:id="@+id/textView_2"
                             android:layout_width="wrap_content"
@@ -153,8 +149,8 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
                             android:layout_alignStart="@+id/spinner"
+                            android:layout_centerInParent="true"
                             android:layout_marginStart="4dp"
                             android:src="@drawable/ic__52557_location_my_icon" />
 
@@ -178,7 +174,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:layout_marginBottom="50dp"
+
                     android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -5,10 +5,6 @@
     android:startColor="#E6185A"
     android:angle="90"/>
 
-     <corners
-         android:bottomRightRadius="10dp"
-         android:bottomLeftRadius="10dp"/>
-    <size
-        android:height="127dp"
-        android:width="412dp"/>
+
+
 </shape>

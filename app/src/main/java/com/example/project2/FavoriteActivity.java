@@ -35,7 +35,7 @@ public class FavoriteActivity extends AppCompatActivity {
 
         setFavouriteRecycler(fav_list);
         arrow=findViewById(R.id.arrow);
-        arrow.setOnClickListener(new View.OnClickListener() {
+       arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(FavoriteActivity.this,HomePage.class));

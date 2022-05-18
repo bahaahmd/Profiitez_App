@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="20dp"
+    android:padding="20dp"
+    android:id="@+id/layoutdialogcontainer">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutdialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="228dp"
+        android:background="@drawable/edittext_border"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="24dp">
+
+        <TextView
+            android:id="@+id/texttitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dialogrr_client"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:textStyle="bold"></TextView>
+
+        <ImageView
+            android:id="@+id/imageicon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintBottom_toBottomOf="@+id/texttitle"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/textmessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="40dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/texttitle" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:id="@+id/buttonactionno"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/border_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/buttonactionyes"
+        app:layout_constraintBottom_toBottomOf="@id/layoutdialog"
+        app:layout_constraintTop_toBottomOf="@id/layoutdialog"
+
+        android:textColor="#FF0707"
+        android:textSize="14sp"/>
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:id="@+id/buttonactionyes"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonactionno"
+        android:background="@drawable/gradient_button"
+        app:layout_constraintBottom_toBottomOf="@id/layoutdialog"
+        app:layout_constraintTop_toBottomOf="@id/layoutdialog"
+
+        android:textColor="@color/white"
+        android:textSize="14sp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,11 +16,11 @@ import com.google.android.material.navigation.NavigationBarView;
 import Adapter.NewsAdapter;
 import Adapter.PopularAdapter;
 
-public class HomePage extends AppCompatActivity    {
-    RecyclerView recyclerView,recyclerView2;
+public class HomePage extends AppCompatActivity {
+    RecyclerView recyclerView, recyclerView2;
     PopularAdapter adapter;
     NewsAdapter adapter_new;
-    BottomNavigationView navigationView ;
+    BottomNavigationView navigationView;
 
 
     @Override
@@ -37,33 +37,28 @@ public class HomePage extends AppCompatActivity    {
         fragmentTransaction.commit();
 
 
-
-
-
         navigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment ;
-                switch (item.getItemId())
-
-                {
+                Fragment fragment;
+                switch (item.getItemId()) {
                     case R.id.nav_home:
                         fragment = new HomeFragement();
-                        break ;
+                        break;
                     case R.id.nav_profile:
                         fragment = new Profile();
-                        break ;
+                        break;
                     case R.id.nav_notification:
                         fragment = new notification();
-                        break ;
+                        break;
                     case R.id.nav_search:
                         fragment = new Search();
-                        break ;
+                        break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + item.getItemId());
                 }
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container,fragment)
+                        .replace(R.id.fragment_container, fragment)
                         .commit();
 
                 return true;
@@ -72,7 +67,6 @@ public class HomePage extends AppCompatActivity    {
 
 
     }
-
 
 
 }

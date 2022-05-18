@@ -21,11 +21,12 @@
     android:layout_height="match_parent"
     android:src="@drawable/star"
     android:scaleType="centerCrop"
+    android:id="@+id/image_vendeur"
     />
     </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/AncienPrix"
+            android:id="@+id/AncienPrix_vendeur"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/postimage"
@@ -37,29 +38,33 @@
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/NouveauPrix_vendeur"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/postimage"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:layout_toEndOf="@id/AncienPrix"
+            android:layout_toEndOf="@id/AncienPrix_vendeur"
             android:fontFamily="@font/poppins_regular"
             android:text="4000 DA"
             android:textSize="16sp" />
+
         <TextView
+            android:id="@+id/date_vendeur"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_below="@id/postimage"
-            android:layout_marginEnd="15dp"
-            android:text="jusqu'a 25/03"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
             android:fontFamily="@font/italic"
-            android:textColor="@color/black"/>
+            android:text="jusqu'a 25/03"
+            android:textColor="@color/black" />
         <TextView
+            android:id="@+id/cat_vendeur"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/AncienPrix"
+            android:layout_below="@id/AncienPrix_vendeur"
             android:text="Chaussure"
             android:layout_alignParentStart="true"
             android:layout_marginStart="15dp"
@@ -71,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_below="@id/AncienPrix"
+            android:layout_below="@id/AncienPrix_vendeur"
 
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="15dp"
@@ -80,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_below="@id/AncienPrix"
+            android:layout_below="@id/AncienPrix_vendeur"
 android:layout_toStartOf="@id/trash"
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="5dp"

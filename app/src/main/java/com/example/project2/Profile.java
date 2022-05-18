@@ -1,63 +1,106 @@
 package com.example.project2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Profile#newInstance} factory method to
- * create an instance of this fragment.
- */
+import Adapter.ProfileAdapter;
+
+
 public class Profile extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    ListView listView;
+    String nom[] = {"Favourites", "Settings", "Rate us", "Refer a Friend", "Help", "Log Out"};
+    int image[] = {R.drawable.heart_client, R.drawable.setting_client, R.drawable.rate_us_client, R.drawable.share_client, R.drawable.question_client, R.drawable.log_out_client};
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    View view;
+    ImageView imageView;
+    ConstraintLayout parent;
 
-    public Profile() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Profile.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Profile newInstance(String param1, String param2) {
-        Profile fragment = new Profile();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.client_profil, container, false);
+        listView = (ListView) view.findViewById(R.id.list_view);
+        imageView=(ImageView) view.findViewById(R.id.editproffil);
+        parent=(ConstraintLayout) view.findViewById(R.id.layoutdialogcontainer);
+        ProfileAdapter profileAdapter = new ProfileAdapter(getActivity(), nom, image);
+        listView.setAdapter(profileAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.i("ic_ssetting", "item is clicked @ Position::" + i);
+                if (i == 1) {
+                    startActivity(new Intent(getActivity(), settings_client.class));
+
+                } else {
+                    if (i == 5) {
+                        show();
+                    }
+
+                }
+            }
+
+            private void show() {  AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme);
+                View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_layout_client ,parent);
+                builder.setView(view);
+                ((TextView) view.findViewById(R.id.texttitle)).setText("WARNING");
+                ((TextView) view.findViewById(R.id.textmessage)).setText("Are u sure to Log out from your account?");
+                ((Button) view.findViewById(R.id.buttonactionyes)).setText("yes");
+                ((Button) view.findViewById(R.id.buttonactionno)).setText("No");
+                final AlertDialog alertDialog = builder.create();
+                view.findViewById(R.id.buttonactionyes).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertDialog.dismiss();
+
+                        Intent intent = new Intent(getActivity(), essai.class);
+                        startActivity(intent);
+                    }
+
+                });
+                view.findViewById(R.id.buttonactionno).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertDialog.dismiss();
+                        Toast.makeText(getActivity(), " ", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                });
+
+                alertDialog.show();
+
+
+            }
+
+
+        });
+
+
+        return view;
+
     }
 }

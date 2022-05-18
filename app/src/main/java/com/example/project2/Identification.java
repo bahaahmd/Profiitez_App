@@ -65,7 +65,7 @@ public class Identification extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        startActivity(new Intent(Identification.this, HomePage.class));
+                        startActivity(new Intent(Identification.this, ActivityVendeur.class));
                         finish();
                         Toast.makeText(Identification.this, "User logged in successfully", Toast.LENGTH_SHORT).show();
 

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/pro_client"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/medium"
+            android:text="Security"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.506" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="24dp"
+
+            android:layout_marginTop="41dp"
+            android:layout_marginBottom="40dp"
+            android:src="@drawable/ic_chevron_left__2_"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="208dp"
+            android:layout_marginEnd="27dp"
+            android:fontFamily="@font/medium"
+            android:text="Cancel
+"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="@+id/textView2"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="122dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="123dp"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Changer mot passe
+"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    <EditText
+        android:id="@+id/editTextTextPassword"
+        android:layout_width="246dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="82dp"
+        android:background="@drawable/rectangle_client"
+        android:ems="10"
+        android:hint="Mot de passe"
+        android:inputType="textPassword"
+        android:paddingStart="10dp"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <EditText
+        android:id="@+id/editTextTextPassword3"
+        android:layout_width="246dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="82dp"
+        android:background="@drawable/rectangle_client"
+        android:ems="10"
+        android:hint="Confirmer nouveau mot passe
+"
+        android:inputType="textPassword"
+        android:paddingStart="10dp"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2" />
+
+    <EditText
+        android:id="@+id/editTextTextPassword2"
+        android:layout_width="246dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="83dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/rectangle_client"
+        android:ems="10"
+        android:hint="Nouveau mot passe
+
+"
+        android:inputType="textPassword"
+        android:paddingStart="10dp"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+
+
+    <Button
+
+        android:id="@+id/buttonupdate"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="158dp"
+        android:layout_marginEnd="159dp"
+        android:background="@drawable/button_client"
+        android:fontFamily="@font/medium"
+        android:text="update"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
