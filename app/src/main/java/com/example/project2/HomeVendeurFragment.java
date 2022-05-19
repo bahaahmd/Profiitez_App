@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +30,8 @@ import Adapter.VendeurAdapter;
      RecyclerView recyclerView;
      VendeurAdapter adapter;
      ArrayList<Product> list;
+     CardView nouvau;
+     ImageView mrkt;
 
 
      @Override
@@ -37,6 +40,22 @@ import Adapter.VendeurAdapter;
          View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_home_vendeur, container, false);
          recyclerView=(RecyclerView) view.findViewById(R.id.recyclerView_vendeur);
          setVendeurrRecycler(list);
+
+mrkt=view.findViewById(R.id.ic_home);
+         mrkt.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 startActivity(new Intent(getActivity(),HomePage.class));
+             }
+         });
+
+         nouvau=view.findViewById(R.id.nouveau);
+         nouvau.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 startActivity(new Intent(getActivity(),NouvauProduit.class));
+             }
+         });
 
          return view;
 

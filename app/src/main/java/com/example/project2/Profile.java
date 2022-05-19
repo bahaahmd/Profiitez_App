@@ -48,7 +48,7 @@ public class Profile extends Fragment {
         parent=(ConstraintLayout) view.findViewById(R.id.layoutdialogcontainer);
         ProfileAdapter profileAdapter = new ProfileAdapter(getActivity(), nom, image);
         listView.setAdapter(profileAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       /* listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.i("ic_ssetting", "item is clicked @ Position::" + i);
@@ -97,7 +97,7 @@ public class Profile extends Fragment {
             }
 
 
-        });
+        });*/
 
 
         return view;

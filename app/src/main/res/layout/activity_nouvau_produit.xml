@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NouvauProduit">
+
+    <RelativeLayout
+        android:id="@+id/TopBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialoggr">
+
+        <ImageView
+
+            android:id="@+id/arriere"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="42dp"
+            android:src="@drawable/ic_chevron_left__2_" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:fontFamily="@font/medium"
+            android:text="Nouveau produit"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_centerInParent="true"
+            android:layout_toEndOf="@+id/arriere"
+             />
+
+
+
+
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/TopBar"
+        >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
+    <LinearLayout
+        android:layout_marginBottom="30dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <RelativeLayout
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/border">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/medium"
+                android:textColor="@color/black"
+                android:text="Ajouter des images"
+                android:textSize="14sp"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+        <EditText
+            android:id="@+id/nom_produit"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nom du produit"
+            android:fontFamily="@font/poppins_regular"
+            android:textColorHint="@color/black"
+            android:textSize="14sp"
+            android:padding="15dp"
+            android:background="@drawable/border"/>
+        <EditText
+            android:id="@+id/ancien_prix"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ancien prix"
+            android:fontFamily="@font/poppins_regular"
+            android:textColorHint="@color/black"
+            android:textSize="14sp"
+            android:padding="15dp"
+            android:background="@drawable/border"/>
+        <EditText
+            android:id="@+id/Nouveau_prix"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nouveau prix"
+            android:fontFamily="@font/poppins_regular"
+            android:textColorHint="@color/black"
+            android:textSize="14sp"
+            android:padding="15dp"
+            android:background="@drawable/border"/>
+        <EditText
+            android:id="@+id/categorie"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="categorie"
+            android:fontFamily="@font/poppins_regular"
+            android:textColorHint="@color/black"
+            android:textSize="14sp"
+            android:padding="15dp"
+            android:background="@drawable/border"/>
+        <EditText
+            android:id="@+id/description"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:hint="description"
+            android:fontFamily="@font/poppins_regular"
+            android:textColorHint="@color/black"
+            android:textSize="14sp"
+            android:padding="10dp"
+            android:gravity="top"
+            android:background="@drawable/border"/>
+        <Button
+            android:id="@+id/button_valide"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Valider"
+            android:textColor="@color/white"
+            android:fontFamily="@font/medium"
+            android:textAllCaps="false"
+            android:background="@drawable/button__"
+            />
+
+
+    </LinearLayout>
+    </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>
