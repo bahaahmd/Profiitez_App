@@ -33,7 +33,7 @@ public class profil_client extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.list_view);
         ProfileAdapter profileAdapter = new ProfileAdapter(getApplicationContext(), nom, image);
         listView.setAdapter(profileAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       /* listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.i("ic_ssetting", "item is clicked @ Position::" + i);
@@ -83,7 +83,7 @@ public class profil_client extends AppCompatActivity {
             }
 
 
-        });
+        });*/
 
     }
     }

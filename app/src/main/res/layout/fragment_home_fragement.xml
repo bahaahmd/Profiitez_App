@@ -78,14 +78,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:orientation="vertical">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp">
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp">
+                    android:layout_marginTop="10dp">
 
 
                     <TextView
@@ -114,24 +118,27 @@
 
 
                 </RelativeLayout>
-
+</LinearLayout>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal" />
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="10dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp">
+                        >
 
                         <TextView
                             android:id="@+id/textView_2"
@@ -140,11 +147,10 @@
                             android:layout_alignParentStart="true"
                             android:layout_alignParentEnd="true"
                             android:layout_centerInParent="true"
-                            android:layout_marginTop="24dp"
                             android:fontFamily="@font/f"
                             android:text="Nouveautés"
                             android:textColor="@color/black"
-                            android:textSize="27dp" />
+                            android:textSize="27sp" />
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -173,13 +179,9 @@
                     android:id="@+id/recyclerView_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
                     android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView_2" />
             </LinearLayout>
         </RelativeLayout>

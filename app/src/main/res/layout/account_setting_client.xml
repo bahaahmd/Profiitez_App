@@ -11,7 +11,7 @@
 
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/pro_client"
         app:layout_constraintBottom_toTopOf="@+id/list_view"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,18 +20,19 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:onClick="arriere"
             android:id="@+id/arriere"
             android:layout_width="19dp"
             android:layout_height="19dp"
             android:layout_marginStart="24dp"
-
             android:layout_marginTop="41dp"
+
             android:layout_marginBottom="40dp"
+            android:onClick="arriere"
             android:src="@drawable/ic_chevron_left__2_"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <TextView
             android:id="@+id/textView2"

@@ -86,16 +86,16 @@
 
 
         <androidx.cardview.widget.CardView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:elevation="12dp"
             android:id="@+id/Image_Profile"
             android:layout_marginBottom="5dp"
-            app:cardCornerRadius="100dp"
+            app:cardCornerRadius="150dp"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_below="@+id/NouveauPrix"
-            android:thicknessRatio="1.9">
+            >
             <ImageView
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"

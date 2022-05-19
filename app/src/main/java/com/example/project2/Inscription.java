@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Inscription extends AppCompatActivity {
     EditText UserName, email, PhoneNumber, password, ConfPass;
-
+    Button inscrire;
     FirebaseAuth mAuth;
 
     @Override
@@ -32,7 +32,7 @@ public class Inscription extends AppCompatActivity {
         PhoneNumber = findViewById(R.id.Numero_inscription);
         password = findViewById(R.id.Password_inscription);
         ConfPass = findViewById(R.id.ConfirmPassword_inscription);
-        Button inscrire = findViewById(R.id.Inscrire_inscription);
+         inscrire = findViewById(R.id.Inscrire_inscription);
 
         mAuth = FirebaseAuth.getInstance();
 

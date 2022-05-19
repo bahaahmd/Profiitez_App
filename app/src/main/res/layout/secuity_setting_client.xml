@@ -146,13 +146,13 @@
     <Button
 
         android:id="@+id/buttonupdate"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
 
         android:layout_height="wrap_content"
 
-        android:layout_marginStart="158dp"
-        android:layout_marginEnd="159dp"
-        android:background="@drawable/button_client"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/gradient_button"
         android:fontFamily="@font/medium"
         android:text="update"
         android:textColor="@color/white"
