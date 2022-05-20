@@ -14,6 +14,7 @@ EditText nom,ancienprix,nouveauprix,description;
 Button valide;
 ImageView bck;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
