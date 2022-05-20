@@ -13,7 +13,7 @@ public class NouvauProduit extends AppCompatActivity {
 EditText nom,ancienprix,nouveauprix,description;
 Button valide;
 ImageView bck;
-
+Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
