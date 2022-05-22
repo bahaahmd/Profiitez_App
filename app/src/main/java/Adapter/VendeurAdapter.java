@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.project2.Product;
 import com.example.project2.R;
 
@@ -38,7 +39,9 @@ public class VendeurAdapter extends RecyclerView.Adapter<VendeurAdapter.ProduitV
     public void onBindViewHolder(@NonNull ProduitVendeurViewHolder holder, int position) {
         holder.name.setText(ProductVendeur.get(position).getName());
         holder.date.setText(ProductVendeur.get(position).getDate());
-        holder.ProductImage.setImageResource(ProductVendeur.get(position).getImageUrl());
+        //holder.ProductImage.setImageResource(ProductVendeur.get(position).getImageUrl());
+        Glide.with(context).asBitmap().load(ProductVendeur.get(position).getImageUrl()).into(holder.ProductImage);
+
         holder.price_old.setText(ProductVendeur.get(position).getPrice_ancien());
         holder.price_new.setText(ProductVendeur.get(position).getPrice_nouveau());
     }

@@ -3,22 +3,22 @@ package com.example.project2;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Product {
+public class ProductHome {
     private  String id;
     private String name;
-    private  HashMap<String,HashMap<String,String>> ImageUrl;
+    private  String ImageUrl;
     private String price_ancien;
     private String price_nouveau;
     private String date;
     private String rating;
 
 
-    public Product(){
+    public ProductHome(){
 
     }
 
 
-    public Product(String id,String name,  HashMap<String,HashMap<String,String>>  imageUrl, String price_ancien, String price_nouveau, String date, String rating) {
+    public ProductHome(String id,String name, String  imageUrl, String price_ancien, String price_nouveau, String date, String rating) {
         this.id=id;
         this.name = name;
         this.ImageUrl = imageUrl;
@@ -38,11 +38,11 @@ public class Product {
         this.name = name;
     }
 
-    public  HashMap<String,HashMap<String,String>> getImageUrl() {
+    public  String getImageUrl() {
         return ImageUrl;
     }
 
-    public void setImageUrl( HashMap<String,HashMap<String,String>>  imageUrl) {
+    public void setImageUrl( String  imageUrl) {
         ImageUrl = imageUrl;
     }
 

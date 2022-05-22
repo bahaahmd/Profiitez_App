@@ -45,6 +45,8 @@ public class Identification extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loginUser();
+                //startActivity(new Intent(Identification.this, HomePage.class));
+
             }
         });
 

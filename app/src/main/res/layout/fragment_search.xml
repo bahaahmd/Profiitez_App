@@ -1,23 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/search"
     tools:context=".Search">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <RelativeLayout
+        android:id="@+id/parent_search"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+
+x        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:textSize="20sp"
-            android:text="This is a Search Fragements" />
+            android:layout_height="43dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="29dp"
+            android:layout_marginEnd="36dp"
+            android:background="@drawable/search"
+            android:inputType="text"
+            app:iconifiedByDefault="false"
+            app:queryHint="Rechercher"
+            app:searchIcon="@drawable/ic_search_01" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_recView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/search_bar"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="50dp" />
     </RelativeLayout>
 
-</FrameLayout>
+</RelativeLayout>

@@ -1,63 +1,160 @@
 package com.example.project2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Search#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class Search extends Fragment {
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+import Adapter.PopularAdapter;
+import Adapter.RecyclerViewInterface;
+import Adapter.SearchAdapter;
 
-    public Search() {
-        // Required empty public constructor
-    }
+public class Search extends Fragment implements RecyclerViewInterface {
+    RecyclerView recyclerView;
+    SearchAdapter adapter;
+    SearchView searchView;
+    ArrayList<Search_item> list;
+    RelativeLayout parent;
+    DatabaseReference databaseReference;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Search.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Search newInstance(String param1, String param2) {
-        Search fragment = new Search();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_search, container, false);
+        recyclerView=(RecyclerView) view.findViewById(R.id.search_recView);
+        setSearchRecycler(list);
+        parent=(RelativeLayout) view.findViewById(R.id.parent);
+        searchView= view.findViewById(R.id.search_bar);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
+
+        return view;
+    }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+
+      getSearch();
+//        list.add(new Search_item("Nike",""));
+//        list.add(new Search_item("Adidas",""));
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+    private void setSearchRecycler(ArrayList<Search_item> list)
+    {
+        RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter=new SearchAdapter(getContext(),list,this);
+        recyclerView.setAdapter(adapter);
+
+
+    }
+    private  void getSearch(){
+        list=new ArrayList<>();
+        databaseReference = FirebaseDatabase.getInstance().getReference("ProductsHome");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
+                List<String> keys = new ArrayList<>();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+//                    try {
+//                    Map<String,String> search_item = (Map<String, String>) dataSnapshot.getValue();
+//
+//                    list.add(new Search_item(search_item.get("name"), search_item.get("ImageUrl")));
+//                    }catch (Exception e){
+//                        System.out.println("err:"+e.getMessage());
+//                    }
+
+                    try {
+                        keys.add(dataSnapshot.getKey());
+                        Search_item search_item = dataSnapshot.getValue(Search_item.class);
+                        list.add(search_item);
+                    }catch (Exception e){
+                        System.out.println("err:"+e.getMessage());
+                    }
+                };
+                adapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+    private void filter(String text) {
+        ArrayList<Search_item> filteredList = new ArrayList<>();
+
+        for (Search_item item : list) {
+            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+
+        adapter.filterList(filteredList);
+    }
+
+    @Override
+    public void onItemClickP(int position) {
+
+        Intent intentSearch = new Intent(Search.this.getActivity(),publication_produit.class);
+        intentSearch.putExtra("id",list.get(position).getId());
+        startActivity(intentSearch);
+
+    }
+
+    @Override
+    public void onItemClickN(int position) {
+
     }
 }

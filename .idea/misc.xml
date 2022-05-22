@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Profiitez_App/app/src/main/res/layout/activity_nouvau_produit.xml" value="0.25" />
+        <entry key="..\:/Profiitez_App/app/src/main/res/layout/activity_publication_produit.xml" value="0.25" />
         <entry key="..\:/Users/Bahaa-Eddine Hammadi/Desktop/Profitez_Projet-master/app/src/main/res/drawable-v24/border.xml" value="0.2265" />
         <entry key="..\:/Users/Bahaa-Eddine Hammadi/Desktop/Profitez_Projet-master/app/src/main/res/layout/activity_favorite.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Bahaa-Eddine Hammadi/Desktop/Profitez_Projet-master/app/src/main/res/layout/favorite_card_view.xml" value="0.25416666666666665" />
@@ -20,6 +22,16 @@
         <entry key="..\:/Users/Bahaa-Eddine Hammadi/Desktop/Profitez_Projet/app/src/main/res/layout/news_card_view.xml" value="0.264" />
         <entry key="..\:/Users/Bahaa-Eddine Hammadi/Desktop/Profitez_Projet/app/src/main/res/layout/popular_card_view.xml" value="0.4" />
         <entry key="..\:/Users/Bahaa-Eddine Hammadi/Desktop/Profitez_Projet/app/src/main/res/menu/menu_action_bar.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/DELL/Documents/Profiitez_App/app/src/main/res/drawable/search.xml" value="0.1" />
+        <entry key="..\:/Users/DELL/Documents/Profiitez_App/app/src/main/res/layout/activity_favorite.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/DELL/Documents/Profiitez_App/app/src/main/res/layout/activity_nouvau_produit.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/DELL/Documents/Profiitez_App/app/src/main/res/layout/activity_publication_produit.xml" value="0.33" />
+        <entry key="..\:/Users/DELL/Documents/Profiitez_App/app/src/main/res/layout/favorite_card_view.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/DELL/Documents/Profiitez_App/app/src/main/res/layout/fragment_home_fragement.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/DELL/Documents/Profiitez_App/app/src/main/res/layout/fragment_search.xml" value="0.2" />
+        <entry key="..\:/Users/DELL/Documents/Profiitez_App/app/src/main/res/layout/news_card_view.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/DELL/Documents/Profiitez_App/app/src/main/res/layout/popular_card_view.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/DELL/Documents/Profiitez_App/app/src/main/res/layout/search_item.xml" value="0.2" />
         <entry key="..\:/Users/HP/Desktop/Profiitez_App/app/src/main/res/drawable-v24/border.xml" value="0.1895" />
         <entry key="..\:/Users/HP/Desktop/Profiitez_App/app/src/main/res/drawable-v24/favorite_border.xml" value="0.1895" />
         <entry key="..\:/Users/HP/Desktop/Profiitez_App/app/src/main/res/drawable/ic__home_icon.xml" value="0.1895" />
@@ -82,11 +94,22 @@
         <entry key="..\:/Users/HP/Desktop/project2/app/src/main/res/layout/activity_main3.xml" value="0.2" />
         <entry key="..\:/Users/HP/Desktop/project2/app/src/main/res/layout/activity_main4.xml" value="0.2" />
         <entry key="..\:/Users/HP/Desktop/project2/app/src/main/res/layout/identification.xml" value="0.1" />
+        <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable-v24/border.xml" value="0.188" />
+        <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable-v24/border_button_publication.xml" value="0.121" />
+        <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable-v24/ic__full_heart.xml" value="0.121" />
+        <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable-v24/ic_baseline_call_24.xml" value="0.121" />
+        <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable-v24/ic_baseline_location_on_24.xml" value="0.121" />
+        <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable-v24/publication_gradient.xml" value="0.121" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable/ic__add_photo.xml" value="0.188" />
+        <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable/ic__empty_heart.xml" value="0.188" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable/ic__plus.xml" value="0.1695" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable/ic__profile_colored.xml" value="0.1695" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable/ic_baseline_library_add_24.xml" value="0.1695" />
+        <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable/publication_card.xml" value="0.188" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/layout/activity_nouvau_produit.xml" value="0.25" />
+        <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/layout/activity_publication_produit.xml" value="0.25" />
+        <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/layout/listitem.xml" value="0.10989583333333333" />
+        <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/layout/onrate.xml" value="0.25" />
         <entry key="..\:/Users/tguez/Profitez_Projet/app/src/main/res/layout/activity_main4.xml" value="0.25" />
         <entry key="..\:/Users/tguez/Profitez_Projet/app/src/main/res/layout/identification.xml" value="0.10989583333333333" />
         <entry key="..\:/Users/tguez/Profitez_Projet/app/src/main/res/layout/inscription.xml" value="0.25" />

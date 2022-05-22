@@ -119,8 +119,7 @@ LottieAnimationView lotie;
         String ancien =ancienprix.getText().toString();
         String nouveau =nouveauprix.getText().toString();
         String desc =description.getText().toString();
-        int anc=Integer.parseInt(ancien);
-        int neuv=Integer.parseInt(nouveau);
+
         if(slide.size()==0){
             Toast.makeText(this, "veuillez remplir le champ de photo avec au moins une photo", Toast.LENGTH_LONG).show();
         }
@@ -136,10 +135,7 @@ LottieAnimationView lotie;
             nouveauprix.setError("champ vide, veuillez le remplir");
             nouveauprix.requestFocus();
         }
-        if(anc<neuv){
-            nouveauprix.setError("le nooueau doit etre inferieure a l'ancien");
-            nouveauprix.requestFocus();
-        }
+
 
 
 
