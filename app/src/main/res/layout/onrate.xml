@@ -41,13 +41,13 @@
             android:padding="10dp" />
 
         <TextView
+            android:id="@+id/text_limit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/edt"
             android:layout_alignRight="@id/edt"
             android:fontFamily="@font/poppins_regular"
-            android:text="0/30"
-            android:id="@+id/text_limit"/>
+            android:text="0/30" />
 
         <TextView
             android:id="@+id/text_annuler"
