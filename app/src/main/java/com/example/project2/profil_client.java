@@ -33,6 +33,19 @@ public class profil_client extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.list_view);
         ProfileAdapter profileAdapter = new ProfileAdapter(getApplicationContext(), nom, image);
         listView.setAdapter(profileAdapter);
+
+
+       // mAuth = FirebaseAuth.getInstance();
+
+        // btnLogOut = findViewById(R.id.btnLogout);
+       /*
+        btnLogOut.setOnClickListener(view ->{
+            mAuth.signOut();
+            startActivity(new Intent(MainActivity4.this, Identification.class));
+            });
+           */
+
+
        /* listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

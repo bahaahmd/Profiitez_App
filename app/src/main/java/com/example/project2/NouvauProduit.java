@@ -1,18 +1,28 @@
 package com.example.project2;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,53 +30,113 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 public class NouvauProduit extends AppCompatActivity {
-EditText nom,ancienprix,nouveauprix,description;
-Button valide;
-ImageView bck;
 
+    EditText nom, ancienprix, nouveauprix, description, categorie;
+    Button valide;
+    ImageView bck;
+    TextView date;
+    DatePickerDialog.OnDateSetListener setListener;
+    int i = 0;
+    Product p = new Product();
+    ProductHome pp = new ProductHome();
 
+    ImageSlider imageSlider;
+    List<SlideModel> slide;
+    TextView compteur, compteur2, compteur3;
+    LottieAnimationView lotie;
+    String urlP;
+    DatabaseReference databaseReference, databaseReferencee;
+    StorageReference storageReference, storageReferencee;
+    Uri mImageUri;
+    HashMap<String, String> H = new HashMap<>();
+    ProgressBar mProgressBar;
+    StorageTask tt;
 
-ImageSlider imageSlider;
-List<SlideModel> slide;
-TextView compteur,compteur2,compteur3;
-LottieAnimationView lotie;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        databaseReferencee = FirebaseDatabase.getInstance().getReference("Products");
+        databaseReference = FirebaseDatabase.getInstance().getReference("ProductsHome");
+        storageReference = FirebaseStorage.getInstance().getReference("Products");
+        storageReferencee = FirebaseStorage.getInstance().getReference("ProductsHome");
+
         setContentView(R.layout.activity_nouvau_produit);
-        nom=findViewById(R.id.nom_produit);
-        ancienprix=findViewById(R.id.ancien_prix);
-        nouveauprix=findViewById(R.id.Nouveau_prix);
-        description=findViewById(R.id.description);
-        valide=findViewById(R.id.button_valide);
-        bck=findViewById(R.id.arriere);
-        lotie=findViewById(R.id.plus);
-        imageSlider=findViewById(R.id.image_slider);
-        compteur=findViewById(R.id.cpt);
-        compteur2=findViewById(R.id.cpt_nom);
-        compteur3=findViewById(R.id.cpt_descrp);
-        slide=new ArrayList<>();
+        categorie = findViewById(R.id.categorie);
+        nom = findViewById(R.id.nom_produit);
+        ancienprix = findViewById(R.id.ancien_prix);
+        nouveauprix = findViewById(R.id.Nouveau_prix);
+
+        description = findViewById(R.id.description);
+        valide = findViewById(R.id.button_valide);
+        bck = findViewById(R.id.arriere);
+        lotie = findViewById(R.id.plus);
+        imageSlider = findViewById(R.id.image_slider);
+        compteur = findViewById(R.id.cpt);
+        compteur2 = findViewById(R.id.cpt_nom);
+        compteur3 = findViewById(R.id.cpt_descrp);
+        slide = new ArrayList<>();
         lotie.playAnimation();
+
         slide.clear();
+
+
+        Calendar calendar = Calendar.getInstance();
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+//        date.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                DatePickerDialog datePickerDialog = new DatePickerDialog(
+//                        NouvauProduit.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, setListener, year, month, day);
+//                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//                datePickerDialog.show();
+//            }
+//        });
+        setListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int day) {
+                month = month + 1;
+                String date1 = day + "/" + month + "/" + year;
+                date.setText(date1);
+
+            }
+        };
+
+
         bck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(NouvauProduit.this,ActivityVendeur.class));
+                startActivity(new Intent(NouvauProduit.this, ActivityVendeur.class));
             }
         });
 
         lotie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                startActivityForResult(intent,100);
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                startActivityForResult(intent, 100);
 
             }
 
@@ -82,7 +152,7 @@ LottieAnimationView lotie;
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                compteur2.setText(String.valueOf(s.length())+"/20");
+                compteur2.setText(String.valueOf(s.length()) + "/20");
             }
 
             @Override
@@ -90,7 +160,6 @@ LottieAnimationView lotie;
 
             }
         });
-
 
 
         description.addTextChangedListener(new TextWatcher() {
@@ -101,7 +170,7 @@ LottieAnimationView lotie;
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                compteur3.setText(String.valueOf(s.length())+"/40");
+                compteur3.setText(String.valueOf(s.length()) + "/40");
             }
 
             @Override
@@ -114,51 +183,25 @@ LottieAnimationView lotie;
             @Override
             public void onClick(View v) {
                 cratePost();
+
             }
         });
 
     }
-    private void cratePost(){
-        String Nomp =nom.getText().toString();
-        String ancien =ancienprix.getText().toString();
-        String nouveau =nouveauprix.getText().toString();
-        String desc =description.getText().toString();
-        int anc=Integer.parseInt(ancien);
-        int neuv=Integer.parseInt(nouveau);
-        if(slide.size()==0){
-            Toast.makeText(this, "veuillez remplir le champ de photo avec au moins une photo", Toast.LENGTH_LONG).show();
-        }
-        else if (Nomp.isEmpty()){
-            nom.setError("champ vide, veuillez le remplir");
-            nom.requestFocus();
-        }
-        else if(ancien.isEmpty()){
-            ancienprix.setError("champ vide, veuillez le remplir");
-            ancienprix.requestFocus();
-        }
-        else if(nouveau.isEmpty()){
-            nouveauprix.setError("champ vide, veuillez le remplir");
-            nouveauprix.requestFocus();
-        }
-        if(anc<neuv){
-            nouveauprix.setError("le nooueau doit etre inferieure a l'ancien");
-            nouveauprix.requestFocus();
-        }
 
-
-
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==100 && resultCode==RESULT_OK){
-            Uri uri=data.getData();
-            if(slide.size()<5){
-                slide.add(new SlideModel(String.valueOf(uri), ScaleTypes.CENTER_CROP));
+        if (requestCode == 100 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+            mImageUri = data.getData();
+
+            if (slide.size() < 5) {
+                slide.add(new SlideModel(String.valueOf(mImageUri), ScaleTypes.CENTER_CROP));
                 imageSlider.setImageList(slide);
-                compteur.setText(slide.size()+"/5");
-                if (slide.size()==5){
+                compteur.setText(slide.size() + "/5");
+                if (slide.size() == 5) {
                     lotie.setVisibility(View.GONE);
                 }
 
@@ -166,5 +209,113 @@ LottieAnimationView lotie;
 
 
         }
+
+    }
+
+
+    private String getFileExtension(Uri uri) {
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
+    private void cratePost() {
+
+
+        //  String datee = date.getText().toString();
+        String Categorie = categorie.getText().toString();
+        String Nomp = nom.getText().toString();
+        String ancien = ancienprix.getText().toString();
+        String nouveau = nouveauprix.getText().toString();
+        String desc = description.getText().toString();
+
+        int anc = Integer.parseInt(ancien);
+        int neuv = Integer.parseInt(nouveau);
+        String idProduct = databaseReferencee.push().getKey();
+
+        if (!TextUtils.isEmpty(Nomp) && !TextUtils.isEmpty(ancien) && !TextUtils.isEmpty(nouveau) && !TextUtils.isEmpty(desc)) {
+
+
+
+                if (mImageUri != null) {
+                    StorageReference fileRefrence = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
+                    tt = fileRefrence.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            fileRefrence.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Toast.makeText(NouvauProduit.this, "UloadSucces", Toast.LENGTH_LONG).show();
+                                    for (SlideModel s : slide) {
+                                        urlP = uri.toString();
+                                        System.out.println(urlP);
+                                        H.put(databaseReferencee.push().getKey(), urlP);
+                                    }
+
+                                        pp.setId(idProduct);
+                                    pp.setImageUrl(uri.toString());
+                                    //p.setDate(datee);
+                                    pp.setName(Nomp);
+                                    pp.setPrice_ancien(ancien);
+                                    pp.setPrice_nouveau(nouveau);
+                                    pp.setRating(desc);
+                                    databaseReference.child(idProduct).setValue(pp);
+
+
+
+
+                                    p.setImageUrl(H);
+                                    //p.setDate(datee);
+                                    p.setName(Nomp);
+                                    p.setPrice_ancien(ancien);
+                                    p.setPrice_nouveau(nouveau);
+                                    p.setRating(desc);
+                                    databaseReferencee.child(idProduct).setValue(p);
+
+
+
+                                }
+                            });
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(NouvauProduit.this, e.getMessage(), Toast.LENGTH_LONG).show();
+
+                        }
+                    });
+                } else {
+                    Toast.makeText(this, "erreor", Toast.LENGTH_LONG).show();
+                }
+
+
+                Toast.makeText(this, "save succesufuly", Toast.LENGTH_LONG).show();
+
+
+
+        }
+
+
+
+        if (slide.size() == 0) {
+            Toast.makeText(this, "veuillez remplir le champ de photo avec au moins une photo", Toast.LENGTH_LONG).show();
+        } else if (Nomp.isEmpty()) {
+            nom.setError("champ vide, veuillez le remplir");
+            nom.requestFocus();
+        } else if (ancien.isEmpty()) {
+            ancienprix.setError("champ vide, veuillez le remplir");
+            ancienprix.requestFocus();
+        } else if (nouveau.isEmpty()) {
+            nouveauprix.setError("champ vide, veuillez le remplir");
+            nouveauprix.requestFocus();
+        }
+        if (anc < neuv) {
+            nouveauprix.setError("le nooueau doit etre inferieure a l'ancien");
+            nouveauprix.requestFocus();
+        }
+
+
     }
 }
+

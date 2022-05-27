@@ -74,11 +74,11 @@ mrkt=view.findViewById(R.id.ic_home);
      public void onCreate(@Nullable Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
          list = new ArrayList<>();
-         list.add(new Product("Sneakers", R.drawable.sneakers, "7000 DA", "4000 DA", "Jusqu'au 25 Mai", "Good"));
-         list.add(new Product("Super-Star", R.drawable.star, "7000 DA", "4000 DA", "Jusqu'au 25 Mai", "Good"));
-         list.add(new Product("Sneakers", R.drawable.sneakers, "7000 DA", "4000 DA", "Jusqu'au 25 Mai", "Good"));
-         list.add(new Product("Super-Star", R.drawable.star, "7000 DA", "4000 DA", "Jusqu'au 25 Mai", "Good"));
-         list.add(new Product("Sneakers", R.drawable.sneakers, "7000 DA", "4000 DA", "Jusqu'au 25 Mai", "Good"));
+//         list.add(new Product("Sneakers", R.drawable.sneakers, "7000 DA", "4000 DA", "Jusqu'au 25 Mai", "Good"));
+//         list.add(new Product("Super-Star", R.drawable.star, "7000 DA", "4000 DA", "Jusqu'au 25 Mai", "Good"));
+//         list.add(new Product("Sneakers", R.drawable.sneakers, "7000 DA", "4000 DA", "Jusqu'au 25 Mai", "Good"));
+//         list.add(new Product("Super-Star", R.drawable.star, "7000 DA", "4000 DA", "Jusqu'au 25 Mai", "Good"));
+//         list.add(new Product("Sneakers", R.drawable.sneakers, "7000 DA", "4000 DA", "Jusqu'au 25 Mai", "Good"));
      }
 
      }

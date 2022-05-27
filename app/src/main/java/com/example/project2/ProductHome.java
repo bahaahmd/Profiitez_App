@@ -1,25 +1,23 @@
 package com.example.project2;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 
-public class Product {
-    private  String id;
+
+public class ProductHome {
+    private String id;
     private String name;
-    private HashMap<String,String> imageUrl;
+    private String imageUrl;
     private String price_ancien;
     private String price_nouveau;
     private String date;
     private String rating;
 
 
-    public Product(){
-
+    public ProductHome(){
 
     }
 
 
-    public Product(String id,String name, HashMap<String,String> imageUrl, String price_ancien, String price_nouveau, String date, String rating) {
+    public ProductHome(String id,String name, String  imageUrl, String price_ancien, String price_nouveau, String date, String rating) {
         this.id=id;
         this.name = name;
         this.imageUrl = imageUrl;
@@ -28,6 +26,7 @@ public class Product {
         this.date = date;
         this.rating = rating;
     }
+
 
     public String getId() {
         return id;
@@ -45,11 +44,11 @@ public class Product {
         this.name = name;
     }
 
-    public HashMap<String, String> getImageUrl() {
+    public String getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(HashMap<String, String> imageUrl) {
+    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 

@@ -59,9 +59,9 @@ android:id="@+id/image2"
                 android:textSize="9sp" />
 
             <TextView
+                android:id="@+id/durée"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/durée"
                 android:layout_below="@+id/image_produit"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="10dp"
@@ -72,7 +72,19 @@ android:id="@+id/image2"
                 android:textColor="@color/black"
                 android:textSize="7sp" />
 
-
+            <TextView
+                android:id="@+id/type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/durée"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/medium"
+                android:text="Sneakers"
+                android:textColor="#7A7A7A"
+                android:textSize="7dp" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="20dp"

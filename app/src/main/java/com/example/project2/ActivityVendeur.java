@@ -20,7 +20,7 @@ public class ActivityVendeur extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        setContentView(R.layout.activity_vendeur);
-nav=findViewById(R.id.bottomNavigationView_vendeur);
+       nav=findViewById(R.id.bottomNavigationView_vendeur);
 
         HomeVendeurFragment fragment = new HomeVendeurFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
