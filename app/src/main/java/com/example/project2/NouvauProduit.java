@@ -48,6 +48,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class NouvauProduit extends AppCompatActivity {
+
     EditText nom, ancienprix, nouveauprix, description, categorie;
     Button valide;
     ImageView bck;
@@ -68,6 +69,7 @@ public class NouvauProduit extends AppCompatActivity {
     HashMap<String, String> H = new HashMap<>();
     ProgressBar mProgressBar;
     StorageTask tt;
+
 
 
     @Override
