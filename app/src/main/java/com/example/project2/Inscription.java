@@ -16,6 +16,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Inscription extends AppCompatActivity {
     EditText UserName, email, PhoneNumber, password, ConfPass;
@@ -32,7 +38,7 @@ public class Inscription extends AppCompatActivity {
         PhoneNumber = findViewById(R.id.Numero_inscription);
         password = findViewById(R.id.Password_inscription);
         ConfPass = findViewById(R.id.ConfirmPassword_inscription);
-         inscrire = findViewById(R.id.Inscrire_inscription);
+        inscrire = findViewById(R.id.Inscrire_inscription);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -46,7 +52,7 @@ public class Inscription extends AppCompatActivity {
     }
 
     private void createUser() {
-
+        String userName=UserName.getText().toString();
         String nEmail = email.getText().toString();
         String nPassword = password.getText().toString();
         String nom = UserName.getText().toString();
@@ -83,6 +89,17 @@ public class Inscription extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
+                        FirebaseUser user1 = FirebaseAuth.getInstance().getCurrentUser();
+                        String uid = user1.getUid();
+                        DatabaseReference users = FirebaseDatabase.getInstance().getReference().child("Users");
+                        Date date=new Date();
+                        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("'Le ' dd/MM 'à' hh:mma");
+
+                        user user2=new user(uid,userName,simpleDateFormat.format(date),null,"https://previews.123rf.com/images/microphoto1981/microphoto19811710/microphoto1981171000024/88705547-ic%C3%B4ne-de-profil-avatar-par-d%C3%A9faut-marqueur-de-photo-gris-profil-par-d%C3%A9faut-masculin-image-de-personn.jpg");
+                        users.child(uid).setValue(user2);
+
+
+
                         Toast.makeText(Inscription.this, "User registered successfully", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Inscription.this, Identification.class));
                     } else {

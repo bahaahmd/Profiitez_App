@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class Product {
     private  String id;
     private String name;
-    private  HashMap<String,HashMap<String,String>> ImageUrl;
+    private HashMap<String,String> imageUrl;
     private String price_ancien;
     private String price_nouveau;
     private String date;
@@ -15,20 +15,27 @@ public class Product {
 
     public Product(){
 
+
     }
 
 
-    public Product(String id,String name,  HashMap<String,HashMap<String,String>>  imageUrl, String price_ancien, String price_nouveau, String date, String rating) {
+    public Product(String id,String name, HashMap<String,String> imageUrl, String price_ancien, String price_nouveau, String date, String rating) {
         this.id=id;
         this.name = name;
-        this.ImageUrl = imageUrl;
+        this.imageUrl = imageUrl;
         this.price_ancien = price_ancien;
         this.price_nouveau = price_nouveau;
         this.date = date;
         this.rating = rating;
     }
 
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -38,12 +45,12 @@ public class Product {
         this.name = name;
     }
 
-    public  HashMap<String,HashMap<String,String>> getImageUrl() {
-        return ImageUrl;
+    public HashMap<String, String> getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImageUrl( HashMap<String,HashMap<String,String>>  imageUrl) {
-        ImageUrl = imageUrl;
+    public void setImageUrl(HashMap<String, String> imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getPrice_ancien() {
@@ -76,13 +83,5 @@ public class Product {
 
     public void setRating(String rating) {
         this.rating = rating;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 }

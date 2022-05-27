@@ -18,6 +18,7 @@ import com.example.project2.Product;
 import com.example.project2.ProductHome;
 import com.example.project2.R;
 import com.example.project2.publication_produit;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -42,13 +43,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ProduitViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ProduitViewHolder holder,final  int position) {
+        ProductHome productHome =ProductNewList.get(position);
         holder.name.setText(ProductNewList.get(position).getName());
         holder.date.setText(ProductNewList.get(position).getDate());
-        //holder.ProductImage.setImageResource(ProductNewList.get(position).getImageUrl());
-        Glide.with(context).asBitmap().load(ProductNewList.get(position).getImageUrl()).into(holder.ProductImage);
+        //holder.ProductImage.setImageURI(ProductNewList.get(position).getImageUrl());
+        Picasso.get().load(productHome.getImageUrl()).into(holder.ProductImage);
+        //holder.ProductImage.setImageBitmap(ProductNewList.get(position).getImageUrl());
+        //holder.ProductImage.setImageURI(ProductNewList.get(position).getImageUrl());
+        //Glide.with(context).asBitmap().load(ProductNewList.get(position).getImageUrl()).into(holder.ProductImage);
         holder.price_old.setText(ProductNewList.get(position).getPrice_ancien());
+        holder.nameItem.setText(ProductNewList.get(position).getRating());
         holder.price_old.setPaintFlags(holder.price_old.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
-
         holder.price_new.setText(ProductNewList.get(position).getPrice_nouveau());
 
 //        holder.parent.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +76,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ProduitViewHol
     }
     public static final class ProduitViewHolder extends RecyclerView.ViewHolder {
         ImageView ProductImage;
-        TextView price_old,price_new,name,date;
+        TextView price_old,price_new,name,date,nameItem;
         CardView parent;
 
         public ProduitViewHolder(@NonNull View itemView,RecyclerViewInterface recyclerViewInterface) {
@@ -82,6 +87,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ProduitViewHol
             name=itemView.findViewById(R.id.Name);
             parent=itemView.findViewById(R.id.new_parent);
             date=itemView.findViewById(R.id.durée);
+            nameItem=itemView.findViewById(R.id.type);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

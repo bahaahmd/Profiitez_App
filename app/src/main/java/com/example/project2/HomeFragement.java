@@ -3,6 +3,8 @@ package com.example.project2;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.DatabaseUtils;
+import android.graphics.Bitmap;
+
 import android.os.Bundle;
 
 
@@ -19,6 +21,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.example.project2.databinding.ActivityMainBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,7 +31,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
 import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +49,7 @@ import Adapter.RecyclerViewInterface;
 
 public class HomeFragement extends Fragment implements RecyclerViewInterface {
     RecyclerView recyclerView,recyclerView2;
+    StorageReference storageReference;
     PopularAdapter adapter;
     NewsAdapter adapter_new;
     ArrayList<ProductHome>list;
@@ -87,7 +97,6 @@ public class HomeFragement extends Fragment implements RecyclerViewInterface {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         list=new ArrayList<>();
         news_list=new ArrayList<>();
 
@@ -134,6 +143,8 @@ public class HomeFragement extends Fragment implements RecyclerViewInterface {
                     try {
                         keys.add(dataSnapshot.getKey());
                         ProductHome product = dataSnapshot.getValue(ProductHome.class);
+
+
                         list.add(product);
                     }catch (Exception e){
                         System.out.println("err:"+e.getMessage());
@@ -215,5 +226,6 @@ public class HomeFragement extends Fragment implements RecyclerViewInterface {
 
 
     }
+
 }
 

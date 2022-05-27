@@ -33,6 +33,7 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -81,7 +82,7 @@ public class publication_produit extends AppCompatActivity {
         favorite=findViewById(R.id.favorite_image);
         String id=getIntent().getStringExtra("id");
 
-        System.out.println("id is "+id);
+        //System.out.println("id is "+id);
 
         getData(id);
         SetImages(id);
@@ -174,8 +175,13 @@ public class publication_produit extends AppCompatActivity {
                         else {
                             Date date=new Date();
                             SimpleDateFormat simpleDateFormat=new SimpleDateFormat("'Le ' dd/MM 'à' hh:mma");
+
                             //String id=usersRef.push().getKey();
-                            getUser(s,usersRef,"-N2Gbkc9C5c-_Z8VcLLv",simpleDateFormat.format(date));
+                            String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                            System.out.println("user "+user);
+                            //"-N2Gbkc9C5c-_Z8VcLLv"
+                            getUser(s,usersRef,user,simpleDateFormat.format(date));
                             dialog.dismiss();
                             getComment();
 
@@ -196,7 +202,7 @@ public class publication_produit extends AppCompatActivity {
     void SetImages(String id){
         List<SlideModel> slideModels=new ArrayList<>();
         ImageSlider imageSlider=findViewById(R.id.image);
-        database = FirebaseDatabase.getInstance().getReference("Products").child(id).child("ImageUrl");
+        database = FirebaseDatabase.getInstance().getReference("Products").child(id).child("imageUrl");
         //pour image slider
 
         database.addValueEventListener(new ValueEventListener() {
@@ -206,8 +212,6 @@ public class publication_produit extends AppCompatActivity {
                 List<String> keys = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
-
-
                     try {
                         keys.add(dataSnapshot.getKey());
 
@@ -242,7 +246,10 @@ public class publication_produit extends AppCompatActivity {
                     try {
                         keys.add(dataSnapshot.getKey());
                         user userr = dataSnapshot.getValue(user.class);
-                        userComment.add(new user(userr.getId(),userr.getUserName(), userr.getDate(), userr.getCommentaire(),userr.getImage()));
+                        if(userr.getCommentaire()!=null){
+                            userComment.add(new user(userr.getId(),userr.getUserName(), userr.getDate(), userr.getCommentaire(),userr.getImage()));
+
+                        }
                     }catch (Exception e){
                         System.out.println("err:"+e.getMessage());
                     }
@@ -274,15 +281,17 @@ public class publication_produit extends AppCompatActivity {
 
 
 
-                Map<String, Object> map = (Map<String, Object>) snapshot.getValue();
+              //  Map<String, Object> map = (Map<String, Object>) snapshot.getValue();
 
                 try {
-                    price_old.setText(map.get("price_ancien").toString());
-                    price_new.setText(map.get("price_nouveau").toString());
-                    fin_date.setText(map.get("date").toString());
-                    name.setText(map.get("name").toString());
-                     product = snapshot.getValue(ProductHome.class);
-                   // product= new Product("P1",map.get("name").toString(),map.get("ImageUrl").toString(),map.get("price_ancien").toString(),map.get("price_nouveau").toString(),map.get("date").toString(),map.get("rating").toString());
+
+
+                    product = snapshot.getValue(ProductHome.class);
+                    price_old.setText(product.getPrice_ancien());
+                    price_new.setText(product.getPrice_nouveau());
+                    fin_date.setText(product.getDate());
+                    name.setText(product.getName());
+                   // product= new ProductHome(map.get("id").toString(),map.get("name").toString(),map.get("imageUrl").toString(),map.get("price_ancien").toString(),map.get("price_nouveau").toString(),map.get("date").toString(),map.get("rating").toString());
 
                 }catch (Exception e){
                     System.out.println("err "+e.getMessage());
@@ -309,17 +318,18 @@ public class publication_produit extends AppCompatActivity {
     }
 
     void getFov(ProductHome product,String id){
-        DatabaseReference favProduct = FirebaseDatabase.getInstance().getReference().child("Favorites");
+        DatabaseReference favProduct = FirebaseDatabase.getInstance().getReference().child("Favorite");
         favProduct.child(id).setValue(product);
+
 
     }
     void revFov(String id){
-        DatabaseReference favProduct = FirebaseDatabase.getInstance().getReference().child("Favorites");
+        DatabaseReference favProduct = FirebaseDatabase.getInstance().getReference().child("Favorite");
         favProduct.child(id).removeValue();
 
     }
     void isExist(String id){
-        DatabaseReference product = FirebaseDatabase.getInstance().getReference().child("Favorites").child(id);
+        DatabaseReference product = FirebaseDatabase.getInstance().getReference().child("Favorite").child(id);
         product.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

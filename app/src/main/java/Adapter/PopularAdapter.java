@@ -17,7 +17,9 @@ import com.bumptech.glide.Glide;
 import com.example.project2.Product;
 import com.example.project2.ProductHome;
 import com.example.project2.R;
+import com.example.project2.databinding.ActivityMainBinding;
 import com.example.project2.publication_produit;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -45,12 +47,17 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ProduitV
 
     @Override
     public void onBindViewHolder(@NonNull ProduitViewHolder holder, final int position) {
+        ProductHome productHome =ProductPopulaireList.get(position);
         holder.name.setText(ProductPopulaireList.get(position).getName());
-        //holder.ProductImage.setImageResource(ProductPopulaireList.get(position).getImageUrl());
-        Glide.with(context).asBitmap().load(ProductPopulaireList.get(position).getImageUrl()).into(holder.ProductImage);
+       Picasso.get().load(productHome.getImageUrl()).into(holder.ProductImage);
+        //holder.ProductImage.setImageURI(ProductPopulaireList.get(position).getImageUrl());
+        //holder.ProductImage.setImageBitmap(ProductPopulaireList.get(position).getImageUrl());
+        //holder.ProductImage.setImageURI(ProductPopulaireList.get(position).getImageUrl());
+        //Glide.with(context).asBitmap().load(ProductPopulaireList.get(position).getImageUrl()).into(holder.ProductImage);
         holder.price_old.setText(ProductPopulaireList.get(position).getPrice_ancien());
         holder.price_old.setPaintFlags(holder.price_old.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
         holder.price_new.setText(ProductPopulaireList.get(position).getPrice_nouveau());
+        holder.nameItem.setText(ProductPopulaireList.get(position).getRating());
         holder.date.setText(ProductPopulaireList.get(position).getDate());
 //        holder.parent.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -77,7 +84,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ProduitV
 
     public static final class ProduitViewHolder extends RecyclerView.ViewHolder {
         ImageView ProductImage;
-        TextView price_old,price_new,name,date;
+        TextView price_old,price_new,name,date,nameItem;
         CardView parent;
 
         public ProduitViewHolder(@NonNull View itemView,RecyclerViewInterface recyclerViewInterface) {
@@ -88,6 +95,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ProduitV
             name=itemView.findViewById(R.id.Name);
             parent=itemView.findViewById(R.id.parent);
             date=itemView.findViewById(R.id.durée);
+            nameItem=itemView.findViewById(R.id.type);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

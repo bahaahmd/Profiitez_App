@@ -57,7 +57,7 @@ public class FavoriteActivity extends AppCompatActivity implements RecyclerViewI
 
     private void setFavouriteRecycler(ArrayList<ProductHome> fav_list)
     {
-        databaseReference = FirebaseDatabase.getInstance().getReference("Favorites");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Favorite");
         RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
         recyclerView3.setLayoutManager(layoutManager);
         adapter_fav=new FavoriteAdapter(this,fav_list,this);

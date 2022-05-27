@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,6 +40,7 @@ public class Search extends Fragment implements RecyclerViewInterface {
     ArrayList<Search_item> list;
     RelativeLayout parent;
     DatabaseReference databaseReference;
+    LottieAnimationView lotie;
 
 
     @Override
@@ -47,6 +49,8 @@ public class Search extends Fragment implements RecyclerViewInterface {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_search, container, false);
         recyclerView=(RecyclerView) view.findViewById(R.id.search_recView);
         setSearchRecycler(list);
+        lotie=view.findViewById(R.id.anima);
+        lotie.playAnimation();
         parent=(RelativeLayout) view.findViewById(R.id.parent);
         searchView= view.findViewById(R.id.search_bar);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

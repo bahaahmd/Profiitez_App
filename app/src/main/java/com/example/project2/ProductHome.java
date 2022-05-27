@@ -1,12 +1,11 @@
 package com.example.project2;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+
 
 public class ProductHome {
-    private  String id;
+    private String id;
     private String name;
-    private  String ImageUrl;
+    private String imageUrl;
     private String price_ancien;
     private String price_nouveau;
     private String date;
@@ -21,7 +20,7 @@ public class ProductHome {
     public ProductHome(String id,String name, String  imageUrl, String price_ancien, String price_nouveau, String date, String rating) {
         this.id=id;
         this.name = name;
-        this.ImageUrl = imageUrl;
+        this.imageUrl = imageUrl;
         this.price_ancien = price_ancien;
         this.price_nouveau = price_nouveau;
         this.date = date;
@@ -29,6 +28,13 @@ public class ProductHome {
     }
 
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -38,12 +44,12 @@ public class ProductHome {
         this.name = name;
     }
 
-    public  String getImageUrl() {
-        return ImageUrl;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImageUrl( String  imageUrl) {
-        ImageUrl = imageUrl;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getPrice_ancien() {
@@ -76,13 +82,5 @@ public class ProductHome {
 
     public void setRating(String rating) {
         this.rating = rating;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 }
