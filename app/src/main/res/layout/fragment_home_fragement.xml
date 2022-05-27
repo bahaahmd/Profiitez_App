@@ -167,7 +167,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_centerInParent="true"
-                            android:background="@drawable/border"
+                            android:background="@drawable/bordersspinner"
                             android:spinnerMode="dropdown"
                             android:textAlignment="center"
                             android:textColor="@color/gradient" />

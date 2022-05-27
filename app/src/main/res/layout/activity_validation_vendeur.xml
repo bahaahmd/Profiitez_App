@@ -95,7 +95,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/Nom_market" />
 
             <EditText
-                android:id="@+id/Numero"
+                android:id="@+id/Numero_market"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
@@ -134,7 +134,7 @@
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Numero"/>
+                app:layout_constraintTop_toBottomOf="@+id/Numero_market"/>
 
             <TextView
                 android:id="@+id/HC"
@@ -159,7 +159,7 @@
 
 
             <Button
-                android:id="@+id/Inscrire_inscription"
+                android:id="@+id/Valider_vendeur"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -171,7 +171,7 @@
                 android:textColor="@color/white"
                 android:textAllCaps="false"
                 android:textSize="18sp"
-                android:text="Inscrie"
+                android:text="Valider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/HC"

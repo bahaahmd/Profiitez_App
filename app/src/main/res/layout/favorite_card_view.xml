@@ -23,7 +23,7 @@
 
 
             <ImageView
-                android:id="@+id/image3"
+                android:id="@+id/image4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -80,7 +80,6 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:fontFamily="@font/medium"
-            android:text="Sneakers"
             android:textColor="#7A7A7A"
             android:textSize="13sp" />
 
