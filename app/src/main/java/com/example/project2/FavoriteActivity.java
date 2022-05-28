@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -57,7 +58,9 @@ public class FavoriteActivity extends AppCompatActivity implements RecyclerViewI
 
     private void setFavouriteRecycler(ArrayList<ProductHome> fav_list)
     {
-        databaseReference = FirebaseDatabase.getInstance().getReference("Favorite");
+        String idV = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Favorite").child(idV);
         RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
         recyclerView3.setLayoutManager(layoutManager);
         adapter_fav=new FavoriteAdapter(this,fav_list,this);

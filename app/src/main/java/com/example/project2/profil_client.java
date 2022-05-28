@@ -1,6 +1,7 @@
 package com.example.project2;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,9 +13,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import Adapter.ProfileAdapter;
 
@@ -26,13 +35,18 @@ public class profil_client extends AppCompatActivity {
     ImageView imageView;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.client_profil);
         listView = (ListView) findViewById(R.id.list_view);
+        imageView = findViewById(R.id.imageView);
+
+
         ProfileAdapter profileAdapter = new ProfileAdapter(getApplicationContext(), nom, image);
         listView.setAdapter(profileAdapter);
+
 
 
        // mAuth = FirebaseAuth.getInstance();
@@ -99,6 +113,7 @@ public class profil_client extends AppCompatActivity {
         });*/
 
     }
+
     }
 
 
