@@ -1,6 +1,7 @@
 package com.example.project2;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,9 +14,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import Adapter.ProfileAdapter;
 
@@ -30,11 +41,15 @@ public class Profile extends Fragment {
     ImageView imageView;
     ConstraintLayout parent;
 
+    TextView nomClient,emailClient;
+    DatabaseReference database;
+    FirebaseAuth mAuth;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getdata();
 
     }
 
@@ -45,9 +60,13 @@ public class Profile extends Fragment {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.client_profil, container, false);
         listView = (ListView) view.findViewById(R.id.list_view);
         imageView=(ImageView) view.findViewById(R.id.editproffil);
+        imageView = view.findViewById(R.id.imageView);
+        nomClient=view.findViewById(R.id.textView2);
+        emailClient=view.findViewById(R.id.textView);
         parent=(ConstraintLayout) view.findViewById(R.id.layoutdialogcontainer);
         ProfileAdapter profileAdapter = new ProfileAdapter(getActivity(), nom, image);
         listView.setAdapter(profileAdapter);
+
        /* listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -101,6 +120,33 @@ public class Profile extends Fragment {
 
 
         return view;
+
+    }    void getdata(){
+        String idV = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        database = FirebaseDatabase.getInstance().getReference().child("Users").child(idV);
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                try {
+                    System.out.println("here client ");
+                    user  client = snapshot.getValue(user.class);
+                    nomClient.setText(client.getUserName());
+                    Picasso.get().load(client.getImage()).into(imageView);
+                    emailClient.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
+
+                }catch (Exception e){
+                    System.out.println("err "+e.getMessage());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
 
     }
 }

@@ -82,6 +82,7 @@ public class publication_produit extends AppCompatActivity {
         favorite=findViewById(R.id.favorite_image);
         String id=getIntent().getStringExtra("id");
 
+
         //System.out.println("id is "+id);
 
         getData(id);
@@ -318,18 +319,21 @@ public class publication_produit extends AppCompatActivity {
     }
 
     void getFov(ProductHome product,String id){
-        DatabaseReference favProduct = FirebaseDatabase.getInstance().getReference().child("Favorite");
+        String idV = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference favProduct = FirebaseDatabase.getInstance().getReference().child("Favorite").child(idV);
         favProduct.child(id).setValue(product);
 
 
     }
     void revFov(String id){
-        DatabaseReference favProduct = FirebaseDatabase.getInstance().getReference().child("Favorite");
+        String idV = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference favProduct = FirebaseDatabase.getInstance().getReference().child("Favorite").child(idV);
         favProduct.child(id).removeValue();
 
     }
     void isExist(String id){
-        DatabaseReference product = FirebaseDatabase.getInstance().getReference().child("Favorite").child(id);
+        String idV = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference product = FirebaseDatabase.getInstance().getReference().child("Favorite").child(idV).child(id);
         product.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
