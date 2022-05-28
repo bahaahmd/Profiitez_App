@@ -5,7 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+
 import android.content.ContentResolver;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -44,10 +46,16 @@ import com.squareup.picasso.Picasso;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
+
 import java.util.HashMap;
 import java.util.List;
 
+
+
+
+
 public class NouvauProduit extends AppCompatActivity {
+
     EditText nom, ancienprix, nouveauprix, description, categorie;
     Button valide;
     ImageView bck;
@@ -68,6 +76,8 @@ public class NouvauProduit extends AppCompatActivity {
     HashMap<String, String> H = new HashMap<>();
     ProgressBar mProgressBar;
     StorageTask tt;
+
+
 
 
     @Override
@@ -98,20 +108,21 @@ public class NouvauProduit extends AppCompatActivity {
         slide.clear();
 
 
+
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-//        date.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                DatePickerDialog datePickerDialog = new DatePickerDialog(
-//                        NouvauProduit.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, setListener, year, month, day);
-//                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                datePickerDialog.show();
-//            }
-//        });
+       date.setOnClickListener(new View.OnClickListener() {
+            @Override
+           public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                       NouvauProduit.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, setListener, year, month, day);
+               datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+               datePickerDialog.show();
+           }
+        });
         setListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
@@ -121,6 +132,8 @@ public class NouvauProduit extends AppCompatActivity {
 
             }
         };
+
+
 
 
         bck.setOnClickListener(new View.OnClickListener() {

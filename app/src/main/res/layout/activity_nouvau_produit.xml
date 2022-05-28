@@ -159,6 +159,18 @@
                 android:textColorHint="@color/grey"
                 android:textSize="14sp" />
 
+            <TextView
+                android:id="@+id/Date_fin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/border"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="Date fin"
+                android:padding="15dp"
+                android:textColorHint="@color/grey"
+                android:textSize="14sp" />
+
             <EditText
                 android:id="@+id/categorie"
                 android:layout_width="match_parent"

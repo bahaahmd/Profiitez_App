@@ -77,7 +77,7 @@ public class HomeFragement extends Fragment implements RecyclerViewInterface {
         btnMarket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(),ActivityVendeur.class));
+                startActivity(new Intent(getActivity(),ValidationVendeur.class));
             }
         });
 

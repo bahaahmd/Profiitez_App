@@ -68,7 +68,7 @@ public class Inscription extends AppCompatActivity {
             PhoneNumber.setError("numéro de téléphone doit contenir que des chiffres");
             PhoneNumber.requestFocus();
         } else if (numero.length() < 10) {
-            PhoneNumber.setError("numéro de téléphone de contenir 10 chiffres");
+            PhoneNumber.setError("numéro de téléphone doit contenir 10 chiffres");
         }
 
         else if (TextUtils.isEmpty(nEmail)) {

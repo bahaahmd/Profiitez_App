@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:id="@+id/new_parent"
     android:layout_height="300dp"
-    android:layout_margin="30dp"
+    android:layout_margin="20dp"
     app:cardCornerRadius="15dp"
     android:elevation="20dp"
     >
@@ -111,13 +111,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/NouveauPrix"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="10dp"
             android:layout_toEndOf="@+id/Image_Profile"
             android:fontFamily="@font/medium"
             android:text="Bahaa-Eddine"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
 
 
 

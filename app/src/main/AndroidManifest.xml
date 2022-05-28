@@ -9,7 +9,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project2">
         <activity
+<<<<<<< HEAD
+            android:name=".ValidationVendeur"
+=======
             android:name="com.example.project2.publication_produit"
+>>>>>>> 551b87efa218f1814f1475b4bc520edc7695f3c5
             android:exported="false" />
         <activity
             android:name=".NouvauProduit"
