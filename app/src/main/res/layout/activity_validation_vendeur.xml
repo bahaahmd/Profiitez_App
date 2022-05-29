@@ -127,7 +127,7 @@
                 android:background="@drawable/edittext_border_vendur"
                 android:ems="10"
                 android:padding="10dp"
-                android:inputType="textPassword"
+
                 android:fontFamily="@font/poppins_regular"
                 android:hint="Heure d'ouverture"
                 android:textColorHint="@color/grey"
@@ -148,7 +148,7 @@
                 android:background="@drawable/edittext_border_vendur"
                 android:ems="10"
                 android:padding="10dp"
-                android:inputType="textPassword"
+
                 android:fontFamily="@font/poppins_regular"
                 android:hint="Heure de fermeture"
                 android:textColorHint="@color/grey"
