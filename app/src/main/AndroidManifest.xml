@@ -8,12 +8,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Project2">
+        <activity android:name=".ValidationVendeur"
+            android:exported="false"/>
         <activity
-<<<<<<< HEAD
-            android:name=".ValidationVendeur"
-=======
-            android:name="com.example.project2.publication_produit"
->>>>>>> 551b87efa218f1814f1475b4bc520edc7695f3c5
+            android:name=".publication_produit"
             android:exported="false" />
         <activity
             android:name=".NouvauProduit"
