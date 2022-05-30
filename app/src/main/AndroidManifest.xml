@@ -32,6 +32,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".publication_produit"
+            android:exported="false" />
+        <activity
             android:name=".HomePage"
             android:exported="false" />
         <activity
