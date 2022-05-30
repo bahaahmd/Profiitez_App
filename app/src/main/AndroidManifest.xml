@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.project2">
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -9,12 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project2">
         <activity
-<<<<<<< HEAD
+
             android:name=".ValidationVendeur"
-=======
-            android:name="com.example.project2.publication_produit"
->>>>>>> 551b87efa218f1814f1475b4bc520edc7695f3c5
             android:exported="false" />
+
+        <activity android:name=".publication_produit"
+            android:exported="false"/>
         <activity
             android:name=".NouvauProduit"
             android:exported="false" />

@@ -189,13 +189,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_toStartOf="@+id/local_btn"
                     android:background="@drawable/border_button_publication"
                     android:drawableLeft="@drawable/ic_baseline_call_24"
                     android:drawablePadding="5dp"
                     android:paddingHorizontal="5dp"
                     android:text="Appeler"
-                    android:layout_marginEnd="10dp"
                     android:textAllCaps="false"
                     android:textSize="18sp" />
 
@@ -207,8 +207,8 @@
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/border_button_publication"
                     android:drawableLeft="@drawable/ic_baseline_location_on_24"
-                    android:paddingHorizontal="5dp"
                     android:drawablePadding="5dp"
+                    android:paddingHorizontal="5dp"
                     android:text="Localisation"
                     android:textAllCaps="false"
                     android:textSize="18sp" />

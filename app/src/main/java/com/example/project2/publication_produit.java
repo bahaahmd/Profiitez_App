@@ -3,12 +3,16 @@ package com.example.project2;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -48,13 +52,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
+
 public class publication_produit extends AppCompatActivity {
 
     RecyclerView recView;
     LinearLayoutManager linearLayoutManager;
     RatingBar ratingBar;
     FirebaseAuth mAuth;
-    Button button;
+    Button button,local;
     DatabaseReference database,database1;
     userAdapter Uadapter;
     ImageSlider imageSlider;
@@ -89,7 +95,8 @@ public class publication_produit extends AppCompatActivity {
         SetImages(id);
         getComment();
         isExist(id);
-
+        ItemTouchHelper itemTouchHelper=new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recView);
 
         button=findViewById(R.id.btn_appeler);
         favorite.setOnClickListener(new View.OnClickListener() {
@@ -358,6 +365,46 @@ public class publication_produit extends AppCompatActivity {
         });
 
     }
+    ItemTouchHelper.SimpleCallback simpleCallback=new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            AlertDialog.Builder builder=new AlertDialog.Builder(publication_produit.this);
+            builder.setTitle("Suppression commentaire");
+            builder.setMessage("voulez-vous vraiment supprimer ce commentaire");
+            builder.setPositiveButton("oui", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    int postion=viewHolder.getAdapterPosition();
+                    userComment.remove(postion);
+                    Uadapter.notifyItemRemoved(postion);
+
+                }
+            });
+            builder.setNegativeButton("non", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Uadapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                }
+            });
+            builder.create().show();
+        }
+
+        @Override
+        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+            new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(publication_produit.this, R.color.gradient))
+                    .addActionIcon(R.drawable.ic_baseline_delete_24)
+                    .create()
+                    .decorate();
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+        }
+    };
+
 
 
 
