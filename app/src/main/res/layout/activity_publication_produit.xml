@@ -147,16 +147,24 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/image_vendeur"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="20dp"
-
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_marginVertical="10dp"
-                    android:src="@drawable/user"
-                    />
+
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/user" />
 
 
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/medium"
+                    android:id="@+id/nom_vendeur"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:layout_toEndOf="@id/image_vendeur"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="5dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

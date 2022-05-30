@@ -60,17 +60,21 @@ public class publication_produit extends AppCompatActivity {
     ImageSlider imageSlider;
     LottieAnimationView lottieAnimationView;
     ArrayList<user> userComment=new ArrayList<>();
-    TextView price_old,price_new,name,fin_date;
+    TextView price_old,price_new,name,fin_date,nom_vendeur,ouv;
     ImageView favorite;
     ProductHome product;
     user userClient;
     boolean clicked;
+    DatabaseReference vender;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_publication_produit);
+
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+setContentView(R.layout.activity_publication_produit);
+        nom_vendeur= findViewById(R.id.nom_vendeur);
         price_old=findViewById(R.id.AncienPrix);
         price_new=findViewById(R.id.NouveauPrix);
         name=findViewById(R.id.article);
@@ -80,12 +84,39 @@ public class publication_produit extends AppCompatActivity {
         ratingBar=findViewById(R.id.rating_bar);
         lottieAnimationView=findViewById(R.id.loti);
         favorite=findViewById(R.id.favorite_image);
+        vender=FirebaseDatabase.getInstance().getReference("Users").child("Venders");
+        FirebaseUser idc = FirebaseAuth.getInstance().getCurrentUser();
+        String vid = idc.getUid();
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot d:dataSnapshot.getChildren()){
+                    Market m=d.getValue(Market.class);
+                    
+                if(m.getId().equals(vid)){
+                    nom_vendeur.setText(m.getNom());
+                    fin_date.setText(m.getOuvert()+" - "+m.getFerme());
+                    break;
+                }
+                }
+                // Get Post object and use the values to update the UI
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("jhj", "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+        vender.addValueEventListener(postListener);
+
+
+
         String id=getIntent().getStringExtra("id");
-        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         DatabaseReference usersRefProduct = FirebaseDatabase.getInstance().getReference().child("Products").child(id);
         String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        //System.out.println("id is "+id);
+
 
         getData(id);
         SetImages(id);

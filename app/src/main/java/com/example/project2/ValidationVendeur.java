@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Patterns;
 import android.view.View;
@@ -15,6 +16,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.security.cert.PolicyNode;
 import java.text.ParseException;
@@ -28,14 +34,21 @@ TextView open,close;
 int toHour,toMinute,tcHour,tcMinute;
 Button valider;
 EditText nom,loc,num;
+DatabaseReference vender;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_validation_vendeur);
+
+        vender= FirebaseDatabase.getInstance().getReference("Users").child("Venders");
+
         nom=findViewById(R.id.Nom_market);
         loc=findViewById(R.id.Localisation);
         num=findViewById(R.id.Numero_market);
+
 
 
         open=findViewById(R.id.HO);
@@ -112,7 +125,9 @@ EditText nom,loc,num;
         valider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent (ValidationVendeur.this,ActivityVendeur.class));
+
+                createMarket();
+
             }
         });
 
@@ -125,6 +140,17 @@ EditText nom,loc,num;
         String numero = num.getText().toString();
         String heureOuverture = open.getText().toString();
         String heureFermeture = close.getText().toString();
+        FirebaseUser id = FirebaseAuth.getInstance().getCurrentUser();
+        String vid = id.getUid();
+
+        if(!TextUtils.isEmpty(nomMarket) && !TextUtils.isEmpty(localisation) && !TextUtils.isEmpty(numero) && !TextUtils.isEmpty(heureOuverture) && !TextUtils.isEmpty(heureFermeture) ){
+
+        Market m=new Market(nomMarket,localisation,numero,heureFermeture,heureOuverture,vid);
+        vender.child(vid).setValue(m);
+            startActivity(new Intent (ValidationVendeur.this,ActivityVendeur.class));
+            finish();
+        }else {
+
         if(nomMarket.isEmpty()){
            nom.setError("champ vide");
            nom.requestFocus();
@@ -145,5 +171,5 @@ EditText nom,loc,num;
         }
 
 
-    }
+    }}
 }

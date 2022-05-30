@@ -17,10 +17,9 @@ import Adapter.NewsAdapter;
 import Adapter.PopularAdapter;
 
 public class HomePage extends AppCompatActivity    {
-    RecyclerView recyclerView,recyclerView2;
-    PopularAdapter adapter;
-    NewsAdapter adapter_new;
+
     BottomNavigationView navigationView ;
+
 
 
     @Override
