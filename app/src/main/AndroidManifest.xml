@@ -13,6 +13,7 @@
             android:name=".ValidationVendeur"
 
             android:exported="false" />
+
         <activity
             android:name=".NouvauProduit"
             android:exported="false" />

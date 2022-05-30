@@ -108,8 +108,9 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
                         android:src="@drawable/ic__plus"
-                        android:layout_centerInParent="true"/>
+                        android:id="@+id/plus"/>
 
                 </RelativeLayout>
 
