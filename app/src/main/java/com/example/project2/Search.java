@@ -49,18 +49,24 @@ public class Search extends Fragment implements RecyclerViewInterface {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_search, container, false);
         recyclerView=(RecyclerView) view.findViewById(R.id.search_recView);
         setSearchRecycler(list);
+        recyclerView.setVisibility(View.INVISIBLE);
         lotie=view.findViewById(R.id.anima);
         lotie.playAnimation();
         parent=(RelativeLayout) view.findViewById(R.id.parent);
         searchView= view.findViewById(R.id.search_bar);
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
                 return false;
             }
 
+
             @Override
             public boolean onQueryTextChange(String newText) {
+                lotie.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
                 filter(newText);
                 return false;
             }

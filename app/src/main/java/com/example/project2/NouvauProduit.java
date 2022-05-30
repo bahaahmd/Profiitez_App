@@ -5,15 +5,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
-
 import android.content.ContentResolver;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -34,6 +31,8 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -47,85 +46,108 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
-
-
-
 public class NouvauProduit extends AppCompatActivity {
-
-    EditText nom, ancienprix, nouveauprix, description, categorie;
+    EditText nom,ancienprix,nouveauprix,description;
     Button valide;
     ImageView bck;
+
     TextView date;
     DatePickerDialog.OnDateSetListener setListener;
     int i = 0;
     Product p = new Product();
     ProductHome pp = new ProductHome();
+Producti ppp=new Producti();
+
+
+
 
     ImageSlider imageSlider;
     List<SlideModel> slide;
-    TextView compteur, compteur2, compteur3;
+    TextView compteur,compteur2,compteur3;
     LottieAnimationView lotie;
     String urlP;
-    DatabaseReference databaseReference, databaseReferencee;
+    DatabaseReference databaseReference, databaseReferencee,databaseReferenceee,databaseReferenceeee;
     StorageReference storageReference, storageReferencee;
     Uri mImageUri;
     HashMap<String, String> H = new HashMap<>();
-    ProgressBar mProgressBar;
     StorageTask tt;
 
-
+    FirebaseUser id = FirebaseAuth.getInstance().getCurrentUser();
+    String vid = id.getUid();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         databaseReferencee = FirebaseDatabase.getInstance().getReference("Products");
         databaseReference = FirebaseDatabase.getInstance().getReference("ProductsHome");
+        databaseReferenceee = FirebaseDatabase.getInstance().getReference("Products").child("VenderId");
+        databaseReferenceeee = FirebaseDatabase.getInstance().getReference("ProductsHome").child("VenderId");
         storageReference = FirebaseStorage.getInstance().getReference("Products");
         storageReferencee = FirebaseStorage.getInstance().getReference("ProductsHome");
 
         setContentView(R.layout.activity_nouvau_produit);
-        categorie = findViewById(R.id.categorie);
-        nom = findViewById(R.id.nom_produit);
-        ancienprix = findViewById(R.id.ancien_prix);
-        nouveauprix = findViewById(R.id.Nouveau_prix);
-
-        description = findViewById(R.id.description);
-        valide = findViewById(R.id.button_valide);
-        bck = findViewById(R.id.arriere);
-        lotie = findViewById(R.id.plus);
-        imageSlider = findViewById(R.id.image_slider);
-        compteur = findViewById(R.id.cpt);
-        compteur2 = findViewById(R.id.cpt_nom);
-        compteur3 = findViewById(R.id.cpt_descrp);
-        slide = new ArrayList<>();
+        nom=findViewById(R.id.nom_produit);
+        ancienprix=findViewById(R.id.ancien_prix);
+        nouveauprix=findViewById(R.id.Nouveau_prix);
+        description=findViewById(R.id.description);
+        valide=findViewById(R.id.button_valide);
+        bck=findViewById(R.id.arriere);
+        lotie=findViewById(R.id.plus);
+        imageSlider=findViewById(R.id.image_slider);
+        compteur=findViewById(R.id.cpt);
+        compteur2=findViewById(R.id.cpt_nom);
+        compteur3=findViewById(R.id.cpt_descrp);
+        slide=new ArrayList<>();
         lotie.playAnimation();
-
         slide.clear();
 
 
 
 
 
+        Calendar calendar = Calendar.getInstance();
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+date=findViewById(R.id.Date_fin);
+       date.setOnClickListener(new View.OnClickListener() {
+            @Override
+           public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                       NouvauProduit.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, setListener, year, month, day);
+               datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+               datePickerDialog.show();
+           }
+        });
+        setListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int day) {
+                month = month + 1;
+                String date1 = day + "/" + month + "/" + year;
+                date.setText(date1);
 
-
+            }
+        };
 
         bck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(NouvauProduit.this, ActivityVendeur.class));
+                startActivity(new Intent(NouvauProduit.this,ActivityVendeur.class));
             }
         });
 
         lotie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                startActivityForResult(intent, 100);
+                Intent intent=new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                startActivityForResult(intent,100);
 
             }
 
@@ -141,7 +163,7 @@ public class NouvauProduit extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                compteur2.setText(String.valueOf(s.length()) + "/20");
+                compteur2.setText(String.valueOf(s.length())+"/20");
             }
 
             @Override
@@ -149,6 +171,7 @@ public class NouvauProduit extends AppCompatActivity {
 
             }
         });
+
 
 
         description.addTextChangedListener(new TextWatcher() {
@@ -159,7 +182,7 @@ public class NouvauProduit extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                compteur3.setText(String.valueOf(s.length()) + "/40");
+                compteur3.setText(String.valueOf(s.length())+"/40");
             }
 
             @Override
@@ -177,6 +200,7 @@ public class NouvauProduit extends AppCompatActivity {
         });
 
     }
+
 
 
     @Override
@@ -212,19 +236,28 @@ public class NouvauProduit extends AppCompatActivity {
 
 
         //  String datee = date.getText().toString();
-        String Categorie = categorie.getText().toString();
         String Nomp = nom.getText().toString();
         String ancien = ancienprix.getText().toString();
         String nouveau = nouveauprix.getText().toString();
         String desc = description.getText().toString();
+       if(ancien.isEmpty() || nouveau.isEmpty()){
+           if(nouveau.isEmpty()){
+           nouveauprix.setError("donnez une valeur svp");
+           nouveauprix.requestFocus();}else{
+               ancienprix.setError("donnez une valeur svp");
+               ancienprix.requestFocus();
 
+           }
+
+
+       }else {
         int anc = Integer.parseInt(ancien);
         int neuv = Integer.parseInt(nouveau);
         String idProduct = databaseReferencee.push().getKey();
 
         if (!TextUtils.isEmpty(Nomp) && !TextUtils.isEmpty(ancien) && !TextUtils.isEmpty(nouveau) && !TextUtils.isEmpty(desc)) {
-
-
+            Intent intent=new Intent(NouvauProduit.this,ActivityVendeur.class);
+            startActivity(intent);
 
                 if (mImageUri != null) {
                     StorageReference fileRefrence = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
@@ -248,7 +281,9 @@ public class NouvauProduit extends AppCompatActivity {
                                     pp.setPrice_ancien(ancien);
                                     pp.setPrice_nouveau(nouveau);
                                     pp.setRating(desc);
+                                    ppp.setIdc(vid);
                                     databaseReference.child(idProduct).setValue(pp);
+                                   // databaseReferenceee.child(idProduct).setValue(ppp);
 
 
 
@@ -260,6 +295,7 @@ public class NouvauProduit extends AppCompatActivity {
                                     p.setPrice_nouveau(nouveau);
                                     p.setRating(desc);
                                     databaseReferencee.child(idProduct).setValue(p);
+                                   // databaseReferenceeee.child(idProduct).setValue(ppp);
 
 
 
@@ -267,6 +303,7 @@ public class NouvauProduit extends AppCompatActivity {
                             });
 
                         }
+
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
@@ -278,33 +315,35 @@ public class NouvauProduit extends AppCompatActivity {
                     Toast.makeText(this, "erreor", Toast.LENGTH_LONG).show();
                 }
 
-
                 Toast.makeText(this, "save succesufuly", Toast.LENGTH_LONG).show();
 
 
 
-        }
+        }else {
+
+            if (slide.size() == 0) {
+                Toast.makeText(this, "veuillez remplir le champ de photo avec au moins une photo", Toast.LENGTH_LONG).show();
+            } else if (Nomp.isEmpty()) {
+                nom.setError("champ vide, veuillez le remplir");
+                nom.requestFocus();
+            } else if (ancien.isEmpty()) {
+                ancienprix.setError("champ vide, veuillez le remplir");
+                ancienprix.requestFocus();
+            } else if (nouveau.isEmpty()) {
+                nouveauprix.setError("champ vide, veuillez le remplir");
+                nouveauprix.requestFocus();
+            }
+            if (anc < neuv) {
+                nouveauprix.setError("le nooueau doit etre inferieure a l'ancien");
+                nouveauprix.requestFocus();
+            }
 
 
-
-        if (slide.size() == 0) {
-            Toast.makeText(this, "veuillez remplir le champ de photo avec au moins une photo", Toast.LENGTH_LONG).show();
-        } else if (Nomp.isEmpty()) {
-            nom.setError("champ vide, veuillez le remplir");
-            nom.requestFocus();
-        } else if (ancien.isEmpty()) {
-            ancienprix.setError("champ vide, veuillez le remplir");
-            ancienprix.requestFocus();
-        } else if (nouveau.isEmpty()) {
-            nouveauprix.setError("champ vide, veuillez le remplir");
-            nouveauprix.requestFocus();
         }
-        if (anc < neuv) {
-            nouveauprix.setError("le nooueau doit etre inferieure a l'ancien");
-            nouveauprix.requestFocus();
-        }
+}
 
 
     }
-}
 
+
+}

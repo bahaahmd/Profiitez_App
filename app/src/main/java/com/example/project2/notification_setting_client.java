@@ -33,7 +33,7 @@ public class notification_setting_client extends AppCompatActivity {
             }
 
             public void openActivity() {
-                Intent intent=new Intent(notification_setting_client.this,settings_client.class);
+                Intent intent=new Intent(notification_setting_client.this,setting_client.class);
                 startActivity(intent);
                 finish();
             }

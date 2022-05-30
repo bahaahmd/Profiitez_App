@@ -15,11 +15,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.project2.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -57,6 +59,7 @@ public class HomeFragement extends Fragment implements RecyclerViewInterface {
     ArrayList<Province>provinces_list;
     Spinner spinner_provinces;
     DatabaseReference databaseReference;
+    DatabaseReference vender;
     ImageView btnHeart;
     ImageView btnMarket;
     FirebaseAuth mAuth;
@@ -73,11 +76,43 @@ public class HomeFragement extends Fragment implements RecyclerViewInterface {
         mAuth = FirebaseAuth.getInstance();
         spinner_provinces=(Spinner) view.findViewById(R.id.spinner);
         setProvinceSpinner(provinces_list);
+        vender=FirebaseDatabase.getInstance().getReference("Users").child("Venders");
         btnMarket=view.findViewById(R.id.market);
         btnMarket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(),ValidationVendeur.class));
+                ValueEventListener postListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get Post object and use the values to update the UI
+                        if(!dataSnapshot.exists()){
+                            startActivity(new Intent(getActivity(), ValidationVendeur.class));
+
+                        }else{
+                        for(DataSnapshot d:dataSnapshot.getChildren()){
+                            Market m=d.getValue(Market.class);
+
+                            FirebaseUser id = FirebaseAuth.getInstance().getCurrentUser();
+                            String vid = id.getUid();
+
+                            if(!m.getId().equals(vid)  ) {
+                                startActivity(new Intent(getActivity(), ValidationVendeur.class));
+
+                            }else{
+                                startActivity(new Intent(getActivity(), ActivityVendeur.class));
+break;
+
+                            }
+                        }
+                        }
+}
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Getting Post failed, log a message
+                        Log.w("jhj", "loadPost:onCancelled", databaseError.toException());
+                    }
+                };
+                vender.addValueEventListener(postListener);
             }
         });
 
