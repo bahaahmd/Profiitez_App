@@ -34,6 +34,8 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -64,27 +66,31 @@ public class NouvauProduit extends AppCompatActivity {
     int i = 0;
     Product p = new Product();
     ProductHome pp = new ProductHome();
-
+Producti ppp=new Producti();
     ImageSlider imageSlider;
     List<SlideModel> slide;
     TextView compteur, compteur2, compteur3;
     LottieAnimationView lotie;
     String urlP;
-    DatabaseReference databaseReference, databaseReferencee;
+    DatabaseReference databaseReference, databaseReferencee,databaseReferenceee,databaseReferenceeee;
     StorageReference storageReference, storageReferencee;
     Uri mImageUri;
     HashMap<String, String> H = new HashMap<>();
     ProgressBar mProgressBar;
     StorageTask tt;
 
-
+    FirebaseUser id = FirebaseAuth.getInstance().getCurrentUser();
+    String vid = id.getUid();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         databaseReferencee = FirebaseDatabase.getInstance().getReference("Products");
         databaseReference = FirebaseDatabase.getInstance().getReference("ProductsHome");
+        databaseReferenceee = FirebaseDatabase.getInstance().getReference("Products").child("VenderId");
+        databaseReferenceeee = FirebaseDatabase.getInstance().getReference("ProductsHome").child("VenderId");
         storageReference = FirebaseStorage.getInstance().getReference("Products");
         storageReferencee = FirebaseStorage.getInstance().getReference("ProductsHome");
 
@@ -113,7 +119,7 @@ public class NouvauProduit extends AppCompatActivity {
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
-
+date=findViewById(R.id.Date_fin);
        date.setOnClickListener(new View.OnClickListener() {
             @Override
            public void onClick(View view) {
@@ -239,13 +245,22 @@ public class NouvauProduit extends AppCompatActivity {
         String ancien = ancienprix.getText().toString();
         String nouveau = nouveauprix.getText().toString();
         String desc = description.getText().toString();
+       if(ancien.isEmpty() || nouveau.isEmpty()){
+           if(nouveau.isEmpty()){
+           nouveauprix.setError("donnez une valeur svp");
+           nouveauprix.requestFocus();}else{
+               ancienprix.setError("donnez une valeur svp");
+               ancienprix.requestFocus();
 
+           }
+
+
+       }else {
         int anc = Integer.parseInt(ancien);
         int neuv = Integer.parseInt(nouveau);
         String idProduct = databaseReferencee.push().getKey();
 
         if (!TextUtils.isEmpty(Nomp) && !TextUtils.isEmpty(ancien) && !TextUtils.isEmpty(nouveau) && !TextUtils.isEmpty(desc)) {
-
 
 
                 if (mImageUri != null) {
@@ -270,7 +285,9 @@ public class NouvauProduit extends AppCompatActivity {
                                     pp.setPrice_ancien(ancien);
                                     pp.setPrice_nouveau(nouveau);
                                     pp.setRating(desc);
+                                    ppp.setIdc(vid);
                                     databaseReference.child(idProduct).setValue(pp);
+                                    databaseReferenceee.child(idProduct).setValue(ppp);
 
 
 
@@ -282,6 +299,7 @@ public class NouvauProduit extends AppCompatActivity {
                                     p.setPrice_nouveau(nouveau);
                                     p.setRating(desc);
                                     databaseReferencee.child(idProduct).setValue(p);
+                                    databaseReferenceeee.child(idProduct).setValue(ppp);
 
 
 
@@ -289,6 +307,7 @@ public class NouvauProduit extends AppCompatActivity {
                             });
 
                         }
+
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
@@ -300,12 +319,11 @@ public class NouvauProduit extends AppCompatActivity {
                     Toast.makeText(this, "erreor", Toast.LENGTH_LONG).show();
                 }
 
-
                 Toast.makeText(this, "save succesufuly", Toast.LENGTH_LONG).show();
 
 
 
-        }
+        }else {
 
 
 
@@ -321,12 +339,12 @@ public class NouvauProduit extends AppCompatActivity {
             nouveauprix.setError("champ vide, veuillez le remplir");
             nouveauprix.requestFocus();
         }
-        if (anc < neuv) {
+        if (anc < neuv ) {
             nouveauprix.setError("le nooueau doit etre inferieure a l'ancien");
             nouveauprix.requestFocus();
         }
 
 
-    }
+    }}}
 }
 
