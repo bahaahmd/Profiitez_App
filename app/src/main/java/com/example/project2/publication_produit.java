@@ -63,6 +63,7 @@ public class publication_produit extends AppCompatActivity {
     TextView price_old,price_new,name,fin_date,nom_vendeur,ouv;
     ImageView favorite;
     ProductHome product;
+    user userClient;
     boolean clicked;
     DatabaseReference vender;
 
@@ -72,7 +73,7 @@ public class publication_produit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        setContentView(R.layout.activity_publication_produit);
+setContentView(R.layout.activity_publication_produit);
         nom_vendeur= findViewById(R.id.nom_vendeur);
         price_old=findViewById(R.id.AncienPrix);
         price_new=findViewById(R.id.NouveauPrix);
@@ -112,14 +113,16 @@ public class publication_produit extends AppCompatActivity {
 
 
         String id=getIntent().getStringExtra("id");
-
+        DatabaseReference usersRefProduct = FirebaseDatabase.getInstance().getReference().child("Products").child(id);
+        String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
 
         getData(id);
         SetImages(id);
-        getComment();
+        getComment(id);
         isExist(id);
+        getuserFromProduct(user);
 
 
         button=findViewById(R.id.btn_appeler);
@@ -209,13 +212,13 @@ public class publication_produit extends AppCompatActivity {
                             SimpleDateFormat simpleDateFormat=new SimpleDateFormat("'Le ' dd/MM 'à' hh:mma");
 
                             //String id=usersRef.push().getKey();
-                            String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
 
                             System.out.println("user "+user);
                             //"-N2Gbkc9C5c-_Z8VcLLv"
-                            getUser(s,usersRef,user,simpleDateFormat.format(date));
+                            getUser(s,usersRef,usersRefProduct,user,simpleDateFormat.format(date));
                             dialog.dismiss();
-                            getComment();
+                            getComment(id);
 
 
 
@@ -264,8 +267,8 @@ public class publication_produit extends AppCompatActivity {
             }
         });
     }
-    void getComment(){
-        database1 = FirebaseDatabase.getInstance().getReference().child("Users");
+    void getComment(String id){
+        database1 = FirebaseDatabase.getInstance().getReference().child("Products").child(id).child("users");
         database1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -313,17 +316,15 @@ public class publication_produit extends AppCompatActivity {
 
 
 
-              //  Map<String, Object> map = (Map<String, Object>) snapshot.getValue();
+                //  Map<String, Object> map = (Map<String, Object>) snapshot.getValue();
 
                 try {
-
-
                     product = snapshot.getValue(ProductHome.class);
                     price_old.setText(product.getPrice_ancien());
                     price_new.setText(product.getPrice_nouveau());
                     fin_date.setText(product.getDate());
                     name.setText(product.getName());
-                   // product= new ProductHome(map.get("id").toString(),map.get("name").toString(),map.get("imageUrl").toString(),map.get("price_ancien").toString(),map.get("price_nouveau").toString(),map.get("date").toString(),map.get("rating").toString());
+                    // product= new ProductHome(map.get("id").toString(),map.get("name").toString(),map.get("imageUrl").toString(),map.get("price_ancien").toString(),map.get("price_nouveau").toString(),map.get("date").toString(),map.get("rating").toString());
 
                 }catch (Exception e){
                     System.out.println("err "+e.getMessage());
@@ -342,12 +343,18 @@ public class publication_produit extends AppCompatActivity {
             }
         });
     }
-    void getUser(String s,DatabaseReference usersRef,String id,String date){
+    void getUser(String s,DatabaseReference usersRef,DatabaseReference usersRefProduct,String id,String date ){
         usersRef.child(id).child("date").setValue(date);
         usersRef.child(id).child("commentaire").setValue(s);
+        usersRefProduct.child("users").child(id).child("commentaire").setValue(s);
+        usersRefProduct.child("users").child(id).child("date").setValue(date);
+        usersRefProduct.child("users").child(id).child("image").setValue(userClient.getImage());
+        usersRefProduct.child("users").child(id).child("userName").setValue(userClient.getUserName());
+
 
 
     }
+
 
     void getFov(ProductHome product,String id){
         String idV = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -390,6 +397,40 @@ public class publication_produit extends AppCompatActivity {
 
     }
 
+
+    void getuserFromProduct(String id){
+        database=FirebaseDatabase.getInstance().getReference("Users").child(id);;
+        database.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+
+                //  Map<String, Object> map = (Map<String, Object>) snapshot.getValue();
+
+                try {
+                    userClient = snapshot.getValue(user.class);
+
+                    // product= new ProductHome(map.get("id").toString(),map.get("name").toString(),map.get("imageUrl").toString(),map.get("price_ancien").toString(),map.get("price_nouveau").toString(),map.get("date").toString(),map.get("rating").toString());
+
+                }catch (Exception e){
+                    System.out.println("err "+e.getMessage());
+                }
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("The read failed: " + error.getCode());
+
+
+            }
+        });
+    }
 
 
 }

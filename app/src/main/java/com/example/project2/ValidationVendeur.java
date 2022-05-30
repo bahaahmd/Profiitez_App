@@ -42,7 +42,9 @@ DatabaseReference vender;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_validation_vendeur);
+
         vender= FirebaseDatabase.getInstance().getReference("Users").child("Venders");
+
         nom=findViewById(R.id.Nom_market);
         loc=findViewById(R.id.Localisation);
         num=findViewById(R.id.Numero_market);
@@ -142,6 +144,7 @@ DatabaseReference vender;
         String vid = id.getUid();
 
         if(!TextUtils.isEmpty(nomMarket) && !TextUtils.isEmpty(localisation) && !TextUtils.isEmpty(numero) && !TextUtils.isEmpty(heureOuverture) && !TextUtils.isEmpty(heureFermeture) ){
+
         Market m=new Market(nomMarket,localisation,numero,heureFermeture,heureOuverture,vid);
         vender.child(vid).setValue(m);
             startActivity(new Intent (ValidationVendeur.this,ActivityVendeur.class));

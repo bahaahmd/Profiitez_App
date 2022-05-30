@@ -59,11 +59,25 @@ public class security_setting_client extends AppCompatActivity implements View.O
                 edt2.getText().clear();
             }
         });
+        imageView=(ImageView) findViewById(R.id.arriere);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivity();
+            }
+
+            public void openActivity() {
+                Intent intent=new Intent(security_setting_client.this,account_setting_client.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
         super.onPointerCaptureChanged(hasCapture);
     }
+
 }
 

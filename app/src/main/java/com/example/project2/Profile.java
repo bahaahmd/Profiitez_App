@@ -32,7 +32,7 @@ import Adapter.ProfileAdapter;
 
 
 public class Profile extends Fragment {
-
+ImageView img;
     ListView listView;
     String nom[] = {"Favourites", "Settings", "Rate us", "Refer a Friend", "Help", "Log Out"};
     int image[] = {R.drawable.heart_client, R.drawable.setting_client, R.drawable.rate_us_client, R.drawable.share_client, R.drawable.question_client, R.drawable.log_out_client};
@@ -59,7 +59,7 @@ public class Profile extends Fragment {
                              Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.client_profil, container, false);
         listView = (ListView) view.findViewById(R.id.list_view);
-        imageView=(ImageView) view.findViewById(R.id.editproffil);
+        img=(ImageView) view.findViewById(R.id.editproffil);
         imageView = view.findViewById(R.id.imageView);
         nomClient=view.findViewById(R.id.textView2);
         emailClient=view.findViewById(R.id.textView);
@@ -67,18 +67,24 @@ public class Profile extends Fragment {
         ProfileAdapter profileAdapter = new ProfileAdapter(getActivity(), nom, image);
         listView.setAdapter(profileAdapter);
 
-       /* listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.i("ic_ssetting", "item is clicked @ Position::" + i);
                 if (i == 1) {
-                    startActivity(new Intent(getActivity(), settings_client.class));
+                    startActivity(new Intent(getActivity(), setting_client.class));
 
-                } else {
-                    if (i == 5) {
-                        show();
+                } else if(i==5){
+
+                    show();
+
+
+
+                }
+                else {
+                    if(i==0){
+                        startActivity(new Intent(getActivity(), FavoriteActivity.class));
                     }
-
                 }
             }
 
@@ -116,12 +122,18 @@ public class Profile extends Fragment {
             }
 
 
-        });*/
+        });
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), edit_profil_client.class));
+            }
+        });
 
 
         return view;
 
-    }    void getdata(){
+    }    void getdata() {
         String idV = FirebaseAuth.getInstance().getCurrentUser().getUid();
         database = FirebaseDatabase.getInstance().getReference().child("Users").child(idV);
         database.addValueEventListener(new ValueEventListener() {
@@ -129,14 +141,14 @@ public class Profile extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 try {
                     System.out.println("here client ");
-                    user  client = snapshot.getValue(user.class);
+                    user client = snapshot.getValue(user.class);
                     nomClient.setText(client.getUserName());
                     Picasso.get().load(client.getImage()).into(imageView);
                     emailClient.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
 
-                }catch (Exception e){
-                    System.out.println("err "+e.getMessage());
+                } catch (Exception e) {
+                    System.out.println("err " + e.getMessage());
                 }
             }
 
@@ -146,8 +158,7 @@ public class Profile extends Fragment {
             }
         });
 
-
-
-
     }
+
+
 }

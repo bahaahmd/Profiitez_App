@@ -5,15 +5,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
-
 import android.content.ContentResolver;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -49,34 +46,35 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
-
-
-
 public class NouvauProduit extends AppCompatActivity {
-
-    EditText nom, ancienprix, nouveauprix, description, categorie;
+    EditText nom,ancienprix,nouveauprix,description;
     Button valide;
     ImageView bck;
+
     TextView date;
     DatePickerDialog.OnDateSetListener setListener;
     int i = 0;
     Product p = new Product();
     ProductHome pp = new ProductHome();
 Producti ppp=new Producti();
+
+
+
+
     ImageSlider imageSlider;
     List<SlideModel> slide;
-    TextView compteur, compteur2, compteur3;
+    TextView compteur,compteur2,compteur3;
     LottieAnimationView lotie;
     String urlP;
     DatabaseReference databaseReference, databaseReferencee,databaseReferenceee,databaseReferenceeee;
     StorageReference storageReference, storageReferencee;
     Uri mImageUri;
     HashMap<String, String> H = new HashMap<>();
-    ProgressBar mProgressBar;
     StorageTask tt;
 
     FirebaseUser id = FirebaseAuth.getInstance().getCurrentUser();
@@ -95,23 +93,21 @@ Producti ppp=new Producti();
         storageReferencee = FirebaseStorage.getInstance().getReference("ProductsHome");
 
         setContentView(R.layout.activity_nouvau_produit);
-        categorie = findViewById(R.id.categorie);
-        nom = findViewById(R.id.nom_produit);
-        ancienprix = findViewById(R.id.ancien_prix);
-        nouveauprix = findViewById(R.id.Nouveau_prix);
-
-        description = findViewById(R.id.description);
-        valide = findViewById(R.id.button_valide);
-        bck = findViewById(R.id.arriere);
-        lotie = findViewById(R.id.plus);
-        imageSlider = findViewById(R.id.image_slider);
-        compteur = findViewById(R.id.cpt);
-        compteur2 = findViewById(R.id.cpt_nom);
-        compteur3 = findViewById(R.id.cpt_descrp);
-        slide = new ArrayList<>();
+        nom=findViewById(R.id.nom_produit);
+        ancienprix=findViewById(R.id.ancien_prix);
+        nouveauprix=findViewById(R.id.Nouveau_prix);
+        description=findViewById(R.id.description);
+        valide=findViewById(R.id.button_valide);
+        bck=findViewById(R.id.arriere);
+        lotie=findViewById(R.id.plus);
+        imageSlider=findViewById(R.id.image_slider);
+        compteur=findViewById(R.id.cpt);
+        compteur2=findViewById(R.id.cpt_nom);
+        compteur3=findViewById(R.id.cpt_descrp);
+        slide=new ArrayList<>();
         lotie.playAnimation();
-
         slide.clear();
+
 
 
 
@@ -139,21 +135,18 @@ date=findViewById(R.id.Date_fin);
             }
         };
 
-
-
-
         bck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(NouvauProduit.this, ActivityVendeur.class));
+                startActivity(new Intent(NouvauProduit.this,ActivityVendeur.class));
             }
         });
 
         lotie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                startActivityForResult(intent, 100);
+                Intent intent=new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                startActivityForResult(intent,100);
 
             }
 
@@ -169,7 +162,7 @@ date=findViewById(R.id.Date_fin);
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                compteur2.setText(String.valueOf(s.length()) + "/20");
+                compteur2.setText(String.valueOf(s.length())+"/20");
             }
 
             @Override
@@ -177,6 +170,7 @@ date=findViewById(R.id.Date_fin);
 
             }
         });
+
 
 
         description.addTextChangedListener(new TextWatcher() {
@@ -187,7 +181,7 @@ date=findViewById(R.id.Date_fin);
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                compteur3.setText(String.valueOf(s.length()) + "/40");
+                compteur3.setText(String.valueOf(s.length())+"/40");
             }
 
             @Override
@@ -205,6 +199,7 @@ date=findViewById(R.id.Date_fin);
         });
 
     }
+
 
 
     @Override
@@ -240,7 +235,6 @@ date=findViewById(R.id.Date_fin);
 
 
         //  String datee = date.getText().toString();
-        String Categorie = categorie.getText().toString();
         String Nomp = nom.getText().toString();
         String ancien = ancienprix.getText().toString();
         String nouveau = nouveauprix.getText().toString();
@@ -261,7 +255,8 @@ date=findViewById(R.id.Date_fin);
         String idProduct = databaseReferencee.push().getKey();
 
         if (!TextUtils.isEmpty(Nomp) && !TextUtils.isEmpty(ancien) && !TextUtils.isEmpty(nouveau) && !TextUtils.isEmpty(desc)) {
-
+            Intent intent=new Intent(NouvauProduit.this,ActivityVendeur.class);
+            startActivity(intent);
 
                 if (mImageUri != null) {
                     StorageReference fileRefrence = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
@@ -325,26 +320,29 @@ date=findViewById(R.id.Date_fin);
 
         }else {
 
+            if (slide.size() == 0) {
+                Toast.makeText(this, "veuillez remplir le champ de photo avec au moins une photo", Toast.LENGTH_LONG).show();
+            } else if (Nomp.isEmpty()) {
+                nom.setError("champ vide, veuillez le remplir");
+                nom.requestFocus();
+            } else if (ancien.isEmpty()) {
+                ancienprix.setError("champ vide, veuillez le remplir");
+                ancienprix.requestFocus();
+            } else if (nouveau.isEmpty()) {
+                nouveauprix.setError("champ vide, veuillez le remplir");
+                nouveauprix.requestFocus();
+            }
+            if (anc < neuv) {
+                nouveauprix.setError("le nooueau doit etre inferieure a l'ancien");
+                nouveauprix.requestFocus();
+            }
 
 
-        if (slide.size() == 0) {
-            Toast.makeText(this, "veuillez remplir le champ de photo avec au moins une photo", Toast.LENGTH_LONG).show();
-        } else if (Nomp.isEmpty()) {
-            nom.setError("champ vide, veuillez le remplir");
-            nom.requestFocus();
-        } else if (ancien.isEmpty()) {
-            ancienprix.setError("champ vide, veuillez le remplir");
-            ancienprix.requestFocus();
-        } else if (nouveau.isEmpty()) {
-            nouveauprix.setError("champ vide, veuillez le remplir");
-            nouveauprix.requestFocus();
         }
-        if (anc < neuv ) {
-            nouveauprix.setError("le nooueau doit etre inferieure a l'ancien");
-            nouveauprix.requestFocus();
-        }
-
-
-    }}}
 }
 
+
+    }
+
+
+}
