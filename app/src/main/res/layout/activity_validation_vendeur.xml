@@ -86,7 +86,7 @@
                 android:background="@drawable/edittext_border_vendur"
                 android:padding="10dp"
                 android:hint="Localisation"
-
+                android:focusable="false"
                 android:gravity="start"
                 android:textColorHint="@color/grey"
                 android:fontFamily="@font/poppins_regular"

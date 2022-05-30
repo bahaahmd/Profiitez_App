@@ -168,7 +168,6 @@ public class ValidationVendeur extends AppCompatActivity implements LocationList
             @Override
             public void onClick(View view) {
                 createMarket();
-
             }
         });
 
@@ -200,7 +199,9 @@ public class ValidationVendeur extends AppCompatActivity implements LocationList
         } else if (numero.length() < 10) {
             num.setError("numéro de téléphone doit contenir 10 chiffres");
         }
-        else  startActivity(new Intent (ValidationVendeur.this,ActivityVendeur.class));
+        else
+            startActivity(new Intent (ValidationVendeur.this,ActivityVendeur.class));
+
 
 
     }
