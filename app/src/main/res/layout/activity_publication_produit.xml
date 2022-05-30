@@ -39,7 +39,15 @@
                 android:background="@drawable/publication_card"
                 android:elevation="60dp">
 
-
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="3dp"
+                    android:layout_marginStart="20dp"
+                    android:background="@color/grey"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.315" />
 
                 <TextView
                     android:id="@+id/AncienPrix"
@@ -180,16 +188,16 @@
                     android:id="@+id/btn_appeler"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="15dp"
                     android:layout_toStartOf="@+id/local_btn"
                     android:background="@drawable/border_button_publication"
                     android:drawableLeft="@drawable/ic_baseline_call_24"
                     android:drawablePadding="5dp"
                     android:paddingHorizontal="5dp"
                     android:text="Appeler"
+                    android:layout_marginEnd="10dp"
                     android:textAllCaps="false"
-                    android:textSize="15sp" />
+                    android:textSize="18sp" />
 
                 <Button
                     android:id="@+id/local_btn"
@@ -199,25 +207,25 @@
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/border_button_publication"
                     android:drawableLeft="@drawable/ic_baseline_location_on_24"
-                    android:drawablePadding="5dp"
                     android:paddingHorizontal="5dp"
+                    android:drawablePadding="5dp"
                     android:text="Localisation"
                     android:textAllCaps="false"
-                    android:textSize="15sp" />
+                    android:textSize="18sp" />
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/local_btn"
                     android:layout_marginStart="10dp"
-                    android:layout_marginEnd="2dp"
+                    android:layout_marginEnd="15dp"
                     android:background="@drawable/border_button_publication"
                     android:drawableLeft="@drawable/ic_baseline_share_24"
                     android:drawablePadding="5dp"
                     android:paddingHorizontal="5dp"
                     android:text="Partager"
                     android:textAllCaps="false"
-                    android:textSize="15sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/txt_noter"
