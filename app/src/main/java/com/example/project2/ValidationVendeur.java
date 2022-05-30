@@ -33,7 +33,6 @@ EditText nom,loc,num;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_validation_vendeur);
-
         nom=findViewById(R.id.Nom_market);
         loc=findViewById(R.id.Localisation);
         num=findViewById(R.id.Numero_market);
