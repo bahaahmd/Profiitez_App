@@ -3,13 +3,18 @@ package com.example.project2;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -48,13 +53,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
+
 public class publication_produit extends AppCompatActivity {
 
     RecyclerView recView;
     LinearLayoutManager linearLayoutManager;
     RatingBar ratingBar;
     FirebaseAuth mAuth;
-    Button button;
+    Button button,local;
     DatabaseReference database,database1;
     userAdapter Uadapter;
     ImageSlider imageSlider;
@@ -76,6 +83,7 @@ public class publication_produit extends AppCompatActivity {
 setContentView(R.layout.activity_publication_produit);
         nom_vendeur= findViewById(R.id.nom_vendeur);
         price_old=findViewById(R.id.AncienPrix);
+        price_old.setPaintFlags(price_old.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
         price_new=findViewById(R.id.NouveauPrix);
         name=findViewById(R.id.article);
         fin_date=findViewById(R.id.jusqua);
@@ -123,7 +131,7 @@ setContentView(R.layout.activity_publication_produit);
         getComment(id);
         isExist(id);
         getuserFromProduct(user);
-
+        local=findViewById(R.id.local_btn);
 
         button=findViewById(R.id.btn_appeler);
         favorite.setOnClickListener(new View.OnClickListener() {

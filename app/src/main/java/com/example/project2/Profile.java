@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,7 +33,7 @@ import Adapter.ProfileAdapter;
 
 
 public class Profile extends Fragment {
-ImageView img;
+    ImageView img;
     ListView listView;
     String nom[] = {"Favourites", "Settings", "Rate us", "Refer a Friend", "Help", "Log Out"};
     int image[] = {R.drawable.heart_client, R.drawable.setting_client, R.drawable.rate_us_client, R.drawable.share_client, R.drawable.question_client, R.drawable.log_out_client};
@@ -43,7 +44,8 @@ ImageView img;
 
     TextView nomClient,emailClient;
     DatabaseReference database;
-    FirebaseAuth mAuth;
+    FirebaseAuth     mAuth;
+    FirebaseUser    user;
 
 
     @Override
@@ -52,6 +54,7 @@ ImageView img;
         getdata();
 
     }
+
 
 
     @Override
@@ -67,7 +70,7 @@ ImageView img;
         ProfileAdapter profileAdapter = new ProfileAdapter(getActivity(), nom, image);
         listView.setAdapter(profileAdapter);
 
-       listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.i("ic_ssetting", "item is clicked @ Position::" + i);
@@ -99,10 +102,11 @@ ImageView img;
                 view.findViewById(R.id.buttonactionyes).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        logout();
+                        checkUser();
                         alertDialog.dismiss();
 
-                        Intent intent = new Intent(getActivity(), essai.class);
-                        startActivity(intent);
+
                     }
 
                 });
@@ -158,6 +162,19 @@ ImageView img;
             }
         });
 
+    }
+    void logout(){
+        mAuth=FirebaseAuth.getInstance();
+
+        mAuth.signOut();
+    }
+    public void checkUser() {
+
+        mAuth=FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user == null){
+            startActivity(new Intent(getActivity(), Identification.class));
+        }
     }
 
 

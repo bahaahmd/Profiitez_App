@@ -111,6 +111,7 @@ Producti ppp=new Producti();
 
 
 
+
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
@@ -282,7 +283,7 @@ date=findViewById(R.id.Date_fin);
                                     pp.setRating(desc);
                                     ppp.setIdc(vid);
                                     databaseReference.child(idProduct).setValue(pp);
-                                    databaseReferenceee.child(idProduct).setValue(ppp);
+                                   // databaseReferenceee.child(idProduct).setValue(ppp);
 
 
 
@@ -294,7 +295,7 @@ date=findViewById(R.id.Date_fin);
                                     p.setPrice_nouveau(nouveau);
                                     p.setRating(desc);
                                     databaseReferencee.child(idProduct).setValue(p);
-                                    databaseReferenceeee.child(idProduct).setValue(ppp);
+                                   // databaseReferenceeee.child(idProduct).setValue(ppp);
 
 
 
