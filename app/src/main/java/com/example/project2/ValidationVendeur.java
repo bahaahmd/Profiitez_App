@@ -61,7 +61,6 @@ public class ValidationVendeur extends AppCompatActivity implements LocationList
     EditText nom, loc, num;
     DatabaseReference vender;
     LocationManager locationManager;
-    double latitude,longitude;
 
 
     @Override
@@ -240,16 +239,18 @@ public class ValidationVendeur extends AppCompatActivity implements LocationList
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
-        try{
-            Geocoder geocoder=new Geocoder(ValidationVendeur.this,Locale.getDefault());
-            latitude=location.getLatitude();
-            longitude=location.getLongitude();
+            try {
+                Geocoder geocoder=new Geocoder(ValidationVendeur.this,Locale.getDefault());
+                double latitude=location.getLatitude();
+                double longitude=location.getLongitude();
+                List<Address> add=geocoder.getFromLocation(latitude,longitude,1);
+                loc.setText(add.get(0).getLocality()+", " + add.get(0).getAdminArea());
+                loc.setEnabled(false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-            List<Address> addresses=geocoder.getFromLocation(latitude,longitude,1);
-            loc.setText(addresses.get(0).getLocality()+", " + addresses.get(0).getAdminArea());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
 
 
     }
