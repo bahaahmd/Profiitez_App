@@ -7,6 +7,12 @@
     />
 
     <item
+        android:id="@+id/archive_vendeur"
+        android:title="Notification"
+        android:icon="@drawable/ic__867859_archive_icon"
+        />
+
+    <item
         android:id="@+id/notification_vendeur"
         android:title="Notification"
         android:icon="@drawable/ic_bell"

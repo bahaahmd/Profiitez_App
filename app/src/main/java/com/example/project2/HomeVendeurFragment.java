@@ -23,13 +23,14 @@ import java.util.ArrayList;
 
 import Adapter.NewsAdapter;
 import Adapter.PopularAdapter;
+import Adapter.RecyclerViewInterface;
 import Adapter.VendeurAdapter;
 
 
- public class HomeVendeurFragment extends Fragment {
+ public class HomeVendeurFragment extends Fragment implements RecyclerViewInterface {
      RecyclerView recyclerView;
      VendeurAdapter adapter;
-     ArrayList<Product> list;
+     ArrayList<ProductHome> list;
      CardView nouvau;
      ImageView mrkt;
 
@@ -61,11 +62,11 @@ mrkt=view.findViewById(R.id.ic_home);
 
 
      }
-     private void setVendeurrRecycler(ArrayList<Product> list)
+     private void setVendeurrRecycler(ArrayList<ProductHome> list)
      {
          RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false);
          recyclerView.setLayoutManager(layoutManager);
-         adapter=new VendeurAdapter(getContext(),list);
+         adapter=new VendeurAdapter(getContext(),list,this);
          recyclerView.setAdapter(adapter);
 
      }
@@ -74,11 +75,15 @@ mrkt=view.findViewById(R.id.ic_home);
      public void onCreate(@Nullable Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
          list = new ArrayList<>();
-//         list.add(new Product("Sneakers", R.drawable.sneakers, "7000 DA", "4000 DA", "Jusqu'au 25 Mai", "Good"));
-//         list.add(new Product("Super-Star", R.drawable.star, "7000 DA", "4000 DA", "Jusqu'au 25 Mai", "Good"));
-//         list.add(new Product("Sneakers", R.drawable.sneakers, "7000 DA", "4000 DA", "Jusqu'au 25 Mai", "Good"));
-//         list.add(new Product("Super-Star", R.drawable.star, "7000 DA", "4000 DA", "Jusqu'au 25 Mai", "Good"));
-//         list.add(new Product("Sneakers", R.drawable.sneakers, "7000 DA", "4000 DA", "Jusqu'au 25 Mai", "Good"));
-     }
+}
+
+     @Override
+     public void onItemClickP(int position) {
 
      }
+
+     @Override
+     public void onItemClickN(int position) {
+
+     }
+ }

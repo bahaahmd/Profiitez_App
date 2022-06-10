@@ -13,19 +13,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.project2.Product;
+import com.example.project2.ProductHome;
 import com.example.project2.R;
 
 import java.util.ArrayList;
 
 public class VendeurAdapter extends RecyclerView.Adapter<VendeurAdapter.ProduitVendeurViewHolder> {
-
+    private final RecyclerViewInterface recyclerViewInterface;
     Context context;
-    ArrayList<Product> ProductVendeur =new ArrayList();
+    ArrayList<ProductHome> ProductVendeur ;
 
-    public VendeurAdapter(Context context, ArrayList<Product> list )
+    public VendeurAdapter(Context context, ArrayList<ProductHome> list,RecyclerViewInterface recyclerViewInterface )
     {
         this.context=context;
         this.ProductVendeur =list;
+        this.recyclerViewInterface=recyclerViewInterface;
     }
 
     @NonNull

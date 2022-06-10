@@ -34,7 +34,9 @@ public class ActivityVendeur extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.Home_vendeur:
                         fragment = new HomeVendeurFragment();
-
+                        break;
+                    case R.id.archive_vendeur:
+                        fragment = new ArchiveFragment();
                         break;
                     case R.id.Profile_vendeur:
                         fragment = new Profile();
