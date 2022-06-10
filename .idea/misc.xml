@@ -153,20 +153,29 @@
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable-v24/ic_baseline_call_24.xml" value="0.121" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable-v24/ic_baseline_location_on_24.xml" value="0.121" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable-v24/publication_gradient.xml" value="0.121" />
+        <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable/ic__11754_heart_icon.xml" value="0.191" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable/ic__add_photo.xml" value="0.188" />
+        <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable/ic__alert_empty.xml" value="0.191" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable/ic__empty_heart.xml" value="0.188" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable/ic__plus.xml" value="0.1695" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable/ic__profile_colored.xml" value="0.1695" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable/ic_baseline_library_add_24.xml" value="0.1695" />
+        <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable/ic_baseline_notifications_24.xml" value="0.1" />
+        <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable/ic_baseline_turned_in_24.xml" value="0.191" />
+        <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable/ic_baseline_turned_in_not_24.xml" value="0.191" />
+        <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable/ic_heart__3_.xml" value="0.191" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/drawable/publication_card.xml" value="0.188" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/layout/activity_nouvau_produit.xml" value="0.25" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/layout/activity_publication_produit.xml" value="0.25" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/layout/activity_validation_vendeur.xml" value="0.25" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/layout/activity_vendeur.xml" value="0.1" />
+        <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/layout/client_profil.xml" value="0.25" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/layout/dialog_layout_client.xml" value="0.25" />
+        <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/layout/edit_profil_client.xml" value="0.25" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/layout/fragment_home_fragement.xml" value="0.25" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/layout/fragment_home_vendeur.xml" value="0.25" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/layout/fragment_search.xml" value="0.25" />
+        <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/layout/inscription.xml" value="0.25" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/layout/listitem.xml" value="0.10989583333333333" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/layout/onrate.xml" value="0.25" />
         <entry key="..\:/Users/tguez/Profiitez_App/app/src/main/res/layout/vendeur_post.xml" value="0.25" />
