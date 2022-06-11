@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ProduitViewHolder> {
     private final RecyclerViewInterface recyclerViewInterface;
     Context context;
-    ArrayList<ProductHome> ProductFavoriteListe=new ArrayList();
+    ArrayList<ProductHome> ProductFavoriteListe;
 
 
     public FavoriteAdapter(Context context, ArrayList<ProductHome> list,RecyclerViewInterface recyclerViewInterface )
@@ -39,11 +39,11 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Produi
     @Override
     public void onBindViewHolder(@NonNull ProduitViewHolder holder, int position) {
         holder.name.setText(ProductFavoriteListe.get(position).getName());
-       /* holder.date.setText(ProductFavoriteListe.get(position).getDate());
+        holder.date.setText(ProductFavoriteListe.get(position).getDate());
         // holder.ProductImage.setImageResource(ProductFavoriteListe.get(position).getImageUrl());
         Glide.with(context).asBitmap().load(ProductFavoriteListe.get(position).getImageUrl()).into(holder.ProductImage);
         holder.price_old.setText(ProductFavoriteListe.get(position).getPrice_ancien());
-        holder.price_new.setText(ProductFavoriteListe.get(position).getPrice_nouveau());*/
+        holder.price_new.setText(ProductFavoriteListe.get(position).getPrice_nouveau());
     }
 
 

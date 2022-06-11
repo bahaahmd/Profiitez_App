@@ -32,7 +32,6 @@ public class FavoriteActivity extends AppCompatActivity implements RecyclerViewI
     ArrayList<ProductHome>fav_list;
     DatabaseReference databaseReference;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

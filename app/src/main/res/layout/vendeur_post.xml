@@ -73,16 +73,17 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/medium"/>
+
         <ImageView
             android:id="@+id/trash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_below="@id/AncienPrix_vendeur"
+            android:layout_alignParentEnd="true"
 
-            android:layout_marginBottom="5dp"
             android:layout_marginEnd="15dp"
-            android:src="@drawable/ic__trash"/>
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/ic__trash" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

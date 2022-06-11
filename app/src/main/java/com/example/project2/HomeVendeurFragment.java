@@ -76,7 +76,13 @@ mrkt=view.findViewById(R.id.ic_home);
          super.onCreate(savedInstanceState);
          list = new ArrayList<>();
 
+
 }
+public void removeItem(int pos){
+         list.remove(pos);
+         adapter.notifyItemRemoved(pos);
+
+     }
 
      @Override
      public void onItemClickP(int position) {
@@ -85,6 +91,8 @@ mrkt=view.findViewById(R.id.ic_home);
 
      @Override
      public void onItemClickN(int position) {
+         removeItem(position);
+
 
      }
  }
