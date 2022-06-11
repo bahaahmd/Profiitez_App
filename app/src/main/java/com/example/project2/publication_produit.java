@@ -68,10 +68,10 @@ public class publication_produit extends AppCompatActivity {
     LottieAnimationView lottieAnimationView;
     ArrayList<user> userComment=new ArrayList<>();
     TextView price_old,price_new,name,fin_date,nom_vendeur,ouv;
-    ImageView favorite;
+    ImageView favorite,alert;
     ProductHome product;
     user userClient;
-    boolean clicked;
+    boolean clicked,clickedAlert;
     DatabaseReference vender;
 
 
@@ -92,6 +92,22 @@ setContentView(R.layout.activity_publication_produit);
         ratingBar=findViewById(R.id.rating_bar);
         lottieAnimationView=findViewById(R.id.loti);
         favorite=findViewById(R.id.favorite_image);
+        alert=findViewById(R.id.alert_image);
+
+        alert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!clickedAlert){
+                    clickedAlert=true;
+                    alert.setImageResource(R.drawable.ic_baseline_turned_in_24);
+
+                }
+                else {
+                    clickedAlert=false;
+                    alert.setImageResource(R.drawable.ic_baseline_turned_in_not_24);
+                }
+            }
+        });
         vender=FirebaseDatabase.getInstance().getReference("Users").child("Venders");
         FirebaseUser idc = FirebaseAuth.getInstance().getCurrentUser();
         String vid = idc.getUid();
