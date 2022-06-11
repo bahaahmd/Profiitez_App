@@ -101,7 +101,7 @@ public class Inscription extends AppCompatActivity {
 
 
                         Toast.makeText(Inscription.this, "User registered successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(Inscription.this, Identification.class));
+                        startActivity(new Intent(Inscription.this, HomePage.class));
                     } else {
                         Toast.makeText(Inscription.this, "Inscription Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }

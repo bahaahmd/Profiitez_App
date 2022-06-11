@@ -27,38 +27,46 @@ import Adapter.RecyclerViewInterface;
 
 
 public class ArchiveFragment extends Fragment implements RecyclerViewInterface {
-RecyclerView recyclerView;
-        ArrayList<ProductHome> list=new ArrayList<>();
-        FavoriteAdapter adapter;
+
+
+        
+     
     FirebaseUser id = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference databaseReference;
 
     String vid = id.getUid();
+
+RecyclerView recyclerView1;
+ArrayList<ProductHome> list1;
+FavoriteAdapter adapter1;
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=LayoutInflater.from(getContext()).inflate(R.layout.fragment_archive, container, false);
-                recyclerView=(RecyclerView) view.findViewById(R.id.recview_archive);
-        list=new ArrayList<>();
-        setArchiveRecycler(list);
+       recyclerView1= view.findViewById(R.id.recview_archive);
+        setArchiveRecycler(list1);
+
         return view;
     }
+
+
+
     private void setArchiveRecycler(ArrayList<ProductHome> list)
     {
+
         RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter=new FavoriteAdapter(getContext(),list,this);
-        recyclerView.setAdapter(adapter);
+        
+        
 
-    }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        databaseReference= FirebaseDatabase.getInstance().getReference("ProductsHome");
+        recyclerView1.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter1 =new FavoriteAdapter(getContext(),list,this);
+        recyclerView1.setAdapter(adapter1);
+      
+          databaseReference= FirebaseDatabase.getInstance().getReference("ProductsHome");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -89,8 +97,22 @@ RecyclerView recyclerView;
 
 
 
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
 
+    
+
+
+
+
+        list1 = new ArrayList<>();
+
+
+    }
 
     @Override
     public void onItemClickP(int position) {
@@ -101,4 +123,11 @@ RecyclerView recyclerView;
     public void onItemClickN(int position) {
 
     }
+
+
+
+
+
+
+
 }

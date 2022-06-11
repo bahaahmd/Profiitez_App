@@ -124,21 +124,8 @@ mrkt=view.findViewById(R.id.ic_home);
          recyclerView.setLayoutManager(layoutManager);
          adapter=new VendeurAdapter(getContext(),list,this);
          recyclerView.setAdapter(adapter);
-
-     }
-
-
-
-
-
-     @Override
-     public void onCreate(@Nullable Bundle savedInstanceState) {
-
-
-         super.onCreate(savedInstanceState);
-
-
-         databaseReference= FirebaseDatabase.getInstance().getReference("ProductsHome");
+       
+       databaseReference= FirebaseDatabase.getInstance().getReference("ProductsHome");
          databaseReference.addValueEventListener(new ValueEventListener() {
              @Override
              public void onDataChange(DataSnapshot dataSnapshot) {
@@ -165,6 +152,25 @@ mrkt=view.findViewById(R.id.ic_home);
              }
          });
 
+     }
+
+
+
+
+
+     @Override
+     public void onCreate(@Nullable Bundle savedInstanceState) {
+
+
+         super.onCreate(savedInstanceState);
+
+
+
+         
+
+
+
+         list = new ArrayList<>();
 
 
 }
