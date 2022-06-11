@@ -11,6 +11,8 @@ public class Product {
     private String price_nouveau;
     private String date;
     private String rating;
+    private String idv;
+    private Vendeur v;
 
 
 
@@ -20,7 +22,7 @@ public class Product {
     }
 
 
-    public Product(String id,String name, HashMap<String,String> imageUrl, String price_ancien, String price_nouveau, String date, String rating) {
+    public Product(String id,String name, HashMap<String,String> imageUrl, String price_ancien, String price_nouveau, String date, String rating,String idv,Vendeur v) {
         this.id=id;
         this.name = name;
         this.imageUrl = imageUrl;
@@ -28,6 +30,16 @@ public class Product {
         this.price_nouveau = price_nouveau;
         this.date = date;
         this.rating = rating;
+        this.idv=idv;
+        this.v=v;
+    }
+
+    public Vendeur getV() {
+        return v;
+    }
+
+    public void setV(Vendeur v) {
+        this.v = v;
     }
 
     public String getId() {
@@ -84,5 +96,13 @@ public class Product {
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+
+    public String getIdv() {
+        return idv;
+    }
+
+    public void setIdv(String idv) {
+        this.idv = idv;
     }
 }

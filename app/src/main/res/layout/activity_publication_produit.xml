@@ -40,7 +40,6 @@
                 android:elevation="60dp">
 
 
-
                 <TextView
                     android:id="@+id/AncienPrix"
                     android:layout_width="wrap_content"

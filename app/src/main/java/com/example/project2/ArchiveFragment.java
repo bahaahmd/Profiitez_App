@@ -7,21 +7,33 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
-import Adapter.ArchiveAdapter;
+import Adapter.FavoriteAdapter;
 import Adapter.RecyclerViewInterface;
-import Adapter.VendeurAdapter;
 
 
 public class ArchiveFragment extends Fragment implements RecyclerViewInterface {
 RecyclerView recyclerView;
-        ArrayList<ProductHome> list;
-        ArchiveAdapter adapter;
+        ArrayList<ProductHome> list=new ArrayList<>();
+        FavoriteAdapter adapter;
+    FirebaseUser id = FirebaseAuth.getInstance().getCurrentUser();
+    DatabaseReference databaseReference;
+
+    String vid = id.getUid();
 
 
     @Override
@@ -37,7 +49,7 @@ RecyclerView recyclerView;
     {
         RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false);
         recyclerView.setLayoutManager(layoutManager);
-        adapter=new ArchiveAdapter(getContext(),list,this);
+        adapter=new FavoriteAdapter(getContext(),list,this);
         recyclerView.setAdapter(adapter);
 
     }
@@ -45,7 +57,34 @@ RecyclerView recyclerView;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        list = new ArrayList<>();
+
+        databaseReference= FirebaseDatabase.getInstance().getReference("ProductsHome");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                for(DataSnapshot d:dataSnapshot.getChildren()){
+                    ProductHome p=d.getValue(ProductHome.class);
+
+                    if(vid.equals(p.getIdv())){
+                        list.add(p);
+                    }
+
+                }
+                System.out.println(list.size());
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("jhj", "loadPost:onCancelled", databaseError.toException());
+            }
+        });
     }
 
 

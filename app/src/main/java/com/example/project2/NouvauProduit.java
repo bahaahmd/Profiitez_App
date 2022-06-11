@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -33,8 +34,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -52,16 +56,17 @@ import java.util.HashMap;
 import java.util.List;
 
 public class NouvauProduit extends AppCompatActivity {
-    EditText nom,ancienprix,nouveauprix,description;
+    EditText nom,nomm,ancienprix,nouveauprix,description;
     Button valide;
     ImageView bck;
+    Vendeur v=new Vendeur();
 
-    TextView date;
+    TextView date,close,open;
     DatePickerDialog.OnDateSetListener setListener;
     int i = 0;
     Product p = new Product();
     ProductHome pp = new ProductHome();
-Producti ppp=new Producti();
+
 
 
 
@@ -71,8 +76,8 @@ Producti ppp=new Producti();
     TextView compteur,compteur2,compteur3;
     LottieAnimationView lotie;
     String urlP;
-    DatabaseReference databaseReference, databaseReferencee,databaseReferenceee,databaseReferenceeee;
-    StorageReference storageReference, storageReferencee;
+    DatabaseReference databaseReference, databaseReferencee,archive,user;
+    StorageReference storageReference, storageReferencee,archives;
     Uri mImageUri;
     HashMap<String, String> H = new HashMap<>();
     StorageTask tt;
@@ -87,8 +92,10 @@ Producti ppp=new Producti();
 
         databaseReferencee = FirebaseDatabase.getInstance().getReference("Products");
         databaseReference = FirebaseDatabase.getInstance().getReference("ProductsHome");
-        databaseReferenceee = FirebaseDatabase.getInstance().getReference("Products").child("VenderId");
-        databaseReferenceeee = FirebaseDatabase.getInstance().getReference("ProductsHome").child("VenderId");
+        archive = FirebaseDatabase.getInstance().getReference("Archive");
+        user = FirebaseDatabase.getInstance().getReference("Users").child("Venders");
+        archives = FirebaseStorage.getInstance().getReference("Archive");
+
         storageReference = FirebaseStorage.getInstance().getReference("Products");
         storageReferencee = FirebaseStorage.getInstance().getReference("ProductsHome");
 
@@ -107,6 +114,12 @@ Producti ppp=new Producti();
         slide=new ArrayList<>();
         lotie.playAnimation();
         slide.clear();
+        nomm = findViewById(R.id.Nom_market);
+        open = findViewById(R.id.HO);
+        close = findViewById(R.id.HC);
+
+
+
 
 
 
@@ -240,7 +253,10 @@ date=findViewById(R.id.Date_fin);
         String ancien = ancienprix.getText().toString();
         String nouveau = nouveauprix.getText().toString();
         String desc = description.getText().toString();
-       if(ancien.isEmpty() || nouveau.isEmpty()){
+
+
+
+        if(ancien.isEmpty() || nouveau.isEmpty()){
            if(nouveau.isEmpty()){
            nouveauprix.setError("donnez une valeur svp");
            nouveauprix.requestFocus();}else{
@@ -270,32 +286,82 @@ date=findViewById(R.id.Date_fin);
                                     Toast.makeText(NouvauProduit.this, "UloadSucces", Toast.LENGTH_LONG).show();
                                     for (SlideModel s : slide) {
                                         urlP = uri.toString();
-                                        System.out.println(urlP);
+
                                         H.put(databaseReferencee.push().getKey(), urlP);
                                     }
+                                    user.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            // Get Post object and use the values to update the UI
+                                            for(DataSnapshot d:dataSnapshot.getChildren()){
+                                                Market u=d.getValue(Market.class);
+                                                System.out.println(u.getId());
 
-                                        pp.setId(idProduct);
-                                    pp.setImageUrl(uri.toString());
-                                    //p.setDate(datee);
-                                    pp.setName(Nomp);
-                                    pp.setPrice_ancien(ancien);
-                                    pp.setPrice_nouveau(nouveau);
-                                    pp.setRating(desc);
-                                    ppp.setIdc(vid);
-                                    databaseReference.child(idProduct).setValue(pp);
-                                   // databaseReferenceee.child(idProduct).setValue(ppp);
+                                                if(vid.equals(u.getId())){
+
+                                                v.setOuvert(u.getOuvert());
+                                                v.setFermer(u.getFerme());
+                                                v.setNom(u.getNom());
+                                                    pp.setV(v);
+
+
+                                                    pp.setId(idProduct);
+                                                    pp.setImageUrl(uri.toString());
+                                                    //p.setDate(datee);
+                                                    pp.setName(Nomp);
+                                                    pp.setPrice_ancien(ancien);
+                                                    pp.setPrice_nouveau(nouveau);
+                                                    pp.setRating(desc);
+                                                    pp.setIdv(vid);
 
 
 
 
-                                    p.setImageUrl(H);
-                                    //p.setDate(datee);
-                                    p.setName(Nomp);
-                                    p.setPrice_ancien(ancien);
-                                    p.setPrice_nouveau(nouveau);
-                                    p.setRating(desc);
-                                    databaseReferencee.child(idProduct).setValue(p);
-                                   // databaseReferenceeee.child(idProduct).setValue(ppp);
+
+                                                    databaseReference.child(idProduct).setValue(pp);
+                                                    archive.child(idProduct).setValue(pp);
+
+                                                    p.setImageUrl(H);
+                                                    //p.setDate(datee);
+                                                    p.setName(Nomp);
+                                                    p.setPrice_ancien(ancien);
+                                                    p.setPrice_nouveau(nouveau);
+                                                    p.setRating(desc);
+                                                    p.setIdv(vid);
+                                                    p.setV(v);
+
+                                                    databaseReferencee.child(idProduct).setValue(p);
+
+
+
+                                                }
+
+
+                                            }
+
+
+
+
+
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+                                            // Getting Post failed, log a message
+                                            Log.w("jhj", "loadPost:onCancelled", databaseError.toException());
+                                        }
+                                    });
+
+
+
+
+
+
+
+
+
+
 
 
 
