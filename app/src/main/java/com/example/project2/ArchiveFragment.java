@@ -13,45 +13,47 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import Adapter.ArchiveAdapter;
+import Adapter.FavoriteAdapter;
 import Adapter.RecyclerViewInterface;
 import Adapter.VendeurAdapter;
 
 
 public class ArchiveFragment extends Fragment implements RecyclerViewInterface {
-RecyclerView recyclerView;
-        ArrayList<ProductHome> list;
-        ArchiveAdapter adapter;
+RecyclerView recyclerView1;
+ArrayList<ProductHome> list1;
+FavoriteAdapter adapter1;
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=LayoutInflater.from(getContext()).inflate(R.layout.fragment_archive, container, false);
-                recyclerView=(RecyclerView) view.findViewById(R.id.recview_archive);
-        list=new ArrayList<>();
-        setArchiveRecycler(list);
+       recyclerView1= view.findViewById(R.id.recview_archive);
+        setArchiveRecycler(list1);
+
         return view;
     }
+
+
+
     private void setArchiveRecycler(ArrayList<ProductHome> list)
     {
-        RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter=new ArchiveAdapter(getContext(),list,this);
-        recyclerView.setAdapter(adapter);
+
+        recyclerView1.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter1 =new FavoriteAdapter(getContext(),list,this);
+        recyclerView1.setAdapter(adapter1);
 
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        list = new ArrayList<>();
+        list1 = new ArrayList<>();
+list1.add(new ProductHome("eeee","ddd","ee","eeee","ddd","ee","rr"));
+        list1.add(new ProductHome("eeee","ddd","ee","eeee","ddd","ee","rr"));
+
     }
-
-
-
-
-
 
     @Override
     public void onItemClickP(int position) {
@@ -62,4 +64,11 @@ RecyclerView recyclerView;
     public void onItemClickN(int position) {
 
     }
+
+
+
+
+
+
+
 }
