@@ -50,8 +50,6 @@ FavoriteAdapter adapter1;
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         list1 = new ArrayList<>();
-list1.add(new ProductHome("eeee","ddd","ee","eeee","ddd","ee","rr"));
-        list1.add(new ProductHome("eeee","ddd","ee","eeee","ddd","ee","rr"));
 
     }
 

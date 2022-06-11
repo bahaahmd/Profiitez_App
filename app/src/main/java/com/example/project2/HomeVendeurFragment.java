@@ -75,7 +75,7 @@ mrkt=view.findViewById(R.id.ic_home);
      public void onCreate(@Nullable Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
          list = new ArrayList<>();
-         list.add(new ProductHome("ddd","ffdd","dsfd","sfd","dsfd","sfd","ff"));
+
 }
 
      @Override
