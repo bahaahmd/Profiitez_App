@@ -1,7 +1,6 @@
 package com.example.project2;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +18,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,11 +30,11 @@ import com.squareup.picasso.Picasso;
 import Adapter.ProfileAdapter;
 
 
-public class Profile extends Fragment {
+public class Profile_vendeur extends Fragment {
     ImageView img;
     ListView listView;
-    String nom[] = {"Favoris", "Paramètres", "évaluez nous", "Référer un ami", "Aide", "Se déconnecter"};
-    int image[] = {R.drawable.heart_client, R.drawable.setting_client, R.drawable.rate_us_client, R.drawable.share_client, R.drawable.question_client, R.drawable.log_out_client};
+    String nom[] = { "Paramètres", "évaluez nous", "Référer un ami", "Aide", "Se déconnecter"};
+    int image[] = { R.drawable.ic_settings__6_, R.drawable.ic_rate_us, R.drawable.ic_share__1_, R.drawable.ic_question, R.drawable.ic_logout__1_};
 
     View view;
     ImageView imageView;
@@ -60,7 +58,7 @@ public class Profile extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.client_profil, container, false);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.vendeur_profil, container, false);
         listView = (ListView) view.findViewById(R.id.list_view);
         img=(ImageView) view.findViewById(R.id.editproffil);
         imageView = view.findViewById(R.id.imageView);
@@ -74,12 +72,19 @@ public class Profile extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.i("ic_ssetting", "item is clicked @ Position::" + i);
-                if (i == 1) {
-                    startActivity(new Intent(getActivity(), setting_client.class));
+                if (i == 0) {
+                    startActivity(new Intent(getActivity(), setting_vendeur.class));
 
-                } else if(i==5){
+                } else if(i==4){
 
                     show();
+
+
+
+                }
+                else if(i==1){
+                    Toast.makeText(getActivity(), "En maintenance ", Toast.LENGTH_LONG).show();
+
 
 
 
@@ -96,19 +101,10 @@ public class Profile extends Fragment {
 
 
 
-
                 }
-                else if(i==4){
-                    Toast.makeText(getActivity(), "En maintenance ", Toast.LENGTH_LONG).show();
 
 
 
-                }
-                else {
-                    if(i==0){
-                        startActivity(new Intent(getActivity(), FavoriteActivity.class));
-                    }
-                }
             }
 
             private void show() {  AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme);
@@ -134,7 +130,7 @@ public class Profile extends Fragment {
                     @Override
                     public void onClick(View view) {
                         alertDialog.dismiss();
-                        Toast.makeText(getActivity(), " ", Toast.LENGTH_SHORT).show();
+
 
                     }
 
@@ -150,7 +146,7 @@ public class Profile extends Fragment {
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), edit_profil_client.class));
+                startActivity(new Intent(getActivity(), edit_profil_vendeur.class));
             }
         });
 

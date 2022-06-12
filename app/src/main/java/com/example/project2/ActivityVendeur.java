@@ -39,7 +39,7 @@ public class ActivityVendeur extends AppCompatActivity {
                         fragment = new ArchiveFragment();
                         break;
                     case R.id.Profile_vendeur:
-                        fragment = new Profile();
+                        fragment = new Profile_vendeur();
                         break;
                     case R.id.notification_vendeur:
                         fragment = new notification();

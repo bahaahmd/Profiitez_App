@@ -24,6 +24,24 @@
             android:exported="false"/>
 
         <activity
+            android:name=".setting_vendeur"
+            android:exported="false" />
+        <activity
+            android:name=".security_setting_vendeur"
+            android:exported="false" />
+        <activity
+            android:name=".change_adress"
+            android:exported="false" />
+        <activity
+            android:name=".edit_profil_vendeur"
+            android:exported="false" />
+        <activity
+            android:name=".notification_setting_vendeur"
+            android:exported="false" />
+        <activity
+            android:name=".account_setting_vendeur"
+            android:exported="false" />
+        <activity
             android:name=".NouvauProduit"
             android:exported="false" />
         <activity
@@ -59,15 +77,14 @@
         <activity
             android:name=".profil_client"
             android:exported="false" />
-        <activity
-            android:name=".change_adress"
-            android:exported="false" />
+
         <activity
             android:name=".edit_profil_client"
             android:exported="false" />
         <activity
             android:name=".notification_setting_client"
             android:exported="false" />
+
         <activity
             android:name=".essai"
             android:exported="false" />
