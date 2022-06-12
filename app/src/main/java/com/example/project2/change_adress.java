@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class change_adress extends AppCompatActivity {
-ImageView imageView;
+    ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +21,7 @@ ImageView imageView;
             }
 
             public void openActivity() {
-                Intent intent=new Intent(change_adress.this, com.example.project2.setting_client.class);
+                Intent intent=new Intent(change_adress.this, setting_vendeur.class);
                 startActivity(intent);
             }
         });

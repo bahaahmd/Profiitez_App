@@ -13,7 +13,7 @@ import android.widget.ListView;
 import Adapter.ProfileAdapter;
 
 public class setting_client extends AppCompatActivity {
-    String  nom[]={"Account","Notification",};
+    String  nom[]={"mon compte","Notification",};
     int image[]= {R.drawable.profil_user_client,R.drawable.notification_client};
     ListView listView;
     ImageView imageView;
@@ -33,12 +33,12 @@ public class setting_client extends AppCompatActivity {
 
                 }
 
-                    else {if (i == 1) {
-                        startActivity(new Intent(setting_client.this, notification_setting_client.class));
+                else {if (i == 1) {
+                    startActivity(new Intent(setting_client.this, notification_setting_client.class));
 
-                    }}
+                }}
 
-                };
+            };
         });
         imageView=(ImageView) findViewById(R.id.imageView3);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +48,7 @@ public class setting_client extends AppCompatActivity {
             }
 
             public void openActivity() {
-                Intent intent=new Intent(setting_client.this,profil_client.class);
+                Intent intent=new Intent(setting_client.this,HomePage.class);
                 startActivity(intent);
                 finish();
             }
