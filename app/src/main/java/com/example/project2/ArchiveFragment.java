@@ -70,10 +70,11 @@ FavoriteAdapter adapter1;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        databaseReference= FirebaseDatabase.getInstance().getReference("ProductsHome");
+        databaseReference= FirebaseDatabase.getInstance().getReference("Archive");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                list.clear();
                 // Get Post object and use the values to update the UI
                 for(DataSnapshot d:dataSnapshot.getChildren()){
                     ProductHome p=d.getValue(ProductHome.class);

@@ -49,31 +49,9 @@ import Adapter.VendeurAdapter;
      CardView nouvau;
      ImageView mrkt;
      FirebaseUser id = FirebaseAuth.getInstance().getCurrentUser();
-     DatabaseReference databaseReference,p;
+     DatabaseReference databaseReference,p,arachive;
      String vid = id.getUid();
-     public class ViewHolder extends RecyclerView.ViewHolder{
 
-
-         public ViewHolder(@NonNull View itemView) {
-             super(itemView);
-             ImageView  trash,update;
-             update=itemView.findViewById(R.id.update);
-             trash=itemView.findViewById(R.id.trash);
-             trash.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View view) {
-                     int isClicked=getAbsoluteAdapterPosition();
-                     System.out.println(isClicked);
-
-                 }
-             }
-
-             );
-
-
-         }
-
-     }
 
 
 
@@ -141,9 +119,12 @@ mrkt=view.findViewById(R.id.ic_home);
 
          p=FirebaseDatabase.getInstance().getReference("Products");
          databaseReference= FirebaseDatabase.getInstance().getReference("ProductsHome");
+         arachive=FirebaseDatabase.getInstance().getReference("Archive");
+
          databaseReference.addValueEventListener(new ValueEventListener() {
              @Override
              public void onDataChange(DataSnapshot dataSnapshot) {
+                 list.clear();
                  // Get Post object and use the values to update the UI
                  for(DataSnapshot d:dataSnapshot.getChildren()){
                      ProductHome p=d.getValue(ProductHome.class);
@@ -153,6 +134,7 @@ mrkt=view.findViewById(R.id.ic_home);
                      }
 
                  }
+
 
 
 
@@ -178,33 +160,26 @@ mrkt=view.findViewById(R.id.ic_home);
 
 }
 public void removeItem(int pos) {
-   // list.remove(pos);
-    //adapter.notifyItemRemoved(pos);
-
-    databaseReference.addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot snapshot) {
 
 
 
-         int i=0;
-
-            for (DataSnapshot dataSnapshot : snapshot.getChildren())
-
-            { if(i==pos){
-                databaseReference.child(dataSnapshot.getKey()).removeValue();
-                break;
-            }else{i++;}
 
 
-            };
 
-        }
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
 
-        }
-    });
+
+
+
+            String s=list.get(pos).getId();
+                databaseReference.child(s).removeValue();
+    list.remove(pos);
+    adapter.notifyItemRemoved(pos);
+
+
+
+
+
+
 
 
 }
@@ -215,8 +190,8 @@ public void removeItem(int pos) {
 
      @Override
      public void onItemClickN(int position) {
-         removeItem(position);
 
+         removeItem(position);
 
      }
 
