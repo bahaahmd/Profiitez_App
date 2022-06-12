@@ -37,7 +37,8 @@ public class ArchiveFragment extends Fragment implements RecyclerViewInterface {
     String vid = id.getUid();
 
 RecyclerView recyclerView1;
-ArrayList<ProductHome> list1;
+ArrayList<ProductHome> list=new ArrayList();
+
 FavoriteAdapter adapter1;
 
 
@@ -47,7 +48,7 @@ FavoriteAdapter adapter1;
                              Bundle savedInstanceState) {
         View view=LayoutInflater.from(getContext()).inflate(R.layout.fragment_archive, container, false);
        recyclerView1= view.findViewById(R.id.recview_archive);
-        setArchiveRecycler(list1);
+        setArchiveRecycler(list);
 
         return view;
     }
@@ -60,7 +61,16 @@ FavoriteAdapter adapter1;
         adapter1 =new FavoriteAdapter(getContext(),list,this);
         recyclerView1.setAdapter(adapter1);
       
-          databaseReference= FirebaseDatabase.getInstance().getReference("ProductsHome");
+
+    }
+
+
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        databaseReference= FirebaseDatabase.getInstance().getReference("ProductsHome");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -83,15 +93,8 @@ FavoriteAdapter adapter1;
                 Log.w("jhj", "loadPost:onCancelled", databaseError.toException());
             }
         });
-    }
 
 
-
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        list1 = new ArrayList<>();
     }
 
     @Override
