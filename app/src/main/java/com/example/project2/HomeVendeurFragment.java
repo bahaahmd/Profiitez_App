@@ -54,6 +54,7 @@ mrkt=view.findViewById(R.id.ic_home);
              @Override
              public void onClick(View view) {
                  startActivity(new Intent(getActivity(),NouvauProduit.class));
+
              }
          });
 

@@ -208,6 +208,7 @@ public class ValidationVendeur extends AppCompatActivity implements LocationList
             Market m = new Market(nomMarket, localisation, numero, heureFermeture, heureOuverture, vid);
             vender.child(vid).setValue(m);
             startActivity(new Intent(ValidationVendeur.this, ActivityVendeur.class));
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
         } else {
 
