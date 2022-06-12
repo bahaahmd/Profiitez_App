@@ -4,13 +4,14 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="10dp"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:id="@+id/postimage"
         app:cardCornerRadius="10dp"
         >
@@ -33,6 +34,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
+
             android:fontFamily="@font/poppins_regular"
             android:text="7000 DA"
             android:textSize="16sp" />
@@ -47,6 +49,7 @@
             android:layout_toEndOf="@id/AncienPrix_vendeur"
             android:fontFamily="@font/poppins_regular"
             android:text="4000 DA"
+            android:textColor="@color/orange"
             android:textSize="16sp" />
 
         <TextView
@@ -71,24 +74,27 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/medium"/>
+
         <ImageView
             android:id="@+id/trash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_below="@id/AncienPrix_vendeur"
+            android:layout_alignParentEnd="true"
 
-            android:layout_marginBottom="5dp"
             android:layout_marginEnd="15dp"
-            android:src="@drawable/ic__trash"/>
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/ic__trash" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:layout_below="@id/AncienPrix_vendeur"
-android:layout_toStartOf="@id/trash"
-            android:layout_marginBottom="5dp"
             android:layout_marginEnd="5dp"
-            android:src="@drawable/ic__edit"/>
+            android:layout_marginBottom="5dp"
+            android:layout_toStartOf="@id/trash"
+            android:src="@drawable/ic__edit"
+            android:id="@+id/update"/>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

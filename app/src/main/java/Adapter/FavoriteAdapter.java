@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ProduitViewHolder> {
     private final RecyclerViewInterface recyclerViewInterface;
     Context context;
-    ArrayList<ProductHome> ProductFavoriteListe=new ArrayList();
+    ArrayList<ProductHome> ProductFavoriteListe;
 
 
     public FavoriteAdapter(Context context, ArrayList<ProductHome> list,RecyclerViewInterface recyclerViewInterface )
