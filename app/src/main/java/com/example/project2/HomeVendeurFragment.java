@@ -31,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Formattable;
 import java.util.HashMap;
+import java.util.List;
 
 import Adapter.NewsAdapter;
 import Adapter.PopularAdapter;
@@ -42,11 +43,13 @@ import Adapter.VendeurAdapter;
      RecyclerView recyclerView;
      VendeurAdapter adapter;
 
+
+
      ArrayList<ProductHome> list=new ArrayList();
      CardView nouvau;
      ImageView mrkt;
      FirebaseUser id = FirebaseAuth.getInstance().getCurrentUser();
-     DatabaseReference databaseReference;
+     DatabaseReference databaseReference,p;
      String vid = id.getUid();
      public class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -71,7 +74,6 @@ import Adapter.VendeurAdapter;
          }
 
      }
-
 
 
 
@@ -124,7 +126,7 @@ mrkt=view.findViewById(R.id.ic_home);
          recyclerView.setLayoutManager(layoutManager);
          adapter=new VendeurAdapter(getContext(),list,this);
          recyclerView.setAdapter(adapter);
-       
+       p=FirebaseDatabase.getInstance().getReference("Products");
        databaseReference= FirebaseDatabase.getInstance().getReference("ProductsHome");
          databaseReference.addValueEventListener(new ValueEventListener() {
              @Override
@@ -170,16 +172,40 @@ mrkt=view.findViewById(R.id.ic_home);
 
 
 
-         list = new ArrayList<>();
 
 
 }
-public void removeItem(int pos){
-         list.remove(pos);
-         adapter.notifyItemRemoved(pos);
+public void removeItem(int pos) {
+   // list.remove(pos);
+    //adapter.notifyItemRemoved(pos);
 
-     }
+    databaseReference.addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+
+
+         int i=0;
+
+            for (DataSnapshot dataSnapshot : snapshot.getChildren())
+
+            { if(i==pos){
+                databaseReference.child(dataSnapshot.getKey()).removeValue();
+                break;
+            }else{i++;}
+
+
+            };
+
+        }
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    });
+
+
+}
      @Override
      public void onItemClickP(int position) {
 
