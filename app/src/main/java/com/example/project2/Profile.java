@@ -35,8 +35,8 @@ import Adapter.ProfileAdapter;
 public class Profile extends Fragment {
     ImageView img;
     ListView listView;
-    String nom[] = {"Favoris", "Paramètres", "évaluez nous", "Référer un ami", "Aide", "Se déconnecter"};
-    int image[] = {R.drawable.heart_client, R.drawable.setting_client, R.drawable.rate_us_client, R.drawable.share_client, R.drawable.question_client, R.drawable.log_out_client};
+    String nom[] = {"Favoris", "Paramètres", "évaluez nous", "Référer un ami", "Aide","les vendeurs prioritaires", "Se déconnecter"};
+    int image[] = {R.drawable.heart_client, R.drawable.setting_client, R.drawable.rate_us_client, R.drawable.share_client, R.drawable.question_client,R.drawable.ic_vendeur, R.drawable.log_out_client};
 
     View view;
     ImageView imageView;
@@ -77,7 +77,7 @@ public class Profile extends Fragment {
                 if (i == 1) {
                     startActivity(new Intent(getActivity(), setting_client.class));
 
-                } else if(i==5){
+                } else if(i==6){
 
                     show();
 
@@ -104,6 +104,13 @@ public class Profile extends Fragment {
 
 
                 }
+                else if(i==5){
+                    startActivity(new Intent(getActivity(), vendeur_prioritaire.class));
+
+
+
+                }
+
                 else {
                     if(i==0){
                         startActivity(new Intent(getActivity(), FavoriteActivity.class));
