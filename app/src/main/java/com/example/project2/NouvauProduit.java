@@ -129,15 +129,15 @@ public class NouvauProduit extends AppCompatActivity {
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
-date=findViewById(R.id.Date_fin);
-       date.setOnClickListener(new View.OnClickListener() {
+        date=findViewById(R.id.Date_fin);
+        date.setOnClickListener(new View.OnClickListener() {
             @Override
-           public void onClick(View view) {
+            public void onClick(View view) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
-                       NouvauProduit.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, setListener, year, month, day);
-               datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-               datePickerDialog.show();
-           }
+                        NouvauProduit.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, setListener, year, month, day);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.show();
+            }
         });
         setListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -257,23 +257,23 @@ date=findViewById(R.id.Date_fin);
 
 
         if(ancien.isEmpty() || nouveau.isEmpty()){
-           if(nouveau.isEmpty()){
-           nouveauprix.setError("donnez une valeur svp");
-           nouveauprix.requestFocus();}else{
-               ancienprix.setError("donnez une valeur svp");
-               ancienprix.requestFocus();
+            if(nouveau.isEmpty()){
+                nouveauprix.setError("donnez une valeur svp");
+                nouveauprix.requestFocus();}else{
+                ancienprix.setError("donnez une valeur svp");
+                ancienprix.requestFocus();
 
-           }
+            }
 
 
-       }else {
-        int anc = Integer.parseInt(ancien);
-        int neuv = Integer.parseInt(nouveau);
-        String idProduct = databaseReferencee.push().getKey();
+        }else {
+            int anc = Integer.parseInt(ancien);
+            int neuv = Integer.parseInt(nouveau);
+            String idProduct = databaseReferencee.push().getKey();
 
-        if (!TextUtils.isEmpty(Nomp) && !TextUtils.isEmpty(ancien) && !TextUtils.isEmpty(nouveau) && !TextUtils.isEmpty(desc)) {
-            Intent intent=new Intent(NouvauProduit.this,ActivityVendeur.class);
-            startActivity(intent);
+            if (!TextUtils.isEmpty(Nomp) && !TextUtils.isEmpty(ancien) && !TextUtils.isEmpty(nouveau) && !TextUtils.isEmpty(desc)) {
+                Intent intent=new Intent(NouvauProduit.this,ActivityVendeur.class);
+                startActivity(intent);
 
                 if (mImageUri != null) {
                     StorageReference fileRefrence = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
@@ -299,9 +299,10 @@ date=findViewById(R.id.Date_fin);
 
                                                 if(vid.equals(u.getId())){
 
-                                                v.setOuvert(u.getOuvert());
-                                                v.setFermer(u.getFerme());
-                                                v.setNom(u.getNom());
+                                                    v.setOuvert(u.getOuvert());
+                                                    v.setFermer(u.getFerme());
+                                                    v.setNom(u.getNom());
+                                                    v.setImage(u.getImage());
                                                     pp.setV(v);
 
 
@@ -385,28 +386,28 @@ date=findViewById(R.id.Date_fin);
 
 
 
-        }else {
+            }else {
 
-            if (slide.size() == 0) {
-                Toast.makeText(this, "veuillez remplir le champ de photo avec au moins une photo", Toast.LENGTH_LONG).show();
-            } else if (Nomp.isEmpty()) {
-                nom.setError("champ vide, veuillez le remplir");
-                nom.requestFocus();
-            } else if (ancien.isEmpty()) {
-                ancienprix.setError("champ vide, veuillez le remplir");
-                ancienprix.requestFocus();
-            } else if (nouveau.isEmpty()) {
-                nouveauprix.setError("champ vide, veuillez le remplir");
-                nouveauprix.requestFocus();
+                if (slide.size() == 0) {
+                    Toast.makeText(this, "veuillez remplir le champ de photo avec au moins une photo", Toast.LENGTH_LONG).show();
+                } else if (Nomp.isEmpty()) {
+                    nom.setError("champ vide, veuillez le remplir");
+                    nom.requestFocus();
+                } else if (ancien.isEmpty()) {
+                    ancienprix.setError("champ vide, veuillez le remplir");
+                    ancienprix.requestFocus();
+                } else if (nouveau.isEmpty()) {
+                    nouveauprix.setError("champ vide, veuillez le remplir");
+                    nouveauprix.requestFocus();
+                }
+                if (anc < neuv) {
+                    nouveauprix.setError("le nooueau doit etre inferieure a l'ancien");
+                    nouveauprix.requestFocus();
+                }
+
+
             }
-            if (anc < neuv) {
-                nouveauprix.setError("le nooueau doit etre inferieure a l'ancien");
-                nouveauprix.requestFocus();
-            }
-
-
         }
-}
 
 
     }

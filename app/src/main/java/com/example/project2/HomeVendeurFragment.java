@@ -31,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Formattable;
 import java.util.HashMap;
+import java.util.List;
 
 import Adapter.NewsAdapter;
 import Adapter.PopularAdapter;
@@ -42,35 +43,14 @@ import Adapter.VendeurAdapter;
      RecyclerView recyclerView;
      VendeurAdapter adapter;
 
+
+
      ArrayList<ProductHome> list=new ArrayList();
      CardView nouvau;
      ImageView mrkt;
      FirebaseUser id = FirebaseAuth.getInstance().getCurrentUser();
-     DatabaseReference databaseReference;
+     DatabaseReference databaseReference,p,arachive;
      String vid = id.getUid();
-     public class ViewHolder extends RecyclerView.ViewHolder{
-
-
-         public ViewHolder(@NonNull View itemView) {
-             super(itemView);
-             ImageView  trash,update;
-             update=itemView.findViewById(R.id.update);
-             trash=itemView.findViewById(R.id.trash);
-             trash.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View view) {
-                     int isClicked=getAbsoluteAdapterPosition();
-                     System.out.println(isClicked);
-
-                 }
-             }
-
-             );
-
-
-         }
-
-     }
 
 
 
@@ -124,11 +104,27 @@ mrkt=view.findViewById(R.id.ic_home);
          recyclerView.setLayoutManager(layoutManager);
          adapter=new VendeurAdapter(getContext(),list,this);
          recyclerView.setAdapter(adapter);
-       
-       databaseReference= FirebaseDatabase.getInstance().getReference("ProductsHome");
+
+
+     }
+
+
+
+
+
+     @Override
+     public void onCreate(@Nullable Bundle savedInstanceState) {
+
+
+
+         p=FirebaseDatabase.getInstance().getReference("Products");
+         databaseReference= FirebaseDatabase.getInstance().getReference("ProductsHome");
+         arachive=FirebaseDatabase.getInstance().getReference("Archive");
+
          databaseReference.addValueEventListener(new ValueEventListener() {
              @Override
              public void onDataChange(DataSnapshot dataSnapshot) {
+                 list.clear();
                  // Get Post object and use the values to update the UI
                  for(DataSnapshot d:dataSnapshot.getChildren()){
                      ProductHome p=d.getValue(ProductHome.class);
@@ -143,6 +139,7 @@ mrkt=view.findViewById(R.id.ic_home);
 
 
 
+
              }
 
              @Override
@@ -151,17 +148,6 @@ mrkt=view.findViewById(R.id.ic_home);
                  Log.w("jhj", "loadPost:onCancelled", databaseError.toException());
              }
          });
-
-     }
-
-
-
-
-
-     @Override
-     public void onCreate(@Nullable Bundle savedInstanceState) {
-
-
          super.onCreate(savedInstanceState);
 
 
@@ -170,16 +156,33 @@ mrkt=view.findViewById(R.id.ic_home);
 
 
 
-         list = new ArrayList<>();
 
 
 }
-public void removeItem(int pos){
-         list.remove(pos);
-         adapter.notifyItemRemoved(pos);
+public void removeItem(int pos) {
 
-     }
 
+
+
+
+
+
+
+
+
+            String s=list.get(pos).getId();
+                databaseReference.child(s).removeValue();
+    list.remove(pos);
+    adapter.notifyItemRemoved(pos);
+
+
+
+
+
+
+
+
+}
      @Override
      public void onItemClickP(int position) {
 
@@ -187,8 +190,8 @@ public void removeItem(int pos){
 
      @Override
      public void onItemClickN(int position) {
-         removeItem(position);
 
+         removeItem(position);
 
      }
 

@@ -7,7 +7,17 @@ public class Market {
     private String ferme;
     private String ouvert;
     private String id;
+    private String image;
 
+    public Market(String nom, String local, String numero, String ferme, String ouvert,String id,String image) {
+        this.nom = nom;
+        this.local = local;
+        this.numero = numero;
+        this.ferme = ferme;
+        this.ouvert = ouvert;
+        this.id = id;
+        this.image = image;
+    }
     public Market(String nom, String local, String numero, String ferme, String ouvert,String id) {
         this.nom = nom;
         this.local = local;
@@ -15,6 +25,15 @@ public class Market {
         this.ferme = ferme;
         this.ouvert = ouvert;
         this.id = id;
+
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getId() {

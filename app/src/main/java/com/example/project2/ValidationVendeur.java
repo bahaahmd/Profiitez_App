@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.webkit.URLUtil;
@@ -40,8 +41,11 @@ import com.google.android.gms.tasks.Task;
 import java.io.IOException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.security.cert.PolicyNode;
 import java.text.ParseException;
@@ -59,8 +63,13 @@ public class ValidationVendeur extends AppCompatActivity implements LocationList
     int toHour, toMinute, tcHour, tcMinute;
     Button valider;
     EditText nom, loc, num;
-    DatabaseReference vender;
+    DatabaseReference vender,user;
     LocationManager locationManager;
+    double latitude,longitude;
+    FirebaseUser id = FirebaseAuth.getInstance().getCurrentUser();
+    String vid = id.getUid();
+    String s;
+    Market m=new Market();
 
 
     @Override
@@ -105,7 +114,7 @@ public class ValidationVendeur extends AppCompatActivity implements LocationList
         });
 
         vender = FirebaseDatabase.getInstance().getReference("Users").child("Venders");
-
+        user=FirebaseDatabase.getInstance().getReference("Users");
         nom = findViewById(R.id.Nom_market);
         loc = findViewById(R.id.Localisation);
         num = findViewById(R.id.Numero_market);
@@ -195,62 +204,127 @@ public class ValidationVendeur extends AppCompatActivity implements LocationList
 
 
     public void createMarket() {
-        String nomMarket = nom.getText().toString();
-        String localisation = loc.getText().toString();
-        String numero = num.getText().toString();
-        String heureOuverture = open.getText().toString();
-        String heureFermeture = close.getText().toString();
-        FirebaseUser id = FirebaseAuth.getInstance().getCurrentUser();
-        String vid = id.getUid();
-
-        if (!TextUtils.isEmpty(nomMarket) && !TextUtils.isEmpty(localisation) && !TextUtils.isEmpty(numero) && !TextUtils.isEmpty(heureOuverture) && !TextUtils.isEmpty(heureFermeture)) {
-
-            Market m = new Market(nomMarket, localisation, numero, heureFermeture, heureOuverture, vid);
-            vender.child(vid).setValue(m);
-            startActivity(new Intent(ValidationVendeur.this, ActivityVendeur.class));
-            finish();
-        } else {
-
-            if (nomMarket.isEmpty()) {
-                nom.setError("champ vide");
-                nom.requestFocus();
-            } else if (localisation.isEmpty()) {
-                loc.setError("champ vide");
-                loc.requestFocus();
-            } else if (!URLUtil.isValidUrl(localisation)) {
-                loc.setError("Entrer un lien");
-                loc.requestFocus();
-            } else if (numero.isEmpty()) {
-                num.setError("champ vide");
-                num.requestFocus();
-            } else if (!Patterns.PHONE.matcher(numero).matches()) {
-                num.setError("numéro de téléphone doit contenir que des chiffres");
-                num.requestFocus();
-            } else if (numero.length() < 10) {
-                num.setError("numéro de téléphone doit contenir 10 chiffres");
-            } else
-                startActivity(new Intent(ValidationVendeur.this, ActivityVendeur.class));
 
 
-        }
+
+        user.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+
+                String nomMarket = nom.getText().toString();
+                String localisation = loc.getText().toString();
+                String numero = num.getText().toString();
+                String heureOuverture = open.getText().toString();
+                String heureFermeture = close.getText().toString();
+
+
+
+
+
+
+                if (!TextUtils.isEmpty(nomMarket) && !TextUtils.isEmpty(localisation) && !TextUtils.isEmpty(numero) && !TextUtils.isEmpty(heureOuverture) && !TextUtils.isEmpty(heureFermeture)) {
+
+                    vender.child(vid).setValue(m);
+                    m.setFerme(heureFermeture);
+                    m.setOuvert(heureOuverture);
+                    m.setId(vid);
+                    m.setLocal(localisation);
+                    m.setNom(nomMarket);
+                    m.setNumero(numero);
+
+                    startActivity(new Intent(ValidationVendeur.this, ActivityVendeur.class));
+                    finish();
+                    for(DataSnapshot d:dataSnapshot.getChildren()) {
+                        com.example.project2.user us = d.getValue(user.class);
+
+
+
+
+
+                        if (vid.equals(us.getId())) {
+
+                            s = us.getImage();
+
+                            break;
+
+
+                        }
+
+
+
+
+                    }
+
+
+                }
+
+
+                else {
+
+                    if (nomMarket.isEmpty()) {
+                        nom.setError("champ vide");
+                        nom.requestFocus();
+                    } else if (localisation.isEmpty()) {
+                        loc.setError("champ vide");
+                        loc.requestFocus();
+                    } else if (!URLUtil.isValidUrl(localisation)) {
+                        loc.setError("Entrer un lien");
+                        loc.requestFocus();
+                    } else if (numero.isEmpty()) {
+                        num.setError("champ vide");
+                        num.requestFocus();
+                    } else if (!Patterns.PHONE.matcher(numero).matches()) {
+                        num.setError("numéro de téléphone doit contenir que des chiffres");
+                        num.requestFocus();
+                    } else if (numero.length() < 10) {
+                        num.setError("numéro de téléphone doit contenir 10 chiffres");
+                    } else
+                        startActivity(new Intent(ValidationVendeur.this, ActivityVendeur.class));
+
+
+                }
+                m.setImage(s);
+                vender.child(vid).setValue(m);
+
+
+
+
+
+
+
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("jhj", "loadPost:onCancelled", databaseError.toException());
+            }
+        });
+
+
+
 
 
     }
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
-            try {
-                Geocoder geocoder=new Geocoder(ValidationVendeur.this,Locale.getDefault());
-                double latitude=location.getLatitude();
-                double longitude=location.getLongitude();
-                List<Address> add=geocoder.getFromLocation(latitude,longitude,1);
-                loc.setText(add.get(0).getLocality()+", " + add.get(0).getAdminArea());
-                loc.setEnabled(false);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try{
+            Geocoder geocoder=new Geocoder(ValidationVendeur.this,Locale.getDefault());
+            latitude=location.getLatitude();
+            longitude=location.getLongitude();
 
-
+            List<Address> addresses=geocoder.getFromLocation(latitude,longitude,1);
+            loc.setText(addresses.get(0).getLocality()+", " + addresses.get(0).getAdminArea());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }
