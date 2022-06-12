@@ -66,6 +66,9 @@
             android:name=".Inscription"
             android:exported="false" />
         <activity
+            android:name=".vendeur_prioritaire"
+            android:exported="false" />
+        <activity
             android:name=".setting_client"
             android:exported="false" />
         <activity
