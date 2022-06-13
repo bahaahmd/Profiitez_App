@@ -12,7 +12,7 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@drawable/pro_client"
+        android:background="@drawable/pro"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -108,7 +108,7 @@
         android:layout_marginStart="83dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="82dp"
-        android:background="@drawable/rectangle_client"
+        android:background="@drawable/ic_rectangle_5"
         android:ems="10"
         android:hint="Confirmer nouveau mot passe
 "
@@ -127,7 +127,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="83dp"
         android:layout_marginBottom="30dp"
-        android:background="@drawable/rectangle_client"
+        android:background="@drawable/ic_rectangle_5"
         android:ems="10"
         android:hint="Nouveau mot passe
 
@@ -150,7 +150,7 @@
 
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
-        android:background="@drawable/gradient_button"
+        android:background="@drawable/ic_rectangle_6"
         android:fontFamily="@font/medium"
         android:text="Changer"
         android:textColor="@color/white"

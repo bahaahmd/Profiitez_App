@@ -54,9 +54,13 @@
         >
 
 
+
+
         <LinearLayout
+            android:id="@+id/linear"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignTop="@+id/del"
             android:layout_marginStart="50dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="50dp"
@@ -98,6 +102,9 @@
                     app:lottie_fileName="plus2.json"
                     app:lottie_loop="true" />
 
+
+
+
                 <TextView
                     android:id="@+id/cpt"
                     android:layout_width="wrap_content"
@@ -121,18 +128,20 @@
                 android:padding="15dp"
                 android:textColorHint="@color/grey"
                 android:textSize="14sp" />
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/cpt_nom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:text="0/20"
-        android:textSize="15sp" />
-</RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/cpt_nom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:text="0/20"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
             <EditText
                 android:id="@+id/ancien_prix"
                 android:layout_width="match_parent"
@@ -196,18 +205,19 @@
                 android:padding="10dp"
                 android:textColorHint="@color/grey"
                 android:textSize="14sp" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/cpt_descrp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:maxLength="40"
                     android:text="/40"
-                    android:textSize="15sp"
-                    android:id="@+id/cpt_descrp"/>
+                    android:textSize="15sp" />
             </RelativeLayout>
 
             <Button

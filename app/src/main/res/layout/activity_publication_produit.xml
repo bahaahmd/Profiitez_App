@@ -168,14 +168,15 @@
                     android:layout_toEndOf="@id/image_vendeur"
                     android:layout_centerInParent="true"
                     android:layout_marginStart="5dp"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
                     android:layout_alignParentEnd="true"
                     android:layout_centerInParent="true"
-                    android:layout_marginEnd="20dp"
 
+                    android:layout_marginEnd="20dp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="10:00-17:00"
                     android:textSize="20sp" />

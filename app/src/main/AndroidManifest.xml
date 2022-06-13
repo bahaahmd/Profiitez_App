@@ -3,9 +3,8 @@
     package="com.example.project2">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
 
     <application
         android:allowBackup="true"
@@ -15,14 +14,32 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project2">
         <activity
-
-            android:name=".ValidationVendeur"
-
+            android:name=".ModifierPublication"
             android:exported="false" />
-
-        <activity android:name=".publication_produit"
-            android:exported="false"/>
-
+        <activity
+            android:name=".ValidationVendeur"
+            android:exported="false" />
+        <activity
+            android:name=".publication_produit"
+            android:exported="false" />
+        <activity
+            android:name=".setting_vendeur"
+            android:exported="false" />
+        <activity
+            android:name=".security_setting_vendeur"
+            android:exported="false" />
+        <activity
+            android:name=".change_adress"
+            android:exported="false" />
+        <activity
+            android:name=".edit_profil_vendeur"
+            android:exported="false" />
+        <activity
+            android:name=".notification_setting_vendeur"
+            android:exported="false" />
+        <activity
+            android:name=".account_setting_vendeur"
+            android:exported="false" />
         <activity
             android:name=".NouvauProduit"
             android:exported="false" />
@@ -48,6 +65,9 @@
             android:name=".Inscription"
             android:exported="false" />
         <activity
+            android:name=".vendeur_prioritaire"
+            android:exported="false" />
+        <activity
             android:name=".setting_client"
             android:exported="false" />
         <activity
@@ -58,9 +78,6 @@
             android:exported="false" />
         <activity
             android:name=".profil_client"
-            android:exported="false" />
-        <activity
-            android:name=".change_adress"
             android:exported="false" />
         <activity
             android:name=".edit_profil_client"

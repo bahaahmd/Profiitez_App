@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class security_setting_client extends AppCompatActivity implements View.OnClickListener {
+public class security_setting_vendeur extends AppCompatActivity implements View.OnClickListener {
     ImageView imageView;
     EditText edt;
     EditText edt2;
@@ -21,7 +21,7 @@ public class security_setting_client extends AppCompatActivity implements View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.secuity_setting_client);
+        setContentView(R.layout.security_setting_vendeur);
 
         edt=findViewById(R.id.editTextTextPassword);
         edt2=findViewById(R.id.editTextTextPassword2);
@@ -45,11 +45,12 @@ public class security_setting_client extends AppCompatActivity implements View.O
     }
 
     public void onClick(View view) {
-        Toast.makeText(security_setting_client.this, "mot passe changé", Toast.LENGTH_SHORT).show();
+        Toast.makeText(security_setting_vendeur.this, "mot pass changé", Toast.LENGTH_SHORT).show();
         edt=findViewById(R.id.editTextTextPassword);
         edt2=findViewById(R.id.editTextTextPassword2);
         edt3=findViewById(R.id.editTextTextPassword3);
-        Toast.makeText(security_setting_client.this, "en maintenance!", Toast.LENGTH_LONG).show();
+        Toast.makeText(security_setting_vendeur.this, "en maintenance", Toast.LENGTH_LONG).show();
+
 
         b.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,9 +68,8 @@ public class security_setting_client extends AppCompatActivity implements View.O
             }
 
             public void openActivity() {
-                Intent intent=new Intent(security_setting_client.this,account_setting_client.class);
+                Intent intent=new Intent(security_setting_vendeur.this,account_setting_vendeur.class);
                 startActivity(intent);
-                finish();
             }
         });
     }

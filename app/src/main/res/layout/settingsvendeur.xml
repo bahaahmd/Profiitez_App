@@ -12,7 +12,7 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@drawable/pro_client"
+        android:background="@drawable/pro"
         app:layout_constraintBottom_toTopOf="@+id/list_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -23,8 +23,8 @@
             android:id="@+id/imageView3"
             android:layout_width="19dp"
             android:layout_height="19dp"
-            android:layout_marginStart="24dp"
 
+            android:layout_marginStart="24dp"
             android:layout_marginTop="41dp"
             android:layout_marginBottom="40dp"
             android:src="@drawable/ic_chevron_left__2_"

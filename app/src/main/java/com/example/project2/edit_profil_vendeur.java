@@ -17,8 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.denzcoskun.imageslider.constants.ScaleTypes;
-import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -31,7 +29,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-public class edit_profil_client extends AppCompatActivity {
+public class edit_profil_vendeur extends AppCompatActivity {
     ImageView imageView;
     TextView textView;
     ImageView img;
@@ -56,7 +54,7 @@ public class edit_profil_client extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_profil_client);
+        setContentView(R.layout.edit_profil_vendeurt);
         imageView= findViewById(R.id.imageView3);
         img=findViewById(R.id.imageView7);
         nom=findViewById(R.id.passwordancien);
@@ -75,7 +73,7 @@ public class edit_profil_client extends AppCompatActivity {
             }
 
             public void openActivity() {
-                Intent intent=new Intent(edit_profil_client.this, HomePage.class);
+                Intent intent=new Intent(edit_profil_vendeur.this, ActivityVendeur.class);
                 startActivity(intent);
 
             }
@@ -86,7 +84,7 @@ public class edit_profil_client extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setdata(ref);
-                Intent intent=new Intent(edit_profil_client.this,edit_profil_client.class);
+                Intent intent=new Intent(edit_profil_vendeur.this,Profile.class);
 
             }
         });
@@ -146,7 +144,7 @@ public class edit_profil_client extends AppCompatActivity {
                     fileRefrence.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            Toast.makeText(edit_profil_client.this, "UloadSucces", Toast.LENGTH_LONG).show();
+                            Toast.makeText(edit_profil_vendeur.this, "UloadSucces", Toast.LENGTH_LONG).show();
                             urlP = uri.toString();
                             System.out.println(urlP);
                             ref.child(idV).child("image").setValue(urlP);

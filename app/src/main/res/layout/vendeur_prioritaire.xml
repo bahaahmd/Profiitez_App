@@ -37,7 +37,7 @@
                 android:layout_marginTop="2dp"
                 android:layout_toRightOf="@+id/arrow"
                 android:fontFamily="@font/medium"
-                android:text="Favourites"
+                android:text="Les vendeurs prioritaires"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 

@@ -1,6 +1,7 @@
 package Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.project2.ModifierPublication;
 import com.example.project2.Product;
 import com.example.project2.ProductHome;
 import com.example.project2.R;
@@ -54,19 +56,21 @@ public class VendeurAdapter extends RecyclerView.Adapter<VendeurAdapter.ProduitV
     }
 
     public static final class ProduitVendeurViewHolder extends RecyclerView.ViewHolder {
-        ImageView ProductImage,delete;
+        ImageView ProductImage,delete,modifier;
         TextView price_old,price_new,name,date;
 
 
         public ProduitVendeurViewHolder(@NonNull View itemView,RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             delete=itemView.findViewById(R.id.trash);
+            modifier=itemView.findViewById(R.id.update);
             ProductImage=itemView.findViewById(R.id.image_vendeur);
             price_old=itemView.findViewById(R.id.AncienPrix_vendeur);
             price_new=itemView.findViewById(R.id.NouveauPrix_vendeur);
             name=itemView.findViewById(R.id.cat_vendeur);
 
             date=itemView.findViewById(R.id.date_vendeur);
+
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
