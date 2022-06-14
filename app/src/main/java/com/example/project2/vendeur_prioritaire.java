@@ -20,7 +20,7 @@ Button
         arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(vendeur_prioritaire.this,Profile_vendeur.class));
+                startActivity(new Intent(vendeur_prioritaire.this,HomePage.class));
             }
         });
     }

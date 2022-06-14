@@ -56,7 +56,7 @@ import java.util.Map;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class publication_produit extends AppCompatActivity {
-
+Button arrow;
     RecyclerView recView;
     LinearLayoutManager linearLayoutManager;
     RatingBar ratingBar;
@@ -452,6 +452,13 @@ setContentView(R.layout.activity_publication_produit);
                 System.out.println("The read failed: " + error.getCode());
 
 
+            }
+        });
+        arrow=findViewById(R.id.arrow);
+        arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(publication_produit.this,HomePage.class));
             }
         });
     }
