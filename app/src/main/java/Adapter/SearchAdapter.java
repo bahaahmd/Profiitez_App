@@ -1,5 +1,6 @@
 package Adapter;
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,26 +14,34 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.project2.ProductHome;
 import com.example.project2.R;
 import com.example.project2.Search_item;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
     private final RecyclerViewInterface recyclerViewInterface;
-    private ArrayList<Search_item> mExampleList;
+    private ArrayList<ProductHome> mExampleList;
     private Context context;
 
     public static final class SearchViewHolder extends RecyclerView.ViewHolder {
-        ImageView item_Image;
-        TextView item_name;
-
+        ImageView ProductImage,profile;
+        TextView price_old,price_new,name,date,nameItem;
+        CardView parent;
 
         public SearchViewHolder(@NonNull View itemView,RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
-            item_Image=itemView.findViewById(R.id.Image_item);
-            item_name=itemView.findViewById(R.id.item_name);
+            ProductImage=itemView.findViewById(R.id.image3);
+            price_old=itemView.findViewById(R.id.AncienPrix);
+            price_new=itemView.findViewById(R.id.NouveauPrix);
+            name=itemView.findViewById(R.id.Name);
+            parent=itemView.findViewById(R.id.new_parent);
+            date=itemView.findViewById(R.id.durée);
+            nameItem=itemView.findViewById(R.id.type);
+            profile=itemView.findViewById(R.id.PhotoProfile);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -55,7 +64,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         }
     }
 
-    public SearchAdapter(Context context,ArrayList<Search_item> exampleList,RecyclerViewInterface recyclerViewInterface) {
+    public SearchAdapter(Context context,ArrayList<ProductHome> exampleList,RecyclerViewInterface recyclerViewInterface) {
         this.context=context;
         mExampleList = exampleList;
         this.recyclerViewInterface=recyclerViewInterface;
@@ -63,16 +72,24 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     @Override
     public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(context).inflate(R.layout.search_item,parent,false);
+        View view= LayoutInflater.from(context).inflate(R.layout.news_card_view,parent,false);
         return new SearchViewHolder(view,recyclerViewInterface);
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
-        //holder.item_Image.setImageResource(mExampleList.get(position).getImageUrl());
-        Glide.with(context).asBitmap().load(mExampleList.get(position).getImageUrl()).into(holder.item_Image);
-        holder.item_name.setText(mExampleList.get(position).getName());
+        ProductHome productHome =mExampleList.get(position);
+        Glide.with(context).asBitmap().load(mExampleList.get(position).getImageUrl()).into(holder.ProductImage);
+        holder.name.setText(mExampleList.get(position).getV().getNom());
+        holder.date.setText(mExampleList.get(position).getDate());
+        Picasso.get().load(productHome.getImageUrl()).into(holder.ProductImage);
+        holder.price_old.setText(mExampleList.get(position).getPrice_ancien());
+        holder.nameItem.setText(mExampleList.get(position).getRating());
+        holder.price_old.setPaintFlags(holder.price_old.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
+        holder.price_new.setText(mExampleList.get(position).getPrice_nouveau());
+        Picasso.get().load(productHome.getV().getImage()).into(holder.profile);
+
     }
 
 
@@ -81,7 +98,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         return mExampleList.size();
     }
 
-    public void filterList(ArrayList<Search_item> filteredList) {
+    public void filterList(ArrayList<ProductHome> filteredList) {
         mExampleList = filteredList;
         notifyDataSetChanged();
     }

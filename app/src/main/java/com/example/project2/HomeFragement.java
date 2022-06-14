@@ -170,21 +170,18 @@ break;
                 List<String> keys = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
-//                    Map<String,String> product = (Map<String, String>) dataSnapshot.getValue();
-//
-//                    list.add(new Product(product.get("id"),product.get("name"), product.get("ImageUrl"),product.get("price_ancien"),product.get("price_nouveau"),product.get("date"),product.get("rating")));
-
 
                     try {
                         keys.add(dataSnapshot.getKey());
                         ProductHome product = dataSnapshot.getValue(ProductHome.class);
 
 
+
                         list.add(product);
                     }catch (Exception e){
                         System.out.println("err:"+e.getMessage());
                     }
-                };
+                }
                 adapter.notifyDataSetChanged();
             }
             @Override
