@@ -3,13 +3,19 @@ package com.example.project2;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import android.app.DatePickerDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -58,6 +64,7 @@ import java.util.List;
 public class NouvauProduit extends AppCompatActivity {
     EditText nom,nomm,ancienprix,nouveauprix,description;
     Button valide;
+    final static String CHANNEL_ID="channel id";
     ImageView bck;
     Vendeur v=new Vendeur();
 
@@ -208,7 +215,7 @@ public class NouvauProduit extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cratePost();
-
+                isNotif();
             }
         });
 
@@ -411,6 +418,54 @@ public class NouvauProduit extends AppCompatActivity {
 
 
     }
+    private void pushNotification() {
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
+        {
+            NotificationChannel channel=new NotificationChannel(CHANNEL_ID,"notif", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("This is the discription");
+            NotificationManager manager=getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+
+        Intent intent=new Intent(this,MainActivity2.class);
+        PendingIntent p=PendingIntent.getActivity(this,0,intent,0);
+        NotificationCompat.Builder builder=new NotificationCompat.Builder(getApplicationContext(),CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.ic_bell)
+                .setContentTitle("Profitez")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(p)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText("you have a new product "));
+
+        NotificationManagerCompat notif=NotificationManagerCompat.from(this);
+        notif.notify(10,builder.build());
+
+
+
+
+    }
+    private void isNotif(){
+
+            String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            DatabaseReference alertV = FirebaseDatabase.getInstance().getReference().child("Alert").child(id);
+            alertV.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists())
+                    {
+                        pushNotification();
+                    }
+
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+    }
+
 
 
 }

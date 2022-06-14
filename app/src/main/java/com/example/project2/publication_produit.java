@@ -45,6 +45,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,6 +53,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.sql.StatementEvent;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
@@ -65,14 +68,17 @@ public class publication_produit extends AppCompatActivity {
     DatabaseReference database,database1;
     userAdapter Uadapter;
     ImageSlider imageSlider;
+    ImageView imageVendeur;
     LottieAnimationView lottieAnimationView;
     ArrayList<user> userComment=new ArrayList<>();
-    TextView price_old,price_new,name,fin_date,nom_vendeur,ouv;
+    TextView price_old,price_new,name,fin_date,nom_vendeur,dateOF,descr;
     ImageView favorite,alert;
     ProductHome product;
     user userClient;
     boolean clicked,clickedAlert;
     DatabaseReference vender;
+    String idVendeur;
+    static String tel;
 
 
     @Override
@@ -80,12 +86,15 @@ public class publication_produit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
-setContentView(R.layout.activity_publication_produit);
+        setContentView(R.layout.activity_publication_produit);
         nom_vendeur= findViewById(R.id.nom_vendeur);
+        imageVendeur = findViewById(R.id.image_vendeur);
         price_old=findViewById(R.id.AncienPrix);
         price_old.setPaintFlags(price_old.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
         price_new=findViewById(R.id.NouveauPrix);
         name=findViewById(R.id.article);
+        dateOF=findViewById(R.id.dateOF);
+        descr=findViewById(R.id.descr);
         fin_date=findViewById(R.id.jusqua);
         mAuth = FirebaseAuth.getInstance();
         recView=findViewById(R.id.lst);
@@ -93,47 +102,6 @@ setContentView(R.layout.activity_publication_produit);
         lottieAnimationView=findViewById(R.id.loti);
         favorite=findViewById(R.id.favorite_image);
         alert=findViewById(R.id.alert_image);
-
-        alert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!clickedAlert){
-                    clickedAlert=true;
-                    alert.setImageResource(R.drawable.ic_baseline_turned_in_24);
-
-                }
-                else {
-                    clickedAlert=false;
-                    alert.setImageResource(R.drawable.ic_baseline_turned_in_not_24);
-                }
-            }
-        });
-        vender=FirebaseDatabase.getInstance().getReference("Users").child("Venders");
-        FirebaseUser idc = FirebaseAuth.getInstance().getCurrentUser();
-        String vid = idc.getUid();
-        ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot d:dataSnapshot.getChildren()){
-                    Market m=d.getValue(Market.class);
-                    
-                if(m.getId().equals(vid)){
-                    nom_vendeur.setText(m.getNom());
-                    fin_date.setText(m.getOuvert()+" - "+m.getFerme());
-                    break;
-                }
-                }
-                // Get Post object and use the values to update the UI
-
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w("jhj", "loadPost:onCancelled", databaseError.toException());
-            }
-        };
-        vender.addValueEventListener(postListener);
-
 
 
         String id=getIntent().getStringExtra("id");
@@ -143,9 +111,10 @@ setContentView(R.layout.activity_publication_produit);
 
 
         getData(id);
-        SetImages(id);
         getComment(id);
         isExist(id);
+
+
         getuserFromProduct(user);
         local=findViewById(R.id.local_btn);
 
@@ -169,15 +138,41 @@ setContentView(R.layout.activity_publication_produit);
             }
 
         });
+        alert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!clickedAlert){
+                    clickedAlert=true;
+                    alert.setImageResource(R.drawable.ic_baseline_turned_in_24);
+                    getAlert(product);
+
+
+                }
+                else {
+                    clickedAlert=false;
+                    alert.setImageResource(R.drawable.ic_baseline_turned_in_not_24);
+                    revAlert();
+                }
+
+
+
+
+
+
+            }
+        });
+
 
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent call=new Intent(Intent.ACTION_DIAL);
-                call.setData(Uri.parse("tel:0558593389"));
+                call.setData(Uri.parse("tel:"+tel+""));
                 if (call.resolveActivity(getPackageManager())!=null)
                     startActivity(call);
+
             }
 
         });
@@ -258,39 +253,6 @@ setContentView(R.layout.activity_publication_produit);
 
 
     }
-    void SetImages(String id){
-        List<SlideModel> slideModels=new ArrayList<>();
-        ImageSlider imageSlider=findViewById(R.id.image);
-        database = FirebaseDatabase.getInstance().getReference("Products").child(id).child("imageUrl");
-        //pour image slider
-
-        database.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                slideModels.clear();
-                List<String> keys = new ArrayList<>();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren())
-                {
-                    try {
-                        keys.add(dataSnapshot.getKey());
-
-
-                        slideModels.add(new SlideModel(dataSnapshot.getValue().toString(),ScaleTypes.CENTER_CROP));
-
-                    }catch (Exception e){
-                        System.out.println("err:"+e.getMessage());
-                    }
-                }
-
-                imageSlider.setImageList(slideModels);
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
     void getComment(String id){
         database1 = FirebaseDatabase.getInstance().getReference().child("Products").child(id).child("users");
         database1.addValueEventListener(new ValueEventListener() {
@@ -331,28 +293,38 @@ setContentView(R.layout.activity_publication_produit);
         });
     }
 
+    ///////
+
+    ////////////
+
     void getData(String id){
-        database=FirebaseDatabase.getInstance().getReference("ProductsHome").child(id);;
+        List<SlideModel> slideModels=new ArrayList<>();
+        ImageSlider imageSlider=findViewById(R.id.image);
+        database=FirebaseDatabase.getInstance().getReference("ProductsHome").child(id);
         database.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-
-
-                //  Map<String, Object> map = (Map<String, Object>) snapshot.getValue();
-
+                slideModels.clear();
                 try {
                     product = snapshot.getValue(ProductHome.class);
+                    idVendeur=product.getIdv();
+                    isAlert(idVendeur);
+                    getTelephone(idVendeur);
+
+                    slideModels.add(new SlideModel(product.getImageUrl().toString(),ScaleTypes.CENTER_CROP));
                     price_old.setText(product.getPrice_ancien());
                     price_new.setText(product.getPrice_nouveau());
                     fin_date.setText(product.getDate());
                     name.setText(product.getName());
-                    // product= new ProductHome(map.get("id").toString(),map.get("name").toString(),map.get("imageUrl").toString(),map.get("price_ancien").toString(),map.get("price_nouveau").toString(),map.get("date").toString(),map.get("rating").toString());
-
+                    Picasso.get().load(product.getV().getImage()).into(imageVendeur);
+                    nom_vendeur.setText(product.getV().nom);
+                    dateOF.setText(product.getV().getOuvert()+"-"+product.getV().getFermer());
+                    descr.setText(product.getRating());
                 }catch (Exception e){
                     System.out.println("err "+e.getMessage());
                 }
+                imageSlider.setImageList(slideModels);
 
 
 
@@ -379,7 +351,7 @@ setContentView(R.layout.activity_publication_produit);
 
     }
 
-
+//favorite
     void getFov(ProductHome product,String id){
         String idV = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference favProduct = FirebaseDatabase.getInstance().getReference().child("Favorite").child(idV);
@@ -399,7 +371,6 @@ setContentView(R.layout.activity_publication_produit);
         product.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //System.out.println("cliked1"+snapshot.exists());
                 if (snapshot.exists())
                 {
                     favorite.setImageResource(R.drawable.ic__full_heart);
@@ -409,7 +380,50 @@ setContentView(R.layout.activity_publication_produit);
                     favorite.setImageResource(R.drawable.ic__empty_heart);
 
                 }
-                //System.out.println("cliked2"+snapshot.exists());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+//alert
+
+    void getAlert(ProductHome product){
+        String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference alertProduct = FirebaseDatabase.getInstance().getReference().child("Alert").child(id);
+        alertProduct.child(product.getIdv()).child("nom").setValue(product.getV().getNom());
+        alertProduct.child(product.getIdv()).child("image").setValue(product.getV().getImage());
+        alertProduct.child(product.getIdv()).child("fermer").setValue(product.getV().getFermer());
+        alertProduct.child(product.getIdv()).child("ouvert").setValue(product.getV().getOuvert());
+
+
+    }
+    void revAlert(){
+
+        String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference alertProduct = FirebaseDatabase.getInstance().getReference().child("Alert").child(id);
+        alertProduct.child(id).removeValue();
+
+    }
+    void isAlert(String idVendeur){
+        String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference alertV = FirebaseDatabase.getInstance().getReference().child("Alert").child(id).child(idVendeur);
+        alertV.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists())
+                {
+                    alert.setImageResource(R.drawable.ic_baseline_turned_in_24);
+                }
+
+                else {
+
+                    alert.setImageResource(R.drawable.ic_baseline_turned_in_not_24);
+
+                }
 
             }
 
@@ -421,6 +435,7 @@ setContentView(R.layout.activity_publication_produit);
 
     }
 
+//image
 
     void getuserFromProduct(String id){
         database=FirebaseDatabase.getInstance().getReference("Users").child(id);;
@@ -455,6 +470,37 @@ setContentView(R.layout.activity_publication_produit);
             }
         });
     }
+    void getTelephone(String idVendeur){
+        DatabaseReference telephone = FirebaseDatabase.getInstance().getReference().child("Users").child("Venders").child(idVendeur);
+        telephone.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                try {
+                   Vendeur vndr = snapshot.getValue(Vendeur.class);
+                    tel=vndr.getNumero();
+
+
+
+
+
+
+                }catch (Exception e){
+                    System.out.println("err "+e.getMessage());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("The read failed: " + error.getCode());
+
+
+            }
+        });
+
+
+    }
+
 
 
 }
