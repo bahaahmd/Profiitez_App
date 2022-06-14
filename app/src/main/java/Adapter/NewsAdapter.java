@@ -52,7 +52,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ProduitViewHol
         //holder.ProductImage.setImageURI(ProductNewList.get(position).getImageUrl());
         //Glide.with(context).asBitmap().load(ProductNewList.get(position).getImageUrl()).into(holder.ProductImage);
         holder.price_old.setText(ProductNewList.get(position).getPrice_ancien());
-        holder.nameItem.setText(ProductNewList.get(position).getRating());
+        holder.nameItem.setText(ProductNewList.get(position).getDescription());
         holder.price_old.setPaintFlags(holder.price_old.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
         holder.price_new.setText(ProductNewList.get(position).getPrice_nouveau());
 

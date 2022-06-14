@@ -24,6 +24,14 @@ String image;
         this.image = image;
 
     }
+    public Vendeur(String nom, String ouvert, String fermer) {
+        this.nom = nom;
+        this.ouvert = ouvert;
+        this.fermer = fermer;
+
+
+    }
+
 
     public String getNom() {
         return nom;

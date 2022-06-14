@@ -9,7 +9,8 @@ public class ProductHome {
     private String price_ancien;
     private String price_nouveau;
     private String date;
-    private String rating;
+    private String description;
+    private String categorie;
     private String idv;
     private Vendeur v;
 
@@ -27,20 +28,27 @@ public class ProductHome {
     }
 
 
-    public ProductHome(String id,String name, String  imageUrl, String price_ancien, String price_nouveau, String date, String rating,String idv,Vendeur v) {
+    public ProductHome(String id,String name, String  imageUrl, String price_ancien, String price_nouveau, String date, String description,String idv,Vendeur v,String categorie) {
         this.id=id;
         this.name = name;
         this.imageUrl = imageUrl;
         this.price_ancien = price_ancien;
         this.price_nouveau = price_nouveau;
         this.date = date;
-        this.rating = rating;
+        this.description = description;
         this.idv=idv;
         this.v=v;
+        this.categorie=categorie;
 
     }
 
+    public String getCategorie() {
+        return categorie;
+    }
 
+    public void setCategorie(String categorie) {
+        this.categorie = categorie;
+    }
 
     public String getName() {
         return name;
@@ -51,6 +59,14 @@ public class ProductHome {
     }
     public String getId() {
         return id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setId(String id) {
@@ -99,11 +115,5 @@ public class ProductHome {
         this.idv = idv;
     }
 
-    public String getRating() {
-        return rating;
-    }
 
-    public void setRating(String rating) {
-        this.rating = rating;
-    }
 }

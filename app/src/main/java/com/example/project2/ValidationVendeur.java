@@ -223,15 +223,16 @@ public class ValidationVendeur extends AppCompatActivity implements LocationList
 
 
 
-                if (!TextUtils.isEmpty(nomMarket) && !TextUtils.isEmpty(localisation) && !TextUtils.isEmpty(numero) && !TextUtils.isEmpty(heureOuverture) && !TextUtils.isEmpty(heureFermeture)) {
+                if (!TextUtils.isEmpty(nomMarket) && !TextUtils.isEmpty(numero) && !TextUtils.isEmpty(heureOuverture) && !TextUtils.isEmpty(heureFermeture)) {
 
-                    vender.child(vid).setValue(m);
                     m.setFerme(heureFermeture);
                     m.setOuvert(heureOuverture);
                     m.setId(vid);
                     m.setLocal(localisation);
                     m.setNom(nomMarket);
                     m.setNumero(numero);
+                    m.setImage(s);
+                    vender.child(vid).setValue(m);
 
                     startActivity(new Intent(ValidationVendeur.this, ActivityVendeur.class));
                     finish();
@@ -265,13 +266,13 @@ public class ValidationVendeur extends AppCompatActivity implements LocationList
                     if (nomMarket.isEmpty()) {
                         nom.setError("champ vide");
                         nom.requestFocus();
-                    } else if (localisation.isEmpty()) {
-                        loc.setError("champ vide");
-                        loc.requestFocus();
-                    } else if (!URLUtil.isValidUrl(localisation)) {
-                        loc.setError("Entrer un lien");
-                        loc.requestFocus();
-                    } else if (numero.isEmpty()) {
+//                    } else if (localisation.isEmpty()) {
+//                        loc.setError("champ vide");
+//                        loc.requestFocus();
+//                    } else if (!URLUtil.isValidUrl(localisation)) {
+//                        loc.setError("Entrer un lien");
+//                        loc.requestFocus();
+                 } else if (numero.isEmpty()) {
                         num.setError("champ vide");
                         num.requestFocus();
                     } else if (!Patterns.PHONE.matcher(numero).matches()) {

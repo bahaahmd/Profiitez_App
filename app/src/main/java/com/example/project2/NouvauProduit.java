@@ -56,7 +56,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class NouvauProduit extends AppCompatActivity {
-    EditText nom,nomm,ancienprix,nouveauprix,description;
+    EditText nom,nomm,ancienprix,nouveauprix,description,categorie;
     Button valide;
     ImageView bck;
     Vendeur v=new Vendeur();
@@ -117,7 +117,8 @@ public class NouvauProduit extends AppCompatActivity {
         nomm = findViewById(R.id.Nom_market);
         open = findViewById(R.id.HO);
         close = findViewById(R.id.HC);
-
+        date=findViewById(R.id.Date_fin);
+        categorie=findViewById(R.id.categorie);
 
 
 
@@ -253,6 +254,8 @@ public class NouvauProduit extends AppCompatActivity {
         String ancien = ancienprix.getText().toString();
         String nouveau = nouveauprix.getText().toString();
         String desc = description.getText().toString();
+        String datee = date.getText().toString();
+        String cat = categorie.getText().toString();
 
 
 
@@ -312,8 +315,10 @@ public class NouvauProduit extends AppCompatActivity {
                                                     pp.setName(Nomp);
                                                     pp.setPrice_ancien(ancien);
                                                     pp.setPrice_nouveau(nouveau);
-                                                    pp.setRating(desc);
+                                                    pp.setDescription(desc);
                                                     pp.setIdv(vid);
+                                                    pp.setDate(datee);
+                                                    pp.setCategorie(cat);
 
 
 
@@ -327,9 +332,12 @@ public class NouvauProduit extends AppCompatActivity {
                                                     p.setName(Nomp);
                                                     p.setPrice_ancien(ancien);
                                                     p.setPrice_nouveau(nouveau);
-                                                    p.setRating(desc);
+                                                    p.setDescription(desc);
                                                     p.setIdv(vid);
                                                     p.setV(v);
+                                                    p.setDate(datee);
+                                                    p.setCategorie(cat);
+                                                    p.setId(idProduct);
 
                                                     databaseReferencee.child(idProduct).setValue(p);
 

@@ -101,4 +101,6 @@ public class FavoriteActivity extends AppCompatActivity implements RecyclerViewI
     public void onItemClickN(int position) {
 
     }
+
+
 }

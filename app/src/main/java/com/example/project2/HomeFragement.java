@@ -81,7 +81,7 @@ public class HomeFragement extends Fragment implements RecyclerViewInterface {
         btnMarket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ValueEventListener postListener = new ValueEventListener() {
+                vender.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get Post object and use the values to update the UI
@@ -111,8 +111,7 @@ break;
                         // Getting Post failed, log a message
                         Log.w("jhj", "loadPost:onCancelled", databaseError.toException());
                     }
-                };
-                vender.addValueEventListener(postListener);
+                });
             }
         });
 

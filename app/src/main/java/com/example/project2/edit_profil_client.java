@@ -139,6 +139,7 @@ public class edit_profil_client extends AppCompatActivity {
         String idV = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         if (mImageUri != null) {
+            ref.child(idV).child("userName").setValue(nom.getText().toString());
             StorageReference fileRefrence = Sref.child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
             fileRefrence.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override

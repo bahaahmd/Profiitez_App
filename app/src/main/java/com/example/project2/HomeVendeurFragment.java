@@ -15,8 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.project2.Product;
 import com.example.project2.R;
@@ -42,6 +44,9 @@ import Adapter.VendeurAdapter;
  public class HomeVendeurFragment extends Fragment implements RecyclerViewInterface {
      RecyclerView recyclerView;
      VendeurAdapter adapter;
+     EditText nom,ancienprix,nouveauprix,description,categorie;
+     TextView date;
+     DatabaseReference produit;
 
 
 
@@ -49,7 +54,7 @@ import Adapter.VendeurAdapter;
      CardView nouvau;
      ImageView mrkt;
      FirebaseUser id = FirebaseAuth.getInstance().getCurrentUser();
-     DatabaseReference databaseReference,p,arachive;
+     DatabaseReference databaseReference,p,arachive,favorite,up;
      String vid = id.getUid();
 
 
@@ -59,8 +64,19 @@ import Adapter.VendeurAdapter;
      public View onCreateView(LayoutInflater inflater, ViewGroup container,
                               Bundle savedInstanceState) {
          View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_home_vendeur, container, false);
+
          recyclerView=(RecyclerView) view.findViewById(R.id.recyclerView_vendeur);
          setVendeurrRecycler(list);
+         date=view.findViewById(R.id.Date_fin);
+         System.out.println(date);
+         categorie=view.findViewById(R.id.categorie);
+         System.out.println(categorie);
+         ancienprix=view.findViewById(R.id.ancien_prix);
+         nouveauprix=view.findViewById(R.id.Nouveau_prix);
+         description=view.findViewById(R.id.description);
+         nom=view.findViewById(R.id.nom_produit);
+         favorite=FirebaseDatabase.getInstance().getReference("Favorite").child(vid
+         );
 
 
 
@@ -114,22 +130,24 @@ mrkt=view.findViewById(R.id.ic_home);
 
      @Override
      public void onCreate(@Nullable Bundle savedInstanceState) {
-
+         super.onCreate(savedInstanceState);
 
 
          p=FirebaseDatabase.getInstance().getReference("Products");
          databaseReference= FirebaseDatabase.getInstance().getReference("ProductsHome");
+         up= FirebaseDatabase.getInstance().getReference("update");
          arachive=FirebaseDatabase.getInstance().getReference("Archive");
 
          databaseReference.addValueEventListener(new ValueEventListener() {
              @Override
              public void onDataChange(DataSnapshot dataSnapshot) {
-                 list.clear();
+
                  // Get Post object and use the values to update the UI
                  for(DataSnapshot d:dataSnapshot.getChildren()){
                      ProductHome p=d.getValue(ProductHome.class);
 
                      if(vid.equals(p.getIdv())){
+                         System.out.println(p.getId());
                          list.add(p);
                      }
 
@@ -148,7 +166,7 @@ mrkt=view.findViewById(R.id.ic_home);
                  Log.w("jhj", "loadPost:onCancelled", databaseError.toException());
              }
          });
-         super.onCreate(savedInstanceState);
+
 
 
 
@@ -159,32 +177,32 @@ mrkt=view.findViewById(R.id.ic_home);
 
 
 }
+public  void updateItem(int pos){
+//    startActivity(new Intent(getActivity(),ModifierPublication.class));
+
+
+
+
+
+
+}
+
+
 public void removeItem(int pos) {
-
-
-
-
-
-
-
-
-
-
-            String s=list.get(pos).getId();
-                databaseReference.child(s).removeValue();
-    list.remove(pos);
-    adapter.notifyItemRemoved(pos);
-
-
-
-
-
-
-
-
+         String s=list.get(pos).getId();
+         databaseReference.child(s).removeValue();
+         favorite.child(s).removeValue();
+          list.remove(pos);
+          adapter.notifyItemRemoved(pos);
 }
      @Override
      public void onItemClickP(int position) {
+
+//         updateItem(position);
+//         System.out.println(position);
+//         Producti i=new Producti(list.get(position).getId());
+//         up.setValue(i);
+
 
      }
 
@@ -193,6 +211,10 @@ public void removeItem(int pos) {
 
          removeItem(position);
 
+
      }
+
+
+
 
  }

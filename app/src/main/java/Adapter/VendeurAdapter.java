@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +23,8 @@ public class VendeurAdapter extends RecyclerView.Adapter<VendeurAdapter.ProduitV
     private final RecyclerViewInterface recyclerViewInterface;
     Context context;
     ArrayList<ProductHome> ProductVendeur ;
+   static EditText nom,ancienprix,nouveauprix,description,categorie;
+    static TextView datee;
 
     public VendeurAdapter(Context context, ArrayList<ProductHome> list,RecyclerViewInterface recyclerViewInterface )
     {
@@ -30,11 +33,13 @@ public class VendeurAdapter extends RecyclerView.Adapter<VendeurAdapter.ProduitV
         this.recyclerViewInterface=recyclerViewInterface;
     }
 
+
     @NonNull
     @Override
     public VendeurAdapter.ProduitVendeurViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(context).inflate(R.layout.vendeur_post,parent,false);
         return new VendeurAdapter.ProduitVendeurViewHolder(view,recyclerViewInterface);
+
     }
 
     @Override
@@ -46,6 +51,7 @@ public class VendeurAdapter extends RecyclerView.Adapter<VendeurAdapter.ProduitV
 
         holder.price_old.setText(ProductVendeur.get(position).getPrice_ancien());
         holder.price_new.setText(ProductVendeur.get(position).getPrice_nouveau());
+
     }
 
     @Override
@@ -54,13 +60,14 @@ public class VendeurAdapter extends RecyclerView.Adapter<VendeurAdapter.ProduitV
     }
 
     public static final class ProduitVendeurViewHolder extends RecyclerView.ViewHolder {
-        ImageView ProductImage,delete;
+        ImageView ProductImage,delete,update;
         TextView price_old,price_new,name,date;
 
 
         public ProduitVendeurViewHolder(@NonNull View itemView,RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             delete=itemView.findViewById(R.id.trash);
+
             ProductImage=itemView.findViewById(R.id.image_vendeur);
             price_old=itemView.findViewById(R.id.AncienPrix_vendeur);
             price_new=itemView.findViewById(R.id.NouveauPrix_vendeur);
@@ -77,6 +84,24 @@ public class VendeurAdapter extends RecyclerView.Adapter<VendeurAdapter.ProduitV
                     }
                 }
             });
+            update=itemView.findViewById(R.id.update);
+
+            update.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(recyclerViewInterface!=null){
+                        int position=getAdapterPosition();
+                        if (position!=RecyclerView.NO_POSITION){
+                            recyclerViewInterface.onItemClickP(position);
+
+                        }
+                    }
+
+
+                }
+            });
+
+
 
 
 

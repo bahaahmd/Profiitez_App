@@ -57,7 +57,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ProduitV
         holder.price_old.setText(ProductPopulaireList.get(position).getPrice_ancien());
         holder.price_old.setPaintFlags(holder.price_old.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
         holder.price_new.setText(ProductPopulaireList.get(position).getPrice_nouveau());
-        holder.nameItem.setText(ProductPopulaireList.get(position).getRating());
+        holder.nameItem.setText(ProductPopulaireList.get(position).getDescription());
         holder.date.setText(ProductPopulaireList.get(position).getDate());
 //        holder.parent.setOnClickListener(new View.OnClickListener() {
 //            @Override
