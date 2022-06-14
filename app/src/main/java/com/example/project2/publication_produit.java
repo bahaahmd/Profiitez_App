@@ -75,7 +75,7 @@ public class publication_produit extends AppCompatActivity {
     user userClient;
     boolean clicked,clickedAlert;
     DatabaseReference vender;
-    String idVendeur;
+    String idVendeur,tel;
 
 
     @Override
@@ -165,7 +165,7 @@ public class publication_produit extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent call=new Intent(Intent.ACTION_DIAL);
-                call.setData(Uri.parse("tel:0558593389"));
+                call.setData(Uri.parse(tel));
                 if (call.resolveActivity(getPackageManager())!=null)
                     startActivity(call);
             }
@@ -295,7 +295,7 @@ public class publication_produit extends AppCompatActivity {
     void getData(String id){
         List<SlideModel> slideModels=new ArrayList<>();
         ImageSlider imageSlider=findViewById(R.id.image);
-        database=FirebaseDatabase.getInstance().getReference("ProductsHome").child(id);;
+        database=FirebaseDatabase.getInstance().getReference("ProductsHome").child(id);
         database.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -305,6 +305,7 @@ public class publication_produit extends AppCompatActivity {
                     product = snapshot.getValue(ProductHome.class);
                     idVendeur=product.getIdv();
                     isAlert(idVendeur);
+                    getTelephone(idVendeur);
 
                     slideModels.add(new SlideModel(product.getImageUrl().toString(),ScaleTypes.CENTER_CROP));
                     price_old.setText(product.getPrice_ancien());
@@ -463,6 +464,39 @@ public class publication_produit extends AppCompatActivity {
 
             }
         });
+    }
+    void getTelephone(String idVendeur){
+        String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference telephone = FirebaseDatabase.getInstance().getReference().child("Users").child("Venders").child(idVendeur);
+        telephone.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                try {
+                   Vendeur vndr = snapshot.getValue(Vendeur.class);
+                   tel=vndr.getTel();
+
+
+
+                }catch (Exception e){
+                    System.out.println("err "+e.getMessage());
+                }
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("The read failed: " + error.getCode());
+
+
+            }
+        });
+
+
     }
 
 
