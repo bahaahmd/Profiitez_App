@@ -103,7 +103,7 @@
                         android:layout_height="match_parent"
                         android:layout_alignParentTop="true"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/star" />
+                        android:src="@drawable/gradient_vendeur" />
 
                     <ImageView
                         android:id="@+id/plus"
