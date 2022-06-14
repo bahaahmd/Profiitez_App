@@ -178,6 +178,13 @@ categorie=findViewById(R.id.categorie);
 
         });
 
+        local.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(publication_produit.this, "En maintenance", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
 
         //pour les commentaires
