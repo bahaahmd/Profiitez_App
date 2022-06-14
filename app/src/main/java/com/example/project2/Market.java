@@ -18,13 +18,13 @@ public class Market {
         this.id = id;
         this.image = image;
     }
-    public Market(String nom, String local, String numero, String ferme, String ouvert,String id) {
+    public Market(String nom, String local, String numero, String ferme, String ouvert) {
         this.nom = nom;
         this.local = local;
         this.numero = numero;
         this.ferme = ferme;
         this.ouvert = ouvert;
-        this.id = id;
+
 
     }
 

@@ -85,7 +85,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.date.setText(mExampleList.get(position).getDate());
         Picasso.get().load(productHome.getImageUrl()).into(holder.ProductImage);
         holder.price_old.setText(mExampleList.get(position).getPrice_ancien());
-        holder.nameItem.setText(mExampleList.get(position).getRating());
+        holder.nameItem.setText(mExampleList.get(position).getDescription());
         holder.price_old.setPaintFlags(holder.price_old.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
         holder.price_new.setText(mExampleList.get(position).getPrice_nouveau());
         Picasso.get().load(productHome.getV().getImage()).into(holder.profile);

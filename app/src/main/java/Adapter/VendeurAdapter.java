@@ -1,9 +1,11 @@
 package Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.project2.ModifierPublication;
 import com.example.project2.Product;
 import com.example.project2.ProductHome;
 import com.example.project2.R;
@@ -23,6 +26,7 @@ public class VendeurAdapter extends RecyclerView.Adapter<VendeurAdapter.ProduitV
     Context context;
     ArrayList<ProductHome> ProductVendeur ;
 
+
     public VendeurAdapter(Context context, ArrayList<ProductHome> list,RecyclerViewInterface recyclerViewInterface )
     {
         this.context=context;
@@ -30,11 +34,13 @@ public class VendeurAdapter extends RecyclerView.Adapter<VendeurAdapter.ProduitV
         this.recyclerViewInterface=recyclerViewInterface;
     }
 
+
     @NonNull
     @Override
     public VendeurAdapter.ProduitVendeurViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(context).inflate(R.layout.vendeur_post,parent,false);
         return new VendeurAdapter.ProduitVendeurViewHolder(view,recyclerViewInterface);
+
     }
 
     @Override
@@ -46,6 +52,17 @@ public class VendeurAdapter extends RecyclerView.Adapter<VendeurAdapter.ProduitV
 
         holder.price_old.setText(ProductVendeur.get(position).getPrice_ancien());
         holder.price_new.setText(ProductVendeur.get(position).getPrice_nouveau());
+        holder.update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context, ModifierPublication.class);
+                intent.putExtra("id",ProductVendeur.get(position).getId());
+                System.out.println(ProductVendeur.get(position).getId()+"+++++++++++++++++");
+                context.startActivity(intent);
+
+            }
+        });
+
     }
 
     @Override
@@ -54,13 +71,14 @@ public class VendeurAdapter extends RecyclerView.Adapter<VendeurAdapter.ProduitV
     }
 
     public static final class ProduitVendeurViewHolder extends RecyclerView.ViewHolder {
-        ImageView ProductImage,delete;
+        ImageView ProductImage,delete,update;
         TextView price_old,price_new,name,date;
 
 
         public ProduitVendeurViewHolder(@NonNull View itemView,RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             delete=itemView.findViewById(R.id.trash);
+
             ProductImage=itemView.findViewById(R.id.image_vendeur);
             price_old=itemView.findViewById(R.id.AncienPrix_vendeur);
             price_new=itemView.findViewById(R.id.NouveauPrix_vendeur);
@@ -77,6 +95,11 @@ public class VendeurAdapter extends RecyclerView.Adapter<VendeurAdapter.ProduitV
                     }
                 }
             });
+            update=itemView.findViewById(R.id.update);
+
+
+
+
 
 
 

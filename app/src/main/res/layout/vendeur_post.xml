@@ -87,14 +87,14 @@
             android:src="@drawable/ic__trash" />
 
         <ImageView
+            android:id="@+id/update"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
 
+            android:layout_height="wrap_content"
             android:layout_below="@id/AncienPrix_vendeur"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
             android:layout_toStartOf="@id/trash"
-            android:src="@drawable/ic__edit"
-            android:id="@+id/update"/>
+            android:src="@drawable/ic__edit" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

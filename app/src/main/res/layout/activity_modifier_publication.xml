@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ModifierPublication">
+
+    <RelativeLayout
+        android:id="@+id/TopBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialoggr">
+
+        <ImageView
+
+            android:id="@+id/back"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="42dp"
+            android:src="@drawable/ic_chevron_left__2_" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="7dp"
+            android:layout_toEndOf="@+id/arriere"
+            android:fontFamily="@font/medium"
+            android:text="Modifier produit"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+
+
+
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/TopBar"
+        >
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+
+            <LinearLayout
+                android:id="@+id/linear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="30dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/relative_slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/border">
+
+
+                    <com.denzcoskun.imageslider.ImageSlider
+                        android:id="@+id/image_slider1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_baseline_image_24"
+                        app:iss_corner_radius="8"
+                        app:iss_error_image="@drawable/error"
+                        app:iss_selected_dot="@drawable/ic_selected_dot"
+                        app:iss_unselected_dot="@drawable/ic_unselected_dot" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/plus1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="5dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_fileName="plus2.json"
+                        app:lottie_loop="true" />
+
+
+                    <TextView
+                        android:id="@+id/cptPhoto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="0/5"
+                        android:textSize="20sp" />
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/nomProduit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/border"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="Nom du produit"
+                    android:maxLength="20"
+                    android:padding="15dp"
+                    android:textColorHint="@color/grey"
+                    android:textSize="14sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/cptNom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="0/20"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/ancienPrix"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/border"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="Ancien prix"
+                    android:inputType="number"
+                    android:padding="15dp"
+                    android:textColorHint="@color/grey"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/nouveauPrix"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/border"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="Nouveau prix"
+                    android:inputType="number"
+                    android:padding="15dp"
+                    android:textColorHint="@color/grey"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/dateFin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/border"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="Date fin"
+                    android:padding="15dp"
+                    android:textColorHint="@color/grey"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/Categorie"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/border"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="categorie"
+                    android:padding="15dp"
+                    android:textColorHint="@color/grey"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/description1"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/border"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="top"
+                    android:hint="description(facultatif)"
+                    android:maxLength="40"
+                    android:padding="10dp"
+                    android:textColorHint="@color/grey"
+                    android:textSize="14sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/cptDescrp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:maxLength="40"
+                        android:text="/40"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/buttonValide"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/button__"
+                    android:fontFamily="@font/medium"
+                    android:text="Valider"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
+
+
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

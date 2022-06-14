@@ -48,7 +48,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ProduitViewHol
         holder.date.setText(ProductNewList.get(position).getDate());
         Picasso.get().load(productHome.getImageUrl()).into(holder.ProductImage);
         holder.price_old.setText(ProductNewList.get(position).getPrice_ancien());
+
+        holder.nameItem.setText(ProductNewList.get(position).getDescription());
+
         holder.nameItem.setText(ProductNewList.get(position).getName());
+
         holder.price_old.setPaintFlags(holder.price_old.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
         holder.price_new.setText(ProductNewList.get(position).getPrice_nouveau());
         Picasso.get().load(productHome.getV().getImage()).into(holder.profile);

@@ -320,7 +320,7 @@ public class publication_produit extends AppCompatActivity {
                     Picasso.get().load(product.getV().getImage()).into(imageVendeur);
                     nom_vendeur.setText(product.getV().nom);
                     dateOF.setText(product.getV().getOuvert()+"-"+product.getV().getFermer());
-                    descr.setText(product.getRating());
+                    descr.setText(product.getDescription());
                 }catch (Exception e){
                     System.out.println("err "+e.getMessage());
                 }

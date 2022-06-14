@@ -89,7 +89,7 @@ public class notification extends Fragment {
                     try {
                         keys.add(dataSnapshot.getKey());
                         ProductHome product = dataSnapshot.getValue(ProductHome.class);
-                         notif = new Notif(product.getImageUrl(),product.getName(),product.getRating(),product.getDate());
+                         notif = new Notif(product.getImageUrl(),product.getName(),product.getDescription(),product.getDate());
 
                     }catch (Exception e){
                         System.out.println("err:"+e.getMessage());
