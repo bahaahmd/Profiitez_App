@@ -54,6 +54,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.sql.StatementEvent;
+
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class publication_produit extends AppCompatActivity {
@@ -75,7 +77,8 @@ public class publication_produit extends AppCompatActivity {
     user userClient;
     boolean clicked,clickedAlert;
     DatabaseReference vender;
-    String idVendeur,tel;
+    String idVendeur;
+    static String tel;
 
 
     @Override
@@ -164,10 +167,12 @@ public class publication_produit extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent call=new Intent(Intent.ACTION_DIAL);
-                call.setData(Uri.parse(tel));
+                call.setData(Uri.parse("tel:"+tel+""));
                 if (call.resolveActivity(getPackageManager())!=null)
                     startActivity(call);
+
             }
 
         });
@@ -466,7 +471,6 @@ public class publication_produit extends AppCompatActivity {
         });
     }
     void getTelephone(String idVendeur){
-        String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference telephone = FirebaseDatabase.getInstance().getReference().child("Users").child("Venders").child(idVendeur);
         telephone.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -474,18 +478,16 @@ public class publication_produit extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 try {
                    Vendeur vndr = snapshot.getValue(Vendeur.class);
-                   tel=vndr.getTel();
+                    tel=vndr.getNumero();
+
+
+
 
 
 
                 }catch (Exception e){
                     System.out.println("err "+e.getMessage());
                 }
-
-
-
-
-
             }
 
             @Override
@@ -498,6 +500,7 @@ public class publication_produit extends AppCompatActivity {
 
 
     }
+
 
 
 }

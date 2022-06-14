@@ -5,26 +5,28 @@ String nom;
 String ouvert;
 String fermer;
 String image;
-String tel;
+String numero;
 
 
 
     public Vendeur() {
     }
 
-    public Vendeur(String nom, String ouvert, String fermer,String image) {
+    public Vendeur(String nom, String ouvert, String fermer,String image,String numero) {
         this.nom = nom;
         this.ouvert = ouvert;
         this.fermer = fermer;
         this.image = image;
+        this.numero=numero;
 
     }
-    public String getTel() {
-        return tel;
+
+    public String getNumero() {
+        return numero;
     }
 
-    public void setTel(String tel) {
-        this.tel = tel;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
     public String getNom() {
