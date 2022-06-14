@@ -216,64 +216,61 @@
 
 
             </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/relative_4"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/Constraint_3"
-                android:layout_marginTop="10dp">
+                android:layout_below="@+id/Constraint_3"
+                android:layout_marginTop="10dp"
+                android:id="@+id/line">
 
                 <Button
 
                     android:id="@+id/btn_appeler"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
                     android:layout_marginStart="15dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_toStartOf="@+id/local_btn"
+
+                    android:layout_weight="1"
                     android:background="@drawable/border_button_publication"
                     android:drawableLeft="@drawable/ic_baseline_call_24"
-                    android:drawablePadding="5dp"
+                    android:drawablePadding="3dp"
                     android:paddingHorizontal="5dp"
                     android:text="Appeler"
                     android:textAllCaps="false"
                     android:textSize="18sp" />
 
                 <Button
+                    android:layout_marginEnd="10dp"
                     android:id="@+id/local_btn"
+                    android:layout_marginStart="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_weight="1"
                     android:background="@drawable/border_button_publication"
                     android:drawableLeft="@drawable/ic_baseline_location_on_24"
-                    android:drawablePadding="5dp"
+                    android:drawablePadding="10dp"
                     android:paddingHorizontal="5dp"
                     android:text="Localisation"
                     android:textAllCaps="false"
                     android:textSize="18sp" />
+            </LinearLayout>
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/local_btn"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="15dp"
-                    android:background="@drawable/border_button_publication"
-                    android:drawableLeft="@drawable/ic_baseline_share_24"
-                    android:drawablePadding="5dp"
-                    android:paddingHorizontal="5dp"
-                    android:text="Partager"
-                    android:textAllCaps="false"
-                    android:textSize="18sp" />
+            <RelativeLayout
+                android:id="@+id/relative_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line"
+                android:layout_marginTop="10dp">
+
+
 
                 <TextView
                     android:id="@+id/txt_noter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/btn_appeler"
-                    android:layout_alignLeft="@+id/btn_appeler"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="Noter vendeur : "
