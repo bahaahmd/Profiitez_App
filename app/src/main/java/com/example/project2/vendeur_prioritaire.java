@@ -93,6 +93,7 @@ public class vendeur_prioritaire extends AppCompatActivity {
             int pos=viewHolder.getAdapterPosition();
             alert_list.remove(pos);
             alert_adapter.notifyItemRemoved(pos);
+            revAlert();
 
         }
 
@@ -144,5 +145,13 @@ public class vendeur_prioritaire extends AppCompatActivity {
         });
 
     }
+    void revAlert(){
+
+        String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference alertProduct = FirebaseDatabase.getInstance().getReference().child("Alert").child(id);
+        alertProduct.child(id).removeValue();
+
+    }
+
 
 }
