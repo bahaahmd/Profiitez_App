@@ -79,6 +79,7 @@ Button arrow;
     DatabaseReference vender;
     String idVendeur;
     static String tel;
+    TextView categorie;
 
 
     @Override
@@ -102,7 +103,7 @@ Button arrow;
         lottieAnimationView=findViewById(R.id.loti);
         favorite=findViewById(R.id.favorite_image);
         alert=findViewById(R.id.alert_image);
-
+categorie=findViewById(R.id.categorie);
 
         String id=getIntent().getStringExtra("id");
         DatabaseReference usersRefProduct = FirebaseDatabase.getInstance().getReference().child("Products").child(id);

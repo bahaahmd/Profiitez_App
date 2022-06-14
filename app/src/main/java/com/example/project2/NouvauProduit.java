@@ -134,7 +134,7 @@ Spinner spinner;
 spinner=findViewById(R.id.categorie);
 
 
-  String[] categories={"alimentation","sport","electronique","beauté","article bébe","santé","autres"};
+  String[] categories={"Alimentation","Sport","Electronique","Beauté","Article Bébe","Santé","Autres"};
 
 adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,categories);
 spinner.setAdapter((SpinnerAdapter) adapter);

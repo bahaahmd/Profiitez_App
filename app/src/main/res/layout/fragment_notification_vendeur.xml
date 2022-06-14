@@ -10,7 +10,7 @@
         android:id="@+id/parent"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@drawable/pro_client">
+        android:background="@drawable/pro">
 
         <LinearLayout
             android:layout_width="wrap_content"
