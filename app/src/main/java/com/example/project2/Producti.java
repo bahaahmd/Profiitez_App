@@ -8,6 +8,9 @@ public class Producti {
 
     private String idc;
 
+    public Producti(String idc) {
+        this.idc = idc;
+    }
 
     public String getIdc() {
         return idc;

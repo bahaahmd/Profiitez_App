@@ -30,7 +30,7 @@
         android:textSize="14dp"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordancien" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordancienn" />
 
     <TextView
         android:id="@+id/textView8"
@@ -120,7 +120,7 @@
 
     <EditText
 
-        android:id="@+id/passwordancien"
+        android:id="@+id/passwordancienn"
         android:layout_width="246dp"
         android:layout_height="47dp"
         android:layout_marginStart="25dp"
@@ -183,7 +183,7 @@
         android:paddingStart="10dp"
         android:text="+213-549672793"
         android:textSize="14dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonupdate"
+        app:layout_constraintBottom_toTopOf="@+id/buttonupdatee"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10"
@@ -192,7 +192,7 @@
     <androidx.appcompat.widget.AppCompatButton
 
 
-        android:id="@+id/buttonupdate"
+        android:id="@+id/buttonupdatee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="158dp"

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -36,9 +37,12 @@ public class edit_profil_vendeur extends AppCompatActivity {
     Uri mImageUri;
     EditText editText,nom,email;
     Button btn;
-    String urlP;
+    String urlP,s,ss;
+    Vendeur v=new Vendeur();
     StorageReference Sref= FirebaseStorage.getInstance().getReference("Profil");
-    DatabaseReference database;
+    DatabaseReference database,ref,produit;
+    String idV = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    DatabaseReference dd;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -57,14 +61,16 @@ public class edit_profil_vendeur extends AppCompatActivity {
         setContentView(R.layout.edit_profil_vendeurt);
         imageView= findViewById(R.id.imageView3);
         img=findViewById(R.id.imageView7);
-        nom=findViewById(R.id.passwordancien);
-        btn=findViewById(R.id.buttonupdate) ;
+        nom=findViewById(R.id.passwordancienn);
+        dd=FirebaseDatabase.getInstance().getReference("url");
+
+        btn=findViewById(R.id.buttonupdatee) ;
         email= findViewById(R.id.editTextTextPassword4);
         editText=findViewById(R.id.editTextTextPassword5);
         textView=findViewById((R.id.textView7));
-        DatabaseReference ref=database = FirebaseDatabase.getInstance().getReference().child("Users");
+      ref= FirebaseDatabase.getInstance().getReference("Users").child("Venders");
+      produit=FirebaseDatabase.getInstance().getReference("ProductsHome");
 
-        getdata();
         imageView.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -79,12 +85,12 @@ public class edit_profil_vendeur extends AppCompatActivity {
             }
         });
 
-        Button btn= findViewById(R.id.buttonupdate);
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 setdata(ref);
-                Intent intent=new Intent(edit_profil_vendeur.this,Profile.class);
 
             }
         });
@@ -98,21 +104,23 @@ public class edit_profil_vendeur extends AppCompatActivity {
             }
 
         });
+        getdata();
 
 
 
     }
     void getdata() {
         String idV = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        database = FirebaseDatabase.getInstance().getReference().child("Users").child(idV);
+        database = FirebaseDatabase.getInstance().getReference("Users").child("Venders").child(idV);
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 try {
                     System.out.println("here client ");
-                    user client = snapshot.getValue(user.class);
-                    nom.setText(client.getUserName());
-                    Picasso.get().load(client.getImage()).into(img);
+                    Market vender = snapshot.getValue(Market.class);
+                    nom.setText(vender.getNom());
+                    editText.setText(vender.getNumero());
+                    Picasso.get().load(vender.getImage()).into(img);
                     email.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
 
@@ -134,8 +142,16 @@ public class edit_profil_vendeur extends AppCompatActivity {
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
     void setdata(DatabaseReference ref) {
-        String idV = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+
+
+
+
+
+
+
+        ref.child(idV).child("nom").setValue(nom.getText().toString());
+        ref.child(idV).child("numero").setValue(editText.getText().toString());
         if (mImageUri != null) {
             StorageReference fileRefrence = Sref.child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
             fileRefrence.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -146,15 +162,80 @@ public class edit_profil_vendeur extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             Toast.makeText(edit_profil_vendeur.this, "UloadSucces", Toast.LENGTH_LONG).show();
                             urlP = uri.toString();
-                            System.out.println(urlP);
                             ref.child(idV).child("image").setValue(urlP);
+                            Producti i=new Producti(urlP);
+                            dd.setValue(i);
+
+
+
+
+
+
+
+
+
 
                         }
                     });
-                    ref.child(idV).child("userName").setValue(nom.getText().toString());
 
 
-                }});
+
+                }
+
+
+
+
+
+            });
+
         }
+        produit.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot d:dataSnapshot.getChildren()){
+                    ProductHome p=d.getValue(ProductHome.class);
+                    System.out.println(d.getValue());
+                    System.out.println(p.getIdv());
+                    if(idV.equals(p.getIdv())){
+
+
+
+
+
+
+                        produit.child(p.getId()).child("v").child("nom").setValue(nom.getText().toString());
+                        dd.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                Producti i=snapshot.getValue(Producti.class);
+                                System.out.println(i.getIdc());
+                                produit.child(p.getId()).child("v").child("image").setValue(i.getIdc());
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+                        break;
+
+                    }
+                }
+
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("jhj", "loadPost:onCancelled", databaseError.toException());
+            }
+        });
+
+
+
+
     }
 }

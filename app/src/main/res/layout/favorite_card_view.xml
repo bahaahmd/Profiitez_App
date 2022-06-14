@@ -71,8 +71,19 @@ android:layout_marginVertical="10dp"
             android:textSize="18sp" />
 
 
-
-
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/durée"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="45dp"
+            android:fontFamily="@font/medium"
+            android:text="Sneakers"
+            android:textColor="#7A7A7A"
+            android:textSize="9dp" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="35dp"

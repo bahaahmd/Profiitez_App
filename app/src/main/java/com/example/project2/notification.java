@@ -1,63 +1,109 @@
 package com.example.project2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link notification#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import Adapter.NewsAdapter;
+import Adapter.NotifAdapter;
+import Adapter.SearchAdapter;
+
+
 public class notification extends Fragment {
+    RecyclerView recyclerView;
+    NotifAdapter adapter;
+    ArrayList<Notif> list;
+    ImageView arrow;
+    Button button;
+    Notif notif;
+    DatabaseReference databaseReference;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public notification() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment notification.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static notification newInstance(String param1, String param2) {
-        notification fragment = new notification();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notification, container, false);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_notification, container, false);
+        recyclerView=(RecyclerView) view.findViewById(R.id.notifRec);
+        View view1=LayoutInflater.from(getContext()).inflate(R.layout.notification_item,container,false);
+        button=(Button) view1.findViewById(R.id.btn_menu);
+        arrow=view.findViewById(R.id.arrow);
+        setNotifRecycler();
+        arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(),HomePage.class));
+            }
+        });
+
+        return view;
     }
+
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        list=new ArrayList<>();
+
+    }
+    private void setNotifRecycler()
+    {
+        String idV = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        databaseReference = FirebaseDatabase.getInstance().getReference("ProductsHome");
+
+        RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false);
+
+        recyclerView.setLayoutManager(layoutManager);
+        adapter=new NotifAdapter(getContext(),list);
+        recyclerView.setAdapter(adapter);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
+                List<String> keys = new ArrayList<>();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    try {
+                        keys.add(dataSnapshot.getKey());
+                        ProductHome product = dataSnapshot.getValue(ProductHome.class);
+                         notif = new Notif(product.getImageUrl(),product.getName(),product.getDescription(),product.getDate());
+
+                    }catch (Exception e){
+                        System.out.println("err:"+e.getMessage());
+                    }
+                }
+                list.add(notif);
+                adapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
 }

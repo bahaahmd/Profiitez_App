@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import Adapter.NewsAdapter;
 import Adapter.PopularAdapter;
 import Adapter.RecyclerViewInterface;
 import Adapter.SearchAdapter;
@@ -37,7 +39,8 @@ public class Search extends Fragment implements RecyclerViewInterface {
     RecyclerView recyclerView;
     SearchAdapter adapter;
     SearchView searchView;
-    ArrayList<Search_item> list;
+    ArrayList<ProductHome> list;
+    NewsAdapter adapter_new;
     RelativeLayout parent;
     DatabaseReference databaseReference;
     LottieAnimationView lotie;
@@ -48,7 +51,7 @@ public class Search extends Fragment implements RecyclerViewInterface {
                              Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_search, container, false);
         recyclerView=(RecyclerView) view.findViewById(R.id.search_recView);
-        setSearchRecycler(list);
+        setNewsRecycler(list);
         recyclerView.setVisibility(View.INVISIBLE);
         lotie=view.findViewById(R.id.anima);
         lotie.playAnimation();
@@ -65,8 +68,14 @@ public class Search extends Fragment implements RecyclerViewInterface {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                lotie.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
+                if(!newText.isEmpty()){
+                    lotie.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }else{
+                    lotie.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.INVISIBLE);
+                }
+
                 filter(newText);
                 return false;
             }
@@ -82,29 +91,17 @@ public class Search extends Fragment implements RecyclerViewInterface {
 
 
 
-      getSearch();
-//        list.add(new Search_item("Nike",""));
-//        list.add(new Search_item("Adidas",""));
-
-
-
-
-
-
-
+        getSearch();
 
 
     }
-
-
-
-    private void setSearchRecycler(ArrayList<Search_item> list)
+    private void setNewsRecycler(ArrayList<ProductHome> news_list)
     {
-        RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter=new SearchAdapter(getContext(),list,this);
+        GridLayoutManager layoutManager_2=new GridLayoutManager(getActivity(),2);
+        recyclerView.setLayoutManager(layoutManager_2);
+        layoutManager_2.setOrientation(LinearLayoutManager.VERTICAL);
+        adapter=new SearchAdapter(getContext(),news_list,this);
         recyclerView.setAdapter(adapter);
-
 
     }
     private  void getSearch(){
@@ -117,18 +114,10 @@ public class Search extends Fragment implements RecyclerViewInterface {
                 List<String> keys = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
-//                    try {
-//                    Map<String,String> search_item = (Map<String, String>) dataSnapshot.getValue();
-//
-//                    list.add(new Search_item(search_item.get("name"), search_item.get("ImageUrl")));
-//                    }catch (Exception e){
-//                        System.out.println("err:"+e.getMessage());
-//                    }
-
                     try {
                         keys.add(dataSnapshot.getKey());
-                        Search_item search_item = dataSnapshot.getValue(Search_item.class);
-                        list.add(search_item);
+                        ProductHome productHome = dataSnapshot.getValue(ProductHome.class);
+                        list.add(productHome);
                     }catch (Exception e){
                         System.out.println("err:"+e.getMessage());
                     }
@@ -143,9 +132,9 @@ public class Search extends Fragment implements RecyclerViewInterface {
 
     }
     private void filter(String text) {
-        ArrayList<Search_item> filteredList = new ArrayList<>();
+        ArrayList<ProductHome> filteredList = new ArrayList<>();
 
-        for (Search_item item : list) {
+        for (ProductHome item : list) {
             if (item.getName().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(item);
             }

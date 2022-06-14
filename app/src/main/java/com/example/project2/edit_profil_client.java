@@ -64,7 +64,7 @@ public class edit_profil_client extends AppCompatActivity {
         email= findViewById(R.id.editTextTextPassword4);
         editText=findViewById(R.id.editTextTextPassword5);
         textView=findViewById((R.id.textView7));
-        DatabaseReference ref=database = FirebaseDatabase.getInstance().getReference().child("Users");
+        DatabaseReference ref= FirebaseDatabase.getInstance().getReference().child("Users");
 
         getdata();
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -80,13 +80,10 @@ public class edit_profil_client extends AppCompatActivity {
 
             }
         });
-
-        Button btn= findViewById(R.id.buttonupdate);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setdata(ref);
-                Intent intent=new Intent(edit_profil_client.this,edit_profil_client.class);
 
             }
         });
@@ -139,6 +136,7 @@ public class edit_profil_client extends AppCompatActivity {
         String idV = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         if (mImageUri != null) {
+            ref.child(idV).child("userName").setValue(nom.getText().toString());
             StorageReference fileRefrence = Sref.child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
             fileRefrence.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override

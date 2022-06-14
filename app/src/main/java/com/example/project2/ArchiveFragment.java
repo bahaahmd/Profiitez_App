@@ -32,9 +32,10 @@ public class ArchiveFragment extends Fragment implements RecyclerViewInterface {
         
      
     FirebaseUser id = FirebaseAuth.getInstance().getCurrentUser();
-    DatabaseReference databaseReference;
+
 
     String vid = id.getUid();
+    DatabaseReference databaseReference;
 
 RecyclerView recyclerView1;
 ArrayList<ProductHome> list=new ArrayList();
@@ -107,9 +108,6 @@ FavoriteAdapter adapter1;
     public void onItemClickN(int position) {
 
     }
-
-
-
 
 
 

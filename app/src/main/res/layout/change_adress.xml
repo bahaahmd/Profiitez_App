@@ -62,7 +62,7 @@
         app:layout_constraintTop_toBottomOf="@id/constraintLayout"
       />
     <EditText
-        android:id="@+id/Nom_market"
+        android:id="@+id/Nom_markett"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -103,7 +103,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Nom_market" />
+        app:layout_constraintTop_toBottomOf="@+id/Nom_markett" />
 
     <EditText
         android:id="@+id/Numero_market"
@@ -114,7 +114,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/edittext_border_vendur"
         android:padding="10dp"
-        android:hint="Numero"
+        android:hint="Numero Telephone"
         android:textColor="@color/black"
         android:gravity="start"
         android:textColorHint="@color/grey"
@@ -174,8 +174,9 @@
         android:layout_width="wrap_content"
 
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="104dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.595"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HC"
         app:srcCompat="@drawable/ic_rectangle_6" />

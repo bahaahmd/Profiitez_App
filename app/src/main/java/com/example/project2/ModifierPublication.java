@@ -3,19 +3,13 @@ package com.example.project2;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 import android.app.DatePickerDialog;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -24,13 +18,10 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,15 +45,12 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-
-
 import java.util.HashMap;
 import java.util.List;
 
-public class NouvauProduit extends AppCompatActivity {
-    EditText nom,nomm,ancienprix,nouveauprix,description;
+public class ModifierPublication extends AppCompatActivity {
+    EditText nom,nomm,ancienprix,nouveauprix,description,categorie;
     Button valide;
-    final static String CHANNEL_ID="channel id";
     ImageView bck;
     Vendeur v=new Vendeur();
 
@@ -75,31 +63,31 @@ public class NouvauProduit extends AppCompatActivity {
 
 
 
-Spinner spinner;
+
     ImageSlider imageSlider;
     List<SlideModel> slide;
     TextView compteur,compteur2,compteur3;
     LottieAnimationView lotie;
-    String urlP;
+    String urlP,s;
     DatabaseReference databaseReference, databaseReferencee,archive,user;
     StorageReference storageReference, storageReferencee,archives;
     Uri mImageUri;
     HashMap<String, String> H = new HashMap<>();
     StorageTask tt;
 
+
     FirebaseUser id = FirebaseAuth.getInstance().getCurrentUser();
     String vid = id.getUid();
-
-     String[] categories;
-    private Object adapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        s=  getIntent().getStringExtra("id");
+        System.out.println(s);
         databaseReferencee = FirebaseDatabase.getInstance().getReference("Products");
         databaseReference = FirebaseDatabase.getInstance().getReference("ProductsHome");
+
         archive = FirebaseDatabase.getInstance().getReference("Archive");
         user = FirebaseDatabase.getInstance().getReference("Users").child("Venders");
         archives = FirebaseStorage.getInstance().getReference("Archive");
@@ -107,49 +95,44 @@ Spinner spinner;
         storageReference = FirebaseStorage.getInstance().getReference("Products");
         storageReferencee = FirebaseStorage.getInstance().getReference("ProductsHome");
 
-        setContentView(R.layout.activity_nouvau_produit);
-        nom=findViewById(R.id.nom_produit);
-        ancienprix=findViewById(R.id.ancien_prix);
-        nouveauprix=findViewById(R.id.Nouveau_prix);
-        description=findViewById(R.id.description);
-        valide=findViewById(R.id.button_valide);
-        bck=findViewById(R.id.arriere);
-        lotie=findViewById(R.id.plus);
-        imageSlider=findViewById(R.id.image_slider);
-        compteur=findViewById(R.id.cpt);
-        compteur2=findViewById(R.id.cpt_nom);
-        compteur3=findViewById(R.id.cpt_descrp);
+        setContentView(R.layout.activity_modifier_publication);
+        nom=findViewById(R.id.nomProduit);
+        ancienprix=findViewById(R.id.ancienPrix);
+        nouveauprix=findViewById(R.id.nouveauPrix);
+        description=findViewById(R.id.description1);
+        valide=findViewById(R.id.buttonValide);
+        bck=findViewById(R.id.back);
+        lotie=findViewById(R.id.plus1);
+        imageSlider=findViewById(R.id.image_slider1);
+        compteur=findViewById(R.id.cptPhoto);
+        compteur2=findViewById(R.id.cptNom);
+        compteur3=findViewById(R.id.cptDescrp);
         slide=new ArrayList<>();
         lotie.playAnimation();
         slide.clear();
         nomm = findViewById(R.id.Nom_market);
         open = findViewById(R.id.HO);
         close = findViewById(R.id.HC);
+        date=findViewById(R.id.dateFin);
+        categorie=findViewById(R.id.Categorie);
 
 
 
 
 
-        date=findViewById(R.id.Date_fin);
-spinner=findViewById(R.id.categorie);
 
-
-  String[] categories={"alimentation","sport","electronique","beauté","article bébe","santé","autres"};
-
-adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,categories);
-spinner.setAdapter((SpinnerAdapter) adapter);
 
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
-        date=findViewById(R.id.Date_fin);
+
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        NouvauProduit.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, setListener, year, month, day);
+                        ModifierPublication.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, setListener, year, month, day);
                 datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 datePickerDialog.show();
             }
@@ -167,7 +150,7 @@ spinner.setAdapter((SpinnerAdapter) adapter);
         bck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(NouvauProduit.this,ActivityVendeur.class));
+                startActivity(new Intent(ModifierPublication.this,ActivityVendeur.class));
             }
         });
 
@@ -223,7 +206,7 @@ spinner.setAdapter((SpinnerAdapter) adapter);
             @Override
             public void onClick(View v) {
                 cratePost();
-                isNotif();
+
             }
         });
 
@@ -269,7 +252,7 @@ spinner.setAdapter((SpinnerAdapter) adapter);
         String nouveau = nouveauprix.getText().toString();
         String desc = description.getText().toString();
         String datee = date.getText().toString();
-        String cat = spinner.getSelectedItem().toString();
+        String cat = categorie.getText().toString();
 
 
 
@@ -286,10 +269,9 @@ spinner.setAdapter((SpinnerAdapter) adapter);
         }else {
             int anc = Integer.parseInt(ancien);
             int neuv = Integer.parseInt(nouveau);
-            String idProduct = databaseReferencee.push().getKey();
 
             if (!TextUtils.isEmpty(Nomp) && !TextUtils.isEmpty(ancien) && !TextUtils.isEmpty(nouveau) && !TextUtils.isEmpty(desc)) {
-                Intent intent=new Intent(NouvauProduit.this,ActivityVendeur.class);
+                Intent intent=new Intent(ModifierPublication.this,ActivityVendeur.class);
                 startActivity(intent);
 
                 if (mImageUri != null) {
@@ -300,7 +282,7 @@ spinner.setAdapter((SpinnerAdapter) adapter);
                             fileRefrence.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    Toast.makeText(NouvauProduit.this, "UloadSucces", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(ModifierPublication.this, "UloadSucces", Toast.LENGTH_LONG).show();
                                     for (SlideModel s : slide) {
                                         urlP = uri.toString();
 
@@ -312,7 +294,6 @@ spinner.setAdapter((SpinnerAdapter) adapter);
                                             // Get Post object and use the values to update the UI
                                             for(DataSnapshot d:dataSnapshot.getChildren()){
                                                 Market u=d.getValue(Market.class);
-                                                System.out.println(u.getId());
 
                                                 if(vid.equals(u.getId())){
 
@@ -323,7 +304,7 @@ spinner.setAdapter((SpinnerAdapter) adapter);
                                                     pp.setV(v);
 
 
-                                                    pp.setId(idProduct);
+
                                                     pp.setImageUrl(uri.toString());
                                                     //p.setDate(datee);
                                                     pp.setName(Nomp);
@@ -338,8 +319,7 @@ spinner.setAdapter((SpinnerAdapter) adapter);
 
 
 
-                                                    databaseReference.child(idProduct).setValue(pp);
-                                                    archive.child(idProduct).setValue(pp);
+
 
                                                     p.setImageUrl(H);
                                                     //p.setDate(datee);
@@ -351,9 +331,22 @@ spinner.setAdapter((SpinnerAdapter) adapter);
                                                     p.setV(v);
                                                     p.setDate(datee);
                                                     p.setCategorie(cat);
-                                                    p.setId(idProduct);
+                                                    pp.setId(s);
+                                                    p.setId(s);
+                                                    archive.child(s).setValue(pp);
+                                                    databaseReference.child(s).setValue(pp);
 
-                                                    databaseReferencee.child(idProduct).setValue(p);
+
+
+                                                    databaseReferencee.child(s).setValue(p);
+
+
+
+
+
+
+
+
 
 
 
@@ -396,7 +389,7 @@ spinner.setAdapter((SpinnerAdapter) adapter);
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(NouvauProduit.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(ModifierPublication.this, e.getMessage(), Toast.LENGTH_LONG).show();
 
                         }
                     });
@@ -431,53 +424,6 @@ spinner.setAdapter((SpinnerAdapter) adapter);
             }
         }
 
-
-    }
-    private void pushNotification() {
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
-        {
-            NotificationChannel channel=new NotificationChannel(CHANNEL_ID,"notif", NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription("This is the discription");
-            NotificationManager manager=getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel);
-        }
-
-        Intent intent=new Intent(this,MainActivity2.class);
-        PendingIntent p=PendingIntent.getActivity(this,0,intent,0);
-        NotificationCompat.Builder builder=new NotificationCompat.Builder(getApplicationContext(),CHANNEL_ID);
-        builder.setSmallIcon(R.drawable.ic_bell)
-                .setContentTitle("Profitez")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(p)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText("you have a new product "));
-
-        NotificationManagerCompat notif=NotificationManagerCompat.from(this);
-        notif.notify(10,builder.build());
-
-
-
-
-    }
-    private void isNotif(){
-
-            String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            DatabaseReference alertV = FirebaseDatabase.getInstance().getReference().child("Alert").child(id);
-            alertV.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists())
-                    {
-                        pushNotification();
-                    }
-
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
 
     }
 

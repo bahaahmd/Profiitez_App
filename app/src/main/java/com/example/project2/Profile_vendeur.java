@@ -35,6 +35,11 @@ public class Profile_vendeur extends Fragment {
     ListView listView;
     String nom[] = { "Paramètres", "évaluez nous", "Référer un ami", "Aide", "Se déconnecter"};
     int image[] = { R.drawable.ic_settings__6_, R.drawable.ic_rate_us, R.drawable.ic_share__1_, R.drawable.ic_question, R.drawable.ic_logout__1_};
+    FirebaseUser id = FirebaseAuth.getInstance().getCurrentUser();
+
+
+
+    String vid = id.getUid();
 
     View view;
     ImageView imageView;
@@ -62,7 +67,7 @@ public class Profile_vendeur extends Fragment {
         listView = (ListView) view.findViewById(R.id.list_view);
         img=(ImageView) view.findViewById(R.id.editproffil);
         imageView = view.findViewById(R.id.imageView);
-        nomClient=view.findViewById(R.id.textView2);
+        nomClient=view.findViewById(R.id.textView22);
         emailClient=view.findViewById(R.id.textView);
         parent=(ConstraintLayout) view.findViewById(R.id.layoutdialogcontainer);
         ProfileAdapter profileAdapter = new ProfileAdapter(getActivity(), nom, image);
@@ -154,16 +159,17 @@ public class Profile_vendeur extends Fragment {
         return view;
 
     }    void getdata() {
-        String idV = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        database = FirebaseDatabase.getInstance().getReference().child("Users").child(idV);
+
+        database = FirebaseDatabase.getInstance().getReference().child("Users").child("Venders").child(vid);
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 try {
                     System.out.println("here client ");
-                    user client = snapshot.getValue(user.class);
-                    nomClient.setText(client.getUserName());
-                    Picasso.get().load(client.getImage()).into(imageView);
+                    Market vender = snapshot.getValue(Market.class);
+                    nomClient.setText(vender.getNom());
+
+                    Picasso.get().load(vender.getImage()).into(imageView);
                     emailClient.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
 
