@@ -1,6 +1,7 @@
 package Adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.example.project2.Product;
 import com.example.project2.ProductHome;
 import com.example.project2.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -38,12 +40,16 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Produi
 
     @Override
     public void onBindViewHolder(@NonNull ProduitViewHolder holder, int position) {
-        holder.name.setText(ProductFavoriteListe.get(position).getName());
+        holder.name.setText(ProductFavoriteListe.get(position).getV().getNom());
         holder.date.setText(ProductFavoriteListe.get(position).getDate());
-        // holder.ProductImage.setImageResource(ProductFavoriteListe.get(position).getImageUrl());
         Glide.with(context).asBitmap().load(ProductFavoriteListe.get(position).getImageUrl()).into(holder.ProductImage);
         holder.price_old.setText(ProductFavoriteListe.get(position).getPrice_ancien());
         holder.price_new.setText(ProductFavoriteListe.get(position).getPrice_nouveau());
+        holder.nameItem.setText(ProductFavoriteListe.get(position).getName());
+        holder.date.setText(ProductFavoriteListe.get(position).getDate());
+        Glide.with(context).asBitmap().load(ProductFavoriteListe.get(position).getV().getImage()).into(holder.profile);
+
+
     }
 
 
@@ -52,8 +58,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Produi
         return ProductFavoriteListe.size();
     }
     public static final class ProduitViewHolder extends RecyclerView.ViewHolder {
-        ImageView ProductImage;
-        TextView price_old,price_new,name,date;
+        ImageView ProductImage,profile;
+        TextView price_old,price_new,name,date,nameItem;
 
         public ProduitViewHolder(@NonNull View itemView,RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
@@ -62,6 +68,9 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Produi
             price_new=itemView.findViewById(R.id.NouveauPrix);
             name=itemView.findViewById(R.id.Name);
             date=itemView.findViewById(R.id.durée);
+            nameItem=itemView.findViewById(R.id.type);
+            profile=itemView.findViewById(R.id.PhotoProfile);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
