@@ -5,24 +5,28 @@ String nom;
 String ouvert;
 String fermer;
 String image;
+String numero;
 
-    public String getImage() {
-        return image;
-    }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
 
     public Vendeur() {
     }
 
-    public Vendeur(String nom, String ouvert, String fermer,String image) {
+    public Vendeur(String nom, String ouvert, String fermer,String image,String numero) {
         this.nom = nom;
         this.ouvert = ouvert;
         this.fermer = fermer;
         this.image = image;
+        this.numero=numero;
 
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
     public Vendeur(String nom, String ouvert, String fermer) {
         this.nom = nom;
@@ -55,5 +59,13 @@ String image;
 
     public void setFermer(String fermer) {
         this.fermer = fermer;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

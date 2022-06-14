@@ -48,28 +48,18 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ProduitV
     @Override
     public void onBindViewHolder(@NonNull ProduitViewHolder holder, final int position) {
         ProductHome productHome =ProductPopulaireList.get(position);
-        holder.name.setText(ProductPopulaireList.get(position).getName());
-       Picasso.get().load(productHome.getImageUrl()).into(holder.ProductImage);
-        //holder.ProductImage.setImageURI(ProductPopulaireList.get(position).getImageUrl());
-        //holder.ProductImage.setImageBitmap(ProductPopulaireList.get(position).getImageUrl());
-        //holder.ProductImage.setImageURI(ProductPopulaireList.get(position).getImageUrl());
-        //Glide.with(context).asBitmap().load(ProductPopulaireList.get(position).getImageUrl()).into(holder.ProductImage);
+        holder.name.setText(ProductPopulaireList.get(position).getV().getNom());
+        Picasso.get().load(productHome.getImageUrl()).into(holder.ProductImage);
         holder.price_old.setText(ProductPopulaireList.get(position).getPrice_ancien());
         holder.price_old.setPaintFlags(holder.price_old.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
         holder.price_new.setText(ProductPopulaireList.get(position).getPrice_nouveau());
+
         holder.nameItem.setText(ProductPopulaireList.get(position).getDescription());
+
+        holder.nameItem.setText(ProductPopulaireList.get(position).getName());
+
         holder.date.setText(ProductPopulaireList.get(position).getDate());
-//        holder.parent.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                context.startActivity(
-//                        new Intent(context, publication_produit.class)
-//
-//                );
-//
-//
-//            }
-//        });
+        Picasso.get().load(productHome.getV().getImage()).into(holder.profile);
 
 
 
@@ -83,7 +73,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ProduitV
     }
 
     public static final class ProduitViewHolder extends RecyclerView.ViewHolder {
-        ImageView ProductImage;
+        ImageView ProductImage,profile;
         TextView price_old,price_new,name,date,nameItem;
         CardView parent;
 
@@ -96,6 +86,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ProduitV
             parent=itemView.findViewById(R.id.parent);
             date=itemView.findViewById(R.id.durée);
             nameItem=itemView.findViewById(R.id.type);
+            profile=itemView.findViewById(R.id.PhotoProfile);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

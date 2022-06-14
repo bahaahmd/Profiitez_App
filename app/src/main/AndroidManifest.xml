@@ -14,8 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project2">
         <activity
-            android:name=".ModifierPublication"
-            android:exported="false" />
+
+            android:name=".ModifierPublication"/>
+
         <activity
             android:name=".ValidationVendeur"
             android:exported="false" />

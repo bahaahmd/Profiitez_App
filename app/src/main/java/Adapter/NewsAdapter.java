@@ -44,26 +44,18 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ProduitViewHol
     @Override
     public void onBindViewHolder(@NonNull ProduitViewHolder holder,final  int position) {
         ProductHome productHome =ProductNewList.get(position);
-        holder.name.setText(ProductNewList.get(position).getName());
+        holder.name.setText(ProductNewList.get(position).getV().getNom());
         holder.date.setText(ProductNewList.get(position).getDate());
-        //holder.ProductImage.setImageURI(ProductNewList.get(position).getImageUrl());
         Picasso.get().load(productHome.getImageUrl()).into(holder.ProductImage);
-        //holder.ProductImage.setImageBitmap(ProductNewList.get(position).getImageUrl());
-        //holder.ProductImage.setImageURI(ProductNewList.get(position).getImageUrl());
-        //Glide.with(context).asBitmap().load(ProductNewList.get(position).getImageUrl()).into(holder.ProductImage);
         holder.price_old.setText(ProductNewList.get(position).getPrice_ancien());
+
         holder.nameItem.setText(ProductNewList.get(position).getDescription());
+
+        holder.nameItem.setText(ProductNewList.get(position).getName());
+
         holder.price_old.setPaintFlags(holder.price_old.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
         holder.price_new.setText(ProductNewList.get(position).getPrice_nouveau());
-
-//        holder.parent.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                context.startActivity(
-//                        new Intent(context, publication_produit.class)
-//                );
-//            }
-//        });
+        Picasso.get().load(productHome.getV().getImage()).into(holder.profile);
 
 
 
@@ -75,7 +67,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ProduitViewHol
         return ProductNewList.size();
     }
     public static final class ProduitViewHolder extends RecyclerView.ViewHolder {
-        ImageView ProductImage;
+        ImageView ProductImage,profile;
         TextView price_old,price_new,name,date,nameItem;
         CardView parent;
 
@@ -88,6 +80,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ProduitViewHol
             parent=itemView.findViewById(R.id.new_parent);
             date=itemView.findViewById(R.id.durée);
             nameItem=itemView.findViewById(R.id.type);
+            profile=itemView.findViewById(R.id.PhotoProfile);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
