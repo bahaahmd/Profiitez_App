@@ -26,6 +26,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -64,7 +66,7 @@ public class change_adress extends AppCompatActivity implements LocationListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.change_adress);
-        vender= FirebaseDatabase.getInstance().getReference("Users").child("Venders");
+        vender= FirebaseDatabase.getInstance().getReference("Users").child("Venders").child(vid);
         produit= FirebaseDatabase.getInstance().getReference("ProductsHome");
         imageView=(ImageView) findViewById(R.id.imageView5);
         nomMarket=findViewById(R.id.Nom_markett);
@@ -82,70 +84,13 @@ public class change_adress extends AppCompatActivity implements LocationListener
                 String lo=loc.getText().toString();
                 String o=Ho.getText().toString();
                 String c=Hc.getText().toString();
-
-//                produit.addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                        // Get Post object and use the values to update the UI
-//                        for(DataSnapshot d:dataSnapshot.getChildren()){
-//                            ProductHome m=d.getValue(ProductHome.class);
-//
-//                            if(vid.equals(m.getIdv())){
-//
-//                                v.setNom(nom);
-//                                v.setFermer(c);
-//                                v.setOuvert(o);
-//                                v.setImage(img);
-//
-//                                produit.child(m.getId()).child("v").setValue(v);
-//
-//
-//
-//                                break;
-//                            }
-//                        }
-//
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//                        // Getting Post failed, log a message
-//                        Log.w("jhj", "loadPost:onCancelled", databaseError.toException());
-//                    }
-//                });
-
-                vender.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                set(nom,num,lo,o,c);
 
 
-                        // Get Post object and use the values to update the UI
-                        for(DataSnapshot d:dataSnapshot.getChildren()){
-                            Market m=d.getValue(Market.class);
-                            if(vid.equals(m.getId())){
-                                img=m.getImage();
-                                Market mv=new Market(nom,lo,num,c,o,m.getId(),m.getImage());
-                                vender.child(m.getId()).setValue(mv);
-                                break;
-                            }
-                        }
 
 
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        // Getting Post failed, log a message
-                        Log.w("jhj", "loadPost:onCancelled", databaseError.toException());
-                    }
-                });
             }
-            public void openActivity() {
-                Intent intent=new Intent(change_adress.this, setting_vendeur.class);
-                startActivity(intent);
-            }
+
         });
 
 
@@ -289,5 +234,61 @@ public class change_adress extends AppCompatActivity implements LocationListener
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
         LocationListener.super.onStatusChanged(provider, status, extras);
+    }
+    public void set(String nom,String num,String lo,String o,String c){
+        produit.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                // Get Post object and use the values to update the UI
+                for(DataSnapshot d:dataSnapshot.getChildren()){
+                    ProductHome m=d.getValue(ProductHome.class);
+
+                    if(vid.equals(m.getIdv())){
+
+
+                        produit.child(m.getId()).child("v").child("fermer").setValue(c).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    System.out.println("finished");
+                                }else{
+                                    System.out.println("erreur");
+                                }
+                            }
+                        });
+
+                        produit.child(m.getId()).child("v").child("nom").setValue(nom);
+                        produit.child(m.getId()).child("v").child("ouvert").setValue(o);
+
+
+
+
+
+
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("jhj", "loadPost:onCancelled", databaseError.toException());
+            }
+
+
+        });
+
+        vender.child("nom").setValue(nom);
+        vender.child("numero").setValue(num);
+        vender.child("local").setValue(lo);
+        vender.child("ouvert").setValue(o);
+        vender.child("ferme").setValue(c);
+    }
+    public void openActivity() {
+        Intent intent=new Intent(change_adress.this, setting_vendeur.class);
+        startActivity(intent);
     }
 }

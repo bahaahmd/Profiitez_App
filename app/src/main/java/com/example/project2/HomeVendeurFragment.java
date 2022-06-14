@@ -54,7 +54,7 @@ import Adapter.VendeurAdapter;
      CardView nouvau;
      ImageView mrkt;
      FirebaseUser id = FirebaseAuth.getInstance().getCurrentUser();
-     DatabaseReference databaseReference,p,arachive,favorite,up;
+     DatabaseReference databaseReference,p,arachive,favorite;
      String vid = id.getUid();
 
 
@@ -135,17 +135,17 @@ mrkt=view.findViewById(R.id.ic_home);
 
          p=FirebaseDatabase.getInstance().getReference("Products");
          databaseReference= FirebaseDatabase.getInstance().getReference("ProductsHome");
-         up= FirebaseDatabase.getInstance().getReference("update");
+
          arachive=FirebaseDatabase.getInstance().getReference("Archive");
 
-         databaseReference.addValueEventListener(new ValueEventListener() {
+         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
              @Override
              public void onDataChange(DataSnapshot dataSnapshot) {
 
                  // Get Post object and use the values to update the UI
                  for(DataSnapshot d:dataSnapshot.getChildren()){
                      ProductHome p=d.getValue(ProductHome.class);
-
+                     System.out.println(p.getId()+"+++++++++++++++++++++++++++++++++");
                      if(vid.equals(p.getIdv())){
                          System.out.println(p.getId());
                          list.add(p);
@@ -178,7 +178,7 @@ mrkt=view.findViewById(R.id.ic_home);
 
 }
 public  void updateItem(int pos){
-//    startActivity(new Intent(getActivity(),ModifierPublication.class));
+
 
 
 
@@ -198,10 +198,8 @@ public void removeItem(int pos) {
      @Override
      public void onItemClickP(int position) {
 
-//         updateItem(position);
-//         System.out.println(position);
-//         Producti i=new Producti(list.get(position).getId());
-//         up.setValue(i);
+
+
 
 
      }

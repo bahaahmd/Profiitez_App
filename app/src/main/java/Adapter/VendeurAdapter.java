@@ -1,6 +1,7 @@
 package Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.project2.ModifierPublication;
 import com.example.project2.Product;
 import com.example.project2.ProductHome;
 import com.example.project2.R;
@@ -23,8 +25,7 @@ public class VendeurAdapter extends RecyclerView.Adapter<VendeurAdapter.ProduitV
     private final RecyclerViewInterface recyclerViewInterface;
     Context context;
     ArrayList<ProductHome> ProductVendeur ;
-   static EditText nom,ancienprix,nouveauprix,description,categorie;
-    static TextView datee;
+
 
     public VendeurAdapter(Context context, ArrayList<ProductHome> list,RecyclerViewInterface recyclerViewInterface )
     {
@@ -51,6 +52,16 @@ public class VendeurAdapter extends RecyclerView.Adapter<VendeurAdapter.ProduitV
 
         holder.price_old.setText(ProductVendeur.get(position).getPrice_ancien());
         holder.price_new.setText(ProductVendeur.get(position).getPrice_nouveau());
+        holder.update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context, ModifierPublication.class);
+                intent.putExtra("id",ProductVendeur.get(position).getId());
+                System.out.println(ProductVendeur.get(position).getId()+"+++++++++++++++++");
+                context.startActivity(intent);
+
+            }
+        });
 
     }
 
@@ -86,20 +97,7 @@ public class VendeurAdapter extends RecyclerView.Adapter<VendeurAdapter.ProduitV
             });
             update=itemView.findViewById(R.id.update);
 
-            update.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(recyclerViewInterface!=null){
-                        int position=getAdapterPosition();
-                        if (position!=RecyclerView.NO_POSITION){
-                            recyclerViewInterface.onItemClickP(position);
 
-                        }
-                    }
-
-
-                }
-            });
 
 
 
