@@ -2,4 +2,12 @@
     <string name="app_name">project2</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="categories">
+        <item> Alimentaire</item>
+        <item> habillment</item>
+        <item> sport</item>
+        <item> electronique</item>
+        <item> electromenager</item>
+        <item> autres</item>
+    </string-array>
 </resources>

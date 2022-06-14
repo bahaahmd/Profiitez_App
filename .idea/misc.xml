@@ -171,6 +171,9 @@
         <entry key="..\:/Users/mmoha/Profiitez_App/app/src/main/res/layout/account_setting_client.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/mmoha/Profiitez_App/app/src/main/res/layout/account_setting_vendeur.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/mmoha/Profiitez_App/app/src/main/res/layout/activity_favorite.xml" value="0.22" />
+        <entry key="..\:/Users/mmoha/Profiitez_App/app/src/main/res/layout/activity_home.xml" value="0.24547101449275363" />
+        <entry key="..\:/Users/mmoha/Profiitez_App/app/src/main/res/layout/activity_nouvau_produit.xml" value="0.33" />
+        <entry key="..\:/Users/mmoha/Profiitez_App/app/src/main/res/layout/activity_publication_produit.xml" value="0.5" />
         <entry key="..\:/Users/mmoha/Profiitez_App/app/src/main/res/layout/activity_settings_client.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/mmoha/Profiitez_App/app/src/main/res/layout/activity_validation_vendeur.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/mmoha/Profiitez_App/app/src/main/res/layout/change_adress.xml" value="0.18541666666666667" />
@@ -227,6 +230,8 @@
         <entry key="..\:/Users/user/Desktop/Profiitez_App/app/src/main/res/layout/fragment_home_fragement.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/user/Desktop/Profiitez_App/app/src/main/res/layout/fragment_home_vendeur.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/user/Desktop/Profiitez_App/app/src/main/res/layout/vendeur_post.xml" value="0.17552083333333332" />
+<<<<<<< HEAD
+=======
         <entry key="..\:/Users/user/Desktop1/Profiitez_App/app/src/main/res/layout/fragment_home_vendeur.xml" value="0.1" />
         <entry key="..\:/Users/user/Desktop2/Profiitez_App/app/src/main/res/layout/account_setting_vendeur.xml" value="0.1796875" />
         <entry key="..\:/Users/user/Desktop2/Profiitez_App/app/src/main/res/layout/activity_modifier_publication.xml" value="0.16666666666666666" />
@@ -243,6 +248,7 @@
         <entry key="..\:/Users/user/Desktop2/Profiitez_App/app/src/main/res/layout/vendeur_post.xml" value="0.1796875" />
         <entry key="..\:/Users/user/Desktop2/Profiitez_App/app/src/main/res/layout/vendeur_prioritaire.xml" value="0.1" />
         <entry key="..\:/Users/user/Desktop2/Profiitez_App/app/src/main/res/layout/vendeur_profil.xml" value="0.14666666666666667" />
+>>>>>>> add5189867f84d733453f024af4c1cfe23d4d8bd
       </map>
     </option>
   </component>

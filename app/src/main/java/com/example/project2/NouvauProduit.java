@@ -24,11 +24,13 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,23 +48,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class NouvauProduit extends AppCompatActivity {
-    EditText nom,nomm,ancienprix,nouveauprix,description,categorie;
+    EditText nom,nomm,ancienprix,nouveauprix,description;
     Button valide;
     final static String CHANNEL_ID="channel id";
     ImageView bck;
@@ -77,7 +75,7 @@ public class NouvauProduit extends AppCompatActivity {
 
 
 
-
+Spinner spinner;
     ImageSlider imageSlider;
     List<SlideModel> slide;
     TextView compteur,compteur2,compteur3;
@@ -91,6 +89,9 @@ public class NouvauProduit extends AppCompatActivity {
 
     FirebaseUser id = FirebaseAuth.getInstance().getCurrentUser();
     String vid = id.getUid();
+
+     String[] categories;
+    private Object adapter;
 
 
     @Override
@@ -124,13 +125,19 @@ public class NouvauProduit extends AppCompatActivity {
         nomm = findViewById(R.id.Nom_market);
         open = findViewById(R.id.HO);
         close = findViewById(R.id.HC);
+
+
+
+
+
         date=findViewById(R.id.Date_fin);
-        categorie=findViewById(R.id.categorie);
+spinner=findViewById(R.id.categorie);
 
 
+  String[] categories={"alimentation","sport","electronique","beauté","article bébe","santé","autres"};
 
-
-
+adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,categories);
+spinner.setAdapter((SpinnerAdapter) adapter);
 
 
         Calendar calendar = Calendar.getInstance();
@@ -262,7 +269,7 @@ public class NouvauProduit extends AppCompatActivity {
         String nouveau = nouveauprix.getText().toString();
         String desc = description.getText().toString();
         String datee = date.getText().toString();
-        String cat = categorie.getText().toString();
+        String cat = spinner.getSelectedItem().toString();
 
 
 
