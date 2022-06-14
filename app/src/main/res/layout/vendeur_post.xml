@@ -20,9 +20,9 @@
 <ImageView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:src="@drawable/star"
+    android:src="@drawable/gradient_vendeur"
     android:scaleType="centerCrop"
-    android:id="@+id/image_vendeur"
+    android:id="@+id/image_vende"
     />
     </androidx.cardview.widget.CardView>
 

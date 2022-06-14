@@ -42,7 +42,7 @@ public class ActivityVendeur extends AppCompatActivity {
                         fragment = new Profile_vendeur();
                         break;
                     case R.id.notification_vendeur:
-                        fragment = new notification();
+                        fragment = new notification_vendeur();
                         break;
 
                     default:

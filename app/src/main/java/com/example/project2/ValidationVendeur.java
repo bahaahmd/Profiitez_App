@@ -195,7 +195,7 @@ public class ValidationVendeur extends AppCompatActivity implements LocationList
             @Override
             public void onClick(View view) {
                 createMarket();
-
+finish();
 
             }
         });
