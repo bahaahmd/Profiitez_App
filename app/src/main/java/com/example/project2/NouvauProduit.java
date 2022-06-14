@@ -22,7 +22,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,18 +40,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -84,6 +80,9 @@ public class NouvauProduit extends AppCompatActivity {
 
     FirebaseUser id = FirebaseAuth.getInstance().getCurrentUser();
     String vid = id.getUid();
+    private Spinner spinner;
+    private String categories;
+    private Object adapter;
 
 
     @Override
@@ -117,9 +116,9 @@ public class NouvauProduit extends AppCompatActivity {
         nomm = findViewById(R.id.Nom_market);
         open = findViewById(R.id.HO);
         close = findViewById(R.id.HC);
-
-
-
+      spinner=findViewById(R.id.categorie);
+      categories=("aze","sport","electronique");
+  adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item,"habillement","sport","electronique");
 
 
 

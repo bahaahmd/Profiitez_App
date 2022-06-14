@@ -171,7 +171,7 @@
                 android:textColorHint="@color/grey"
                 android:textSize="14sp" />
 
-            <EditText
+            <Spinner
                 android:id="@+id/categorie"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -181,7 +181,8 @@
                 android:hint="categorie"
                 android:padding="15dp"
                 android:textColorHint="@color/grey"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:entries="@array/categories"/>
 
             <EditText
                 android:id="@+id/description"
