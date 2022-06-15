@@ -1,6 +1,10 @@
 package com.example.project2;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,6 +18,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,6 +47,7 @@ public class notification extends Fragment {
     ImageView arrow;
     Button button;
     Notif notif;
+    final static String CHANNEL_ID="channel id";
     DatabaseReference databaseReference;
 
 
@@ -105,5 +112,6 @@ public class notification extends Fragment {
         });
 
     }
+
 
 }

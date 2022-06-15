@@ -67,6 +67,8 @@ public class NouvauProduit extends AppCompatActivity {
     Vendeur v=new Vendeur();
 
     TextView date,close,open;
+    ProductHome productHome;
+    boolean isNotif=false ;
     DatePickerDialog.OnDateSetListener setListener;
     int i = 0;
     Product p = new Product();
@@ -126,7 +128,8 @@ Spinner spinner;
         open = findViewById(R.id.HO);
         close = findViewById(R.id.HC);
 
-
+        isPossibleNotif();
+        isGetNotif();
 
 
 
@@ -223,14 +226,10 @@ spinner.setAdapter((SpinnerAdapter) adapter);
             @Override
             public void onClick(View v) {
                 cratePost();
-                isNotif();
+
             }
         });
-
     }
-
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -358,14 +357,7 @@ spinner.setAdapter((SpinnerAdapter) adapter);
 
 
                                                 }
-
-
                                             }
-
-
-
-
-
 
                                         }
 
@@ -375,19 +367,6 @@ spinner.setAdapter((SpinnerAdapter) adapter);
                                             Log.w("jhj", "loadPost:onCancelled", databaseError.toException());
                                         }
                                     });
-
-
-
-
-
-
-
-
-
-
-
-
-
                                 }
                             });
 
@@ -433,7 +412,7 @@ spinner.setAdapter((SpinnerAdapter) adapter);
 
 
     }
-    private void pushNotification() {
+    private void getNotification() {
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
         {
             NotificationChannel channel=new NotificationChannel(CHANNEL_ID,"notif", NotificationManager.IMPORTANCE_DEFAULT);
@@ -449,7 +428,7 @@ spinner.setAdapter((SpinnerAdapter) adapter);
                 .setContentTitle("Profitez")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(p)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText("you have a new product "));
+                .setStyle(new NotificationCompat.BigTextStyle().bigText("Someone alert you"));
 
         NotificationManagerCompat notif=NotificationManagerCompat.from(this);
         notif.notify(10,builder.build());
@@ -458,28 +437,95 @@ spinner.setAdapter((SpinnerAdapter) adapter);
 
 
     }
-    private void isNotif(){
 
-            String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            DatabaseReference alertV = FirebaseDatabase.getInstance().getReference().child("Alert").child(id);
-            alertV.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists())
-                    {
-                        pushNotification();
-                    }
+    private void revNotification() {
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
+        {
+            NotificationChannel channel=new NotificationChannel(CHANNEL_ID,"notif", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("This is the discription");
+            NotificationManager manager=getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+
+        Intent intent=new Intent(this,MainActivity2.class);
+        PendingIntent p=PendingIntent.getActivity(this,0,intent,0);
+        NotificationCompat.Builder builder=new NotificationCompat.Builder(getApplicationContext(),CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.ic_bell)
+                .setContentTitle("Profitez")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(p)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText("you don't have any alert "));
+
+        NotificationManagerCompat notif=NotificationManagerCompat.from(this);
+        notif.notify(10,builder.build());
 
 
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
 
     }
+    private void isGetNotif(){
+
+        String idCurrent = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference alertV = FirebaseDatabase.getInstance().getReference().child("ProductsHome");
+        alertV.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot datasnapshot:snapshot.getChildren()) {
+
+                    productHome=datasnapshot.getValue(ProductHome.class);
+
+                }
+
+                if(idCurrent.equals(productHome.getIdv()) && isNotif ){
+                    getNotification();
+                }else if(idCurrent.equals(productHome.getIdv()) && !isNotif){
+                    revNotification();
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+    private void isPossibleNotif(){
+
+        String idCurrent = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference alertV = FirebaseDatabase.getInstance().getReference().child("Alert");
+        alertV.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot datasnapshot:snapshot.getChildren()) {
+
+                    productHome=datasnapshot.getValue(ProductHome.class);
+                    System.out.println("notif"+productHome.getIdv());
+                    if(idCurrent.equals(productHome.getIdv())){
+                        isNotif=true;
+                        break;
+                    }else
+                    {
+                        isNotif=false;
+                    }
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
 
 
 

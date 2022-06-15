@@ -80,9 +80,10 @@ Button arrow;
     ArrayList<user> userComment=new ArrayList<>();
     TextView price_old,price_new,name,fin_date,nom_vendeur,dateOF,descr;
     ImageView favorite,alert;
-    ProductHome product;
+    ProductHome product,productHome;
     user userClient;
-    boolean clicked,clickedAlert;
+    boolean clicked,clickedAlert,isNotif=false;
+
     DatabaseReference vender;
     String idVendeur;
     static String tel;
@@ -154,16 +155,11 @@ Button arrow;
                     clickedAlert=true;
                     alert.setImageResource(R.drawable.ic_baseline_turned_in_24);
                     getAlert(product);
-                    isGetNotif(id) ;
-
-
-
                 }
                 else {
                     clickedAlert=false;
                     alert.setImageResource(R.drawable.ic_baseline_turned_in_not_24);
                     revAlert();
-                    isRevNotif(id);
                 }
 
 
@@ -338,6 +334,8 @@ Button arrow;
                     isAlert(idVendeur);
                     getTelephone(idVendeur);
                     getLocalisation(idVendeur);
+                    isNotif(idVendeur);
+                    isGetNotif(idVendeur);
 
                     slideModels.add(new SlideModel(product.getImageUrl().toString(),ScaleTypes.CENTER_CROP));
                     price_old.setText(product.getPrice_ancien());
@@ -536,101 +534,7 @@ Button arrow;
 
     }
 
-    private void getNotification() {
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
-        {
-            NotificationChannel channel=new NotificationChannel(CHANNEL_ID,"notif", NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription("This is the discription");
-            NotificationManager manager=getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel);
-        }
 
-        Intent intent=new Intent(this,MainActivity2.class);
-        PendingIntent p=PendingIntent.getActivity(this,0,intent,0);
-        NotificationCompat.Builder builder=new NotificationCompat.Builder(getApplicationContext(),CHANNEL_ID);
-        builder.setSmallIcon(R.drawable.ic_bell)
-                .setContentTitle("Profitez")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(p)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText("Someone alert you"));
-
-        NotificationManagerCompat notif=NotificationManagerCompat.from(this);
-        notif.notify(10,builder.build());
-
-
-
-
-    }
-
-    private void revNotification() {
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
-        {
-            NotificationChannel channel=new NotificationChannel(CHANNEL_ID,"notif", NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription("This is the discription");
-            NotificationManager manager=getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel);
-        }
-
-        Intent intent=new Intent(this,MainActivity2.class);
-        PendingIntent p=PendingIntent.getActivity(this,0,intent,0);
-        NotificationCompat.Builder builder=new NotificationCompat.Builder(getApplicationContext(),CHANNEL_ID);
-        builder.setSmallIcon(R.drawable.ic_bell)
-                .setContentTitle("Profitez")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(p)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText("Someone remove his alert "));
-
-        NotificationManagerCompat notif=NotificationManagerCompat.from(this);
-        notif.notify(10,builder.build());
-
-
-
-
-    }
-    private void isGetNotif(String id){
-
-        String idCurrent = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference alertV = FirebaseDatabase.getInstance().getReference().child("ProductsHome").child(id);
-        alertV.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ProductHome productHome=snapshot.getValue(ProductHome.class);
-              if(idCurrent.equals(productHome.getIdv())){
-                  getNotification();
-              }
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
-    private void isRevNotif(String id){
-
-        String idCurrent = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference alertV = FirebaseDatabase.getInstance().getReference().child("ProductsHome").child(id);
-        alertV.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ProductHome productHome=snapshot.getValue(ProductHome.class);
-                if(idCurrent.equals(productHome.getIdv())){
-                    revNotification();
-                }
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
     private void getLocalisation(String idVendeur){
         DatabaseReference local = FirebaseDatabase.getInstance().getReference().child("localisation").child(idVendeur);
         local.addValueEventListener(new ValueEventListener() {
@@ -658,9 +562,109 @@ Button arrow;
 
     }
 
+    private void pushNotification() {
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
+        {
+            NotificationChannel channel=new NotificationChannel(CHANNEL_ID,"notif", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("This is the discription");
+            NotificationManager manager=getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+
+        Intent intent=new Intent(this,MainActivity2.class);
+        PendingIntent p=PendingIntent.getActivity(this,0,intent,0);
+        NotificationCompat.Builder builder=new NotificationCompat.Builder(getApplicationContext(),CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.ic_bell)
+                .setContentTitle("Profitez")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(p)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText("you have a new product from: "+product.getV().getNom()));
+
+        NotificationManagerCompat notif=NotificationManagerCompat.from(this);
+        notif.notify(10,builder.build());
 
 
 
 
+    }
+
+    private void revNotification()
+    {
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
+        {
+            NotificationChannel channel=new NotificationChannel(CHANNEL_ID,"notif", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("This is the discription");
+            NotificationManager manager=getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+
+        Intent intent=new Intent(this,MainActivity2.class);
+        PendingIntent p=PendingIntent.getActivity(this,0,intent,0);
+        NotificationCompat.Builder builder=new NotificationCompat.Builder(getApplicationContext(),CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.ic_bell)
+                .setContentTitle("Profitez")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(p)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText("you can alert this vendeur: "+product.getV().getNom()));
+
+        NotificationManagerCompat notif=NotificationManagerCompat.from(this);
+        notif.notify(10,builder.build());
+
+
+
+
+    }
+    private void isNotif(String idVendeur){
+
+        String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference alertV = FirebaseDatabase.getInstance().getReference().child("Alert").child(id).child(idVendeur);
+        alertV.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists())
+                {
+                    isNotif=true;
+                }else {
+                    isNotif=false;
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+    private void isGetNotif(String idVendeur){
+        DatabaseReference alertV = FirebaseDatabase.getInstance().getReference().child("ProductsHome");
+        alertV.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot datasnapshot:snapshot.getChildren()) {
+
+                    productHome=datasnapshot.getValue(ProductHome.class);
+
+                }
+
+                if(idVendeur.equals(productHome.getIdv()) && isNotif ){
+                    pushNotification();
+                }else if(idVendeur.equals(productHome.getIdv()) && !isNotif){
+                    revNotification();
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
 
 }
