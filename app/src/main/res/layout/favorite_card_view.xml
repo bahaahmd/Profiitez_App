@@ -85,6 +85,21 @@ android:layout_marginVertical="10dp"
             android:textColor="#7A7A7A"
             android:textSize="9dp" />
 
+        <TextView
+            android:id="@+id/categories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/type"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="-37dp"
+            android:layout_toEndOf="@+id/NouveauPrix"
+            android:fontFamily="@font/medium"
+            android:text="categorie"
+            android:textColor="#7A7A7A"
+            android:textSize="7dp" />
+
         <androidx.cardview.widget.CardView
             android:layout_width="35dp"
             android:layout_height="35dp"

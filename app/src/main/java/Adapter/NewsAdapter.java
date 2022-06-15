@@ -56,6 +56,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ProduitViewHol
         holder.price_old.setPaintFlags(holder.price_old.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
         holder.price_new.setText(ProductNewList.get(position).getPrice_nouveau());
         Picasso.get().load(productHome.getV().getImage()).into(holder.profile);
+        holder.categorie.setText(ProductNewList.get(position).getCategorie());
 
 
 
@@ -68,7 +69,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ProduitViewHol
     }
     public static final class ProduitViewHolder extends RecyclerView.ViewHolder {
         ImageView ProductImage,profile;
-        TextView price_old,price_new,name,date,nameItem;
+        TextView price_old,price_new,name,date,nameItem,categorie;
         CardView parent;
 
         public ProduitViewHolder(@NonNull View itemView,RecyclerViewInterface recyclerViewInterface) {
@@ -81,6 +82,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ProduitViewHol
             date=itemView.findViewById(R.id.durée);
             nameItem=itemView.findViewById(R.id.type);
             profile=itemView.findViewById(R.id.PhotoProfile);
+            categorie=itemView.findViewById(R.id.categories);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
