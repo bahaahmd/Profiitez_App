@@ -152,14 +152,6 @@
                             android:textColor="@color/black"
                             android:textSize="27sp" />
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignStart="@+id/spinner"
-                            android:layout_centerInParent="true"
-                            android:layout_marginStart="4dp"
-                            android:src="@drawable/ic__52557_location_my_icon" />
-
 
                         <Spinner
                             android:id="@+id/spinner"

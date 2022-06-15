@@ -1,5 +1,6 @@
 package Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -44,7 +45,7 @@ public class VendeurAdapter extends RecyclerView.Adapter<VendeurAdapter.ProduitV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProduitVendeurViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProduitVendeurViewHolder holder,  int position) {
         holder.name.setText(ProductVendeur.get(position).getName());
         holder.date.setText(ProductVendeur.get(position).getDate());
         //holder.ProductImage.setImageResource(ProductVendeur.get(position).getImageUrl());

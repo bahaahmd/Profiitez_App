@@ -75,7 +75,7 @@ public class HomeFragement extends Fragment implements RecyclerViewInterface {
         setNewsRecycler();
         mAuth = FirebaseAuth.getInstance();
         spinner_provinces=(Spinner) view.findViewById(R.id.spinner);
-        setProvinceSpinner(provinces_list);
+        //setProvinceSpinner(provinces_list);
         vender=FirebaseDatabase.getInstance().getReference("Users").child("Venders");
         btnMarket=view.findViewById(R.id.market);
         btnMarket.setOnClickListener(new View.OnClickListener() {
@@ -136,12 +136,12 @@ break;
 
 
 
-        provinces_list=new ArrayList<>();
-        provinces_list.add(new Province("Oran"));
-        provinces_list.add(new Province("Alger"));
-        provinces_list.add(new Province("Tiaret"));
-        provinces_list.add(new Province("Setif"));
-        provinces_list.add(new Province("Bayed"));
+//        provinces_list=new ArrayList<>();
+//        provinces_list.add(new Province("Oran"));
+//        provinces_list.add(new Province("Alger"));
+//        provinces_list.add(new Province("Tiaret"));
+//        provinces_list.add(new Province("Setif"));
+//        provinces_list.add(new Province("Bayed"));
     }
     public void onStart() {
         super.onStart();
@@ -229,11 +229,11 @@ break;
 
 
 
-    private void setProvinceSpinner(ArrayList<Province> provinces_list)
-    {
-        ProvinceAdapter provinces=new ProvinceAdapter(getContext(),R.layout.province_item,provinces_list);
-        spinner_provinces.setAdapter(provinces);
-    }
+//    private void setProvinceSpinner(ArrayList<Province> provinces_list)
+//    {
+//        ProvinceAdapter provinces=new ProvinceAdapter(getContext(),R.layout.province_item,provinces_list);
+//        spinner_provinces.setAdapter(provinces);
+//    }
 
 
     @Override
@@ -254,6 +254,7 @@ break;
 
 
     }
+
 
 }
 
