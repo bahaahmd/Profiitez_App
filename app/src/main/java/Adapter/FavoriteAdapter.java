@@ -48,6 +48,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Produi
         holder.nameItem.setText(ProductFavoriteListe.get(position).getName());
         holder.date.setText(ProductFavoriteListe.get(position).getDate());
         Glide.with(context).asBitmap().load(ProductFavoriteListe.get(position).getV().getImage()).into(holder.profile);
+        holder.categorie.setText(ProductFavoriteListe.get(position).getCategorie());
 
 
     }
@@ -59,7 +60,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Produi
     }
     public static final class ProduitViewHolder extends RecyclerView.ViewHolder {
         ImageView ProductImage,profile;
-        TextView price_old,price_new,name,date,nameItem;
+        TextView price_old,price_new,name,date,nameItem,categorie;
 
         public ProduitViewHolder(@NonNull View itemView,RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
@@ -70,6 +71,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Produi
             date=itemView.findViewById(R.id.durée);
             nameItem=itemView.findViewById(R.id.type);
             profile=itemView.findViewById(R.id.PhotoProfile);
+            categorie=itemView.findViewById(R.id.categories);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {

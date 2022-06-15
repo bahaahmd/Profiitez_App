@@ -63,7 +63,7 @@ public class account_setting_client extends AppCompatActivity {
                     public void onClick(View view) {
                         alertDialog.dismiss();
                         Toast.makeText(account_setting_client.this,"Compte désactivé",Toast.LENGTH_SHORT).show();
-                        Intent intent=new Intent(account_setting_client.this,essai.class);
+                       Intent intent=new Intent(account_setting_client.this,essai.class);
                         startActivity(intent);
                     }
 

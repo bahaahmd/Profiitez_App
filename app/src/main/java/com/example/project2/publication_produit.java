@@ -3,6 +3,8 @@ package com.example.project2;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -62,12 +67,14 @@ public class publication_produit extends AppCompatActivity {
 Button arrow;
     RecyclerView recView;
     LinearLayoutManager linearLayoutManager;
+    final static String CHANNEL_ID="channel id";
     RatingBar ratingBar;
     FirebaseAuth mAuth;
     Button button,local;
     DatabaseReference database,database1;
     userAdapter Uadapter;
     ImageSlider imageSlider;
+    double latitude ,longitude;
     ImageView imageVendeur;
     LottieAnimationView lottieAnimationView;
     ArrayList<user> userComment=new ArrayList<>();
@@ -103,7 +110,9 @@ Button arrow;
         lottieAnimationView=findViewById(R.id.loti);
         favorite=findViewById(R.id.favorite_image);
         alert=findViewById(R.id.alert_image);
-categorie=findViewById(R.id.categorie);
+        categorie=findViewById(R.id.categorie);
+        local=findViewById(R.id.local_btn);
+
 
         String id=getIntent().getStringExtra("id");
         DatabaseReference usersRefProduct = FirebaseDatabase.getInstance().getReference().child("Products").child(id);
@@ -117,7 +126,6 @@ categorie=findViewById(R.id.categorie);
 
 
         getuserFromProduct(user);
-        local=findViewById(R.id.local_btn);
 
         button=findViewById(R.id.btn_appeler);
         favorite.setOnClickListener(new View.OnClickListener() {
@@ -146,6 +154,8 @@ categorie=findViewById(R.id.categorie);
                     clickedAlert=true;
                     alert.setImageResource(R.drawable.ic_baseline_turned_in_24);
                     getAlert(product);
+                    isGetNotif(id) ;
+
 
 
                 }
@@ -153,6 +163,7 @@ categorie=findViewById(R.id.categorie);
                     clickedAlert=false;
                     alert.setImageResource(R.drawable.ic_baseline_turned_in_not_24);
                     revAlert();
+                    isRevNotif(id);
                 }
 
 
@@ -166,6 +177,7 @@ categorie=findViewById(R.id.categorie);
 
 
         button.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
@@ -181,7 +193,13 @@ categorie=findViewById(R.id.categorie);
         local.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(publication_produit.this, "En maintenance", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("geo:"+latitude +","+longitude+""));
+                System.out.println("latitude"+latitude+"lomg"+longitude);
+                if (intent.resolveActivity(getPackageManager())!=null)
+                    startActivity(intent);
+
+
             }
         });
 
@@ -319,6 +337,7 @@ categorie=findViewById(R.id.categorie);
                     idVendeur=product.getIdv();
                     isAlert(idVendeur);
                     getTelephone(idVendeur);
+                    getLocalisation(idVendeur);
 
                     slideModels.add(new SlideModel(product.getImageUrl().toString(),ScaleTypes.CENTER_CROP));
                     price_old.setText(product.getPrice_ancien());
@@ -329,6 +348,7 @@ categorie=findViewById(R.id.categorie);
                     nom_vendeur.setText(product.getV().nom);
                     dateOF.setText(product.getV().getOuvert()+"-"+product.getV().getFermer());
                     descr.setText(product.getDescription());
+                    categorie.setText(product.getCategorie());
                 }catch (Exception e){
                     System.out.println("err "+e.getMessage());
                 }
@@ -515,6 +535,131 @@ categorie=findViewById(R.id.categorie);
 
 
     }
+
+    private void getNotification() {
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
+        {
+            NotificationChannel channel=new NotificationChannel(CHANNEL_ID,"notif", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("This is the discription");
+            NotificationManager manager=getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+
+        Intent intent=new Intent(this,MainActivity2.class);
+        PendingIntent p=PendingIntent.getActivity(this,0,intent,0);
+        NotificationCompat.Builder builder=new NotificationCompat.Builder(getApplicationContext(),CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.ic_bell)
+                .setContentTitle("Profitez")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(p)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText("Someone alert you"));
+
+        NotificationManagerCompat notif=NotificationManagerCompat.from(this);
+        notif.notify(10,builder.build());
+
+
+
+
+    }
+
+    private void revNotification() {
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
+        {
+            NotificationChannel channel=new NotificationChannel(CHANNEL_ID,"notif", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("This is the discription");
+            NotificationManager manager=getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+
+        Intent intent=new Intent(this,MainActivity2.class);
+        PendingIntent p=PendingIntent.getActivity(this,0,intent,0);
+        NotificationCompat.Builder builder=new NotificationCompat.Builder(getApplicationContext(),CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.ic_bell)
+                .setContentTitle("Profitez")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(p)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText("Someone remove his alert "));
+
+        NotificationManagerCompat notif=NotificationManagerCompat.from(this);
+        notif.notify(10,builder.build());
+
+
+
+
+    }
+    private void isGetNotif(String id){
+
+        String idCurrent = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference alertV = FirebaseDatabase.getInstance().getReference().child("ProductsHome").child(id);
+        alertV.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ProductHome productHome=snapshot.getValue(ProductHome.class);
+              if(idCurrent.equals(productHome.getIdv())){
+                  getNotification();
+              }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+    private void isRevNotif(String id){
+
+        String idCurrent = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference alertV = FirebaseDatabase.getInstance().getReference().child("ProductsHome").child(id);
+        alertV.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ProductHome productHome=snapshot.getValue(ProductHome.class);
+                if(idCurrent.equals(productHome.getIdv())){
+                    revNotification();
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+    private void getLocalisation(String idVendeur){
+        DatabaseReference local = FirebaseDatabase.getInstance().getReference().child("localisation").child(idVendeur);
+        local.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                try {
+                    localisation local = snapshot.getValue(localisation.class);
+                    latitude=local.getLatitude();
+                    longitude=local.getLongitude();
+
+                }catch (Exception e){
+                    System.out.println("err "+e.getMessage());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("The read failed: " + error.getCode());
+
+
+            }
+        });
+
+
+    }
+
+
+
 
 
 
