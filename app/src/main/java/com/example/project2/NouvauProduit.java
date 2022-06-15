@@ -513,9 +513,6 @@ spinner.setAdapter((SpinnerAdapter) adapter);
                     }
 
                 }
-
-
-
             }
 
             @Override
